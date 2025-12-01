@@ -1,0 +1,71 @@
+{% comment %}
+  Product Card Snippet
+  
+  Parameters:
+  - product: The product object
+  - featured: Boolean to indicate if this is the featured/first product
+  - show_rating: Boolean to show rating (default: true)
+  - show_button: Boolean to show add to cart button (default: true)
+{% endcomment %}
+
+{% assign show_rating = show_rating | default: true %}
+{% assign show_button = show_button | default: true %}
+
+<div class="product-card{% if featured %} featured{% endif %}">
+  <a href="{{ product.url }}" class="product-card-link">
+    <div class="product-image">
+      {% if product.featured_image %}
+        <img 
+          src="{{ product.featured_image | image_url: width: 480 }}" 
+          alt="{{ product.featured_image.alt | default: product.title }}"
+          loading="lazy"
+          width="240"
+          height="240"
+        >
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag }}
+      {% endif %}
+    </div>
+    
+    <div class="product-info">
+      <div class="product-name">{{ product.title }}</div>
+      
+      {% if product.metafields.custom.tagline %}
+        <div class="product-tagline">{{ product.metafields.custom.tagline }}</div>
+      {% else %}
+        <div class="product-tagline">{{ product.description | strip_html | truncate: 60 }}</div>
+      {% endif %}
+      
+      {% if show_rating %}
+        <div class="product-rating">
+          <span class="stars">★★★★★</span>
+          <span class="rating-text">
+            {{ product.metafields.reviews.rating.value | default: '4.8' }} 
+            ({{ product.metafields.reviews.rating_count | default: '100' }} reviews)
+          </span>
+        </div>
+      {% endif %}
+      
+      <div class="product-price">
+        <span class="price-current">{{ product.price | money }}</span>
+        {% if product.compare_at_price > product.price %}
+          <span class="price-compare">{{ product.compare_at_price | money }}</span>
+        {% endif %}
+        <span class="price-sub">/bottle</span>
+      </div>
+    </div>
+  </a>
+  
+  {% if show_button %}
+    <button 
+      class="product-btn add-to-cart-btn" 
+      data-product-id="{{ product.variants.first.id }}"
+      data-product-title="{{ product.title }}"
+      data-product-price="{{ product.price }}"
+      data-product-image="{{ product.featured_image | image_url: width: 200 }}"
+    >
+      Add to Cart
+    </button>
+  {% endif %}
+</div>
+

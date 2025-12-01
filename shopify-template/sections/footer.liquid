@@ -1,0 +1,100 @@
+<footer class="site-footer">
+  <div class="mv-container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="{{ routes.root_url }}" class="logo">
+          {{ shop.name | split: ' ' | first }}<span>{{ shop.name | split: ' ' | last }}</span>
+        </a>
+        <p>{{ section.settings.footer_description | default: 'Premium nootropics designed to help you shift your mental and emotional state on demand.' }}</p>
+      </div>
+
+      {% comment %} Products Column {% endcomment %}
+      <div class="footer-col">
+        <h4>Products</h4>
+        {% for product in collections['all'].products limit: 5 %}
+          <a href="{{ product.url }}">{{ product.title }}</a>
+        {% endfor %}
+        
+        {% comment %} Fallback links {% endcomment %}
+        {% if collections['all'].products.size == 0 %}
+          <a href="#">Box Set</a>
+          <a href="#">FOCUS</a>
+          <a href="#">ZEN</a>
+          <a href="#">BLISS</a>
+          <a href="#">DREAM</a>
+        {% endif %}
+      </div>
+
+      {% comment %} Support Column {% endcomment %}
+      <div class="footer-col">
+        <h4>Support</h4>
+        {% for link in section.settings.support_menu.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+        
+        {% if section.settings.support_menu.links.size == 0 %}
+          <a href="/pages/faq">FAQ</a>
+          <a href="/pages/shipping">Shipping</a>
+          <a href="/pages/returns">Returns</a>
+          <a href="/pages/contact">Contact</a>
+        {% endif %}
+      </div>
+
+      {% comment %} Company Column {% endcomment %}
+      <div class="footer-col">
+        <h4>Company</h4>
+        {% for link in section.settings.company_menu.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+        
+        {% if section.settings.company_menu.links.size == 0 %}
+          <a href="/pages/about">About</a>
+          <a href="/pages/science">Science</a>
+          <a href="/pages/testimonials">Reviews</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      
+      {% if section.settings.show_payment_icons %}
+        <div class="footer-payment">
+          {% for type in shop.enabled_payment_types %}
+            {{ type | payment_type_svg_tag }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "footer_description",
+      "label": "Footer description",
+      "default": "Premium nootropics designed to help you shift your mental and emotional state on demand."
+    },
+    {
+      "type": "link_list",
+      "id": "support_menu",
+      "label": "Support menu"
+    },
+    {
+      "type": "link_list",
+      "id": "company_menu",
+      "label": "Company menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

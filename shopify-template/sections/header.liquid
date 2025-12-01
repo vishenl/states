@@ -1,0 +1,97 @@
+<header class="site-header">
+  <div class="header-inner mv-container">
+    <a href="{{ routes.root_url }}" class="logo">
+      {{ shop.name | split: ' ' | first }}<span>{{ shop.name | split: ' ' | last }}</span>
+    </a>
+    
+    <nav class="main-nav">
+      {% comment %} Products Dropdown {% endcomment %}
+      <div class="nav-dropdown">
+        <a href="{{ routes.collections_url }}" class="nav-dropdown-trigger">Products</a>
+        <div class="dropdown-menu">
+          {% for product in collections['all'].products limit: 6 %}
+            <a href="{{ product.url }}">
+              <span class="product-icon" style="background: {{ product.metafields.custom.product_color | default: '#f3f4f6' }};">
+                {% if product.featured_image %}
+                  <img src="{{ product.featured_image | image_url: width: 32 }}" alt="{{ product.title }}" width="20" height="20">
+                {% endif %}
+              </span>
+              <span>{{ product.title }}</span>
+            </a>
+          {% endfor %}
+          
+          {% comment %} Fallback if no products {% endcomment %}
+          {% if collections['all'].products.size == 0 %}
+            <a href="#"><span class="product-icon focus-icon">🎯</span><span>FOCUS</span></a>
+            <a href="#"><span class="product-icon zen-icon">🧘</span><span>ZEN</span></a>
+            <a href="#"><span class="product-icon bliss-icon">✨</span><span>BLISS</span></a>
+            <a href="#"><span class="product-icon dream-icon">🌙</span><span>DREAM</span></a>
+            <a href="#"><span class="product-icon gazm-icon">🔥</span><span>GAZM</span></a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% comment %} Navigation Links from Menu {% endcomment %}
+      {% for link in section.settings.menu.links %}
+        <a href="{{ link.url }}" {% if link.active %}class="active"{% endif %}>
+          {{ link.title }}
+        </a>
+      {% endfor %}
+    </nav>
+
+    <button class="cart-btn" id="cart-toggle" aria-label="Open cart">
+      Cart <span class="cart-count" id="header-cart-count">{{ cart.item_count }}</span>
+    </button>
+
+    {% comment %} Mobile Menu Toggle {% endcomment %}
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  {% comment %} Mobile Navigation {% endcomment %}
+  <div class="mobile-nav" id="mobile-nav">
+    <div class="mobile-nav-inner">
+      {% for link in section.settings.menu.links %}
+        <a href="{{ link.url }}" {% if link.active %}class="active"{% endif %}>
+          {{ link.title }}
+        </a>
+      {% endfor %}
+      
+      <div class="mobile-nav-products">
+        <p class="mobile-nav-label">Products</p>
+        {% for product in collections['all'].products limit: 6 %}
+          <a href="{{ product.url }}">{{ product.title }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement bar",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Free shipping on orders over $99"
+    }
+  ]
+}
+{% endschema %}

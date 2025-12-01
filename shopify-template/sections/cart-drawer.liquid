@@ -1,0 +1,84 @@
+{% comment %} Cart Overlay {% endcomment %}
+<div class="cart-overlay" id="cart-overlay"></div>
+
+{% comment %} Cart Sidebar {% endcomment %}
+<div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" id="cart-close" aria-label="Close cart">&times;</button>
+  </div>
+  
+  <div class="cart-items" id="cart-items">
+    {% if cart.item_count == 0 %}
+      <div class="cart-empty">
+        <p>Your cart is empty</p>
+        <a href="{{ routes.collections_url }}" class="btn-continue-shopping">Continue Shopping</a>
+      </div>
+    {% else %}
+      {% for item in cart.items %}
+        <div class="cart-item" data-line-item-key="{{ item.key }}">
+          <div class="cart-item-img">
+            {% if item.image %}
+              <img src="{{ item.image | image_url: width: 128 }}" alt="{{ item.title }}" loading="lazy">
+            {% endif %}
+          </div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">{{ item.product.title }}</div>
+            {% if item.variant.title != 'Default Title' %}
+              <div class="cart-item-variant">{{ item.variant.title }}</div>
+            {% endif %}
+            <div class="cart-item-price">{{ item.price | money }}</div>
+            <div class="cart-item-qty">
+              <button class="qty-btn qty-decrease" data-key="{{ item.key }}" aria-label="Decrease quantity">-</button>
+              <span class="qty-value">{{ item.quantity }}</span>
+              <button class="qty-btn qty-increase" data-key="{{ item.key }}" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+          <button class="cart-item-remove" data-key="{{ item.key }}" aria-label="Remove item">&times;</button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  
+  <div class="cart-footer">
+    {% if cart.item_count > 0 %}
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="cart-total">{{ cart.total_price | money }}</span>
+      </div>
+      
+      {% if section.settings.show_shipping_note %}
+        <p class="cart-shipping-note">{{ section.settings.shipping_note }}</p>
+      {% endif %}
+      
+      <form action="{{ routes.cart_url }}" method="post">
+        <button type="submit" name="checkout" class="cart-checkout">
+          Proceed to Checkout
+        </button>
+      </form>
+      
+      <a href="{{ routes.cart_url }}" class="cart-view-link">View Cart</a>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart Drawer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_shipping_note",
+      "label": "Show shipping note",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_note",
+      "label": "Shipping note text",
+      "default": "Shipping calculated at checkout"
+    }
+  ]
+}
+{% endschema %}
+

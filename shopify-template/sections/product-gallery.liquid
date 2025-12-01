@@ -1,0 +1,64 @@
+<div class="product-gallery">
+  <div class="main-image" id="main-image">
+    {% if product.featured_image %}
+      <img 
+        src="{{ product.featured_image | image_url: width: 800 }}" 
+        alt="{{ product.featured_image.alt | default: product.title }}"
+        id="gallery-main-img"
+        loading="eager"
+      >
+    {% else %}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {% endif %}
+  </div>
+  
+  {% if product.images.size > 1 %}
+    <div class="thumbnail-row">
+      {% for image in product.images limit: section.settings.thumbnail_limit %}
+        <div 
+          class="thumbnail{% if forloop.first %} active{% endif %}" 
+          data-image-url="{{ image | image_url: width: 800 }}"
+          data-index="{{ forloop.index0 }}"
+        >
+          <img 
+            src="{{ image | image_url: width: 150 }}" 
+            alt="{{ image.alt | default: product.title }}"
+            loading="lazy"
+          >
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Product Gallery",
+  "tag": "div",
+  "class": "product-gallery-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "thumbnail_limit",
+      "label": "Max thumbnails to show",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_zoom",
+      "label": "Enable image zoom on hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_lightbox",
+      "label": "Enable lightbox on click",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
+

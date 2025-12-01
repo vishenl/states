@@ -1,0 +1,250 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {
+        "show_clinical_highlights": true,
+        "clinical_title": "Clinically Validated Results"
+      },
+      "blocks": {
+        "stat-1": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "60 min",
+            "label": "Before bed"
+          }
+        },
+        "stat-2": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "5+",
+            "label": "Patented ingredients"
+          }
+        },
+        "stat-3": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "0",
+            "label": "Next-day grogginess"
+          }
+        },
+        "trust-1": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "60-Day Money Back"
+          }
+        },
+        "trust-2": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "100% Vegan"
+          }
+        },
+        "trust-3": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Third-Party Tested"
+          }
+        },
+        "trust-4": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Free US Shipping"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3", "trust-1", "trust-2", "trust-3", "trust-4"]
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {
+        "title": "Deep, Restorative Sleep",
+        "image_position": "left"
+      },
+      "blocks": {
+        "benefit-1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🌙",
+            "icon_bg": "#e0e7ff",
+            "title": "Fall Asleep Faster",
+            "description": "Natural ingredients help you drift off quickly and easily."
+          }
+        },
+        "benefit-2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "💤",
+            "icon_bg": "#e0e7ff",
+            "title": "Stay Asleep Longer",
+            "description": "Support uninterrupted sleep cycles throughout the night."
+          }
+        },
+        "benefit-3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🧠",
+            "icon_bg": "#e0e7ff",
+            "title": "Vivid Dreams",
+            "description": "Enhanced REM sleep for memorable, insightful dreams."
+          }
+        },
+        "benefit-4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "☀️",
+            "icon_bg": "#e0e7ff",
+            "title": "Wake Refreshed",
+            "description": "No grogginess or next-day drowsiness."
+          }
+        }
+      },
+      "block_order": ["benefit-1", "benefit-2", "benefit-3", "benefit-4"]
+    },
+    "ingredients": {
+      "type": "ingredients",
+      "settings": {
+        "title": "The DREAM Formula",
+        "subtitle": "Scientifically-validated ingredients for deep, restorative sleep",
+        "background_color": "#1f2937"
+      },
+      "blocks": {
+        "ingredient-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Magnesium L-Threonate",
+            "subtitle": "Brain Relaxation",
+            "dose": "144mg",
+            "dose_color": "#6366f1",
+            "description": "The only magnesium proven to cross the blood-brain barrier, supporting relaxation and sleep quality.",
+            "stat1_value": "Deep",
+            "stat1_label": "relaxation",
+            "stat2_value": "Brain",
+            "stat2_label": "support"
+          }
+        },
+        "ingredient-2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "L-Theanine",
+            "subtitle": "Calm Mind",
+            "dose": "200mg",
+            "dose_color": "#6366f1",
+            "description": "Promotes alpha brain waves and mental calm to prepare your mind for sleep.",
+            "stat1_value": "Alpha",
+            "stat1_label": "waves",
+            "stat2_value": "Mental",
+            "stat2_label": "calm"
+          }
+        },
+        "ingredient-3": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Apigenin",
+            "subtitle": "Sleep Support",
+            "dose": "50mg",
+            "dose_color": "#6366f1",
+            "description": "A flavonoid from chamomile that supports healthy sleep patterns and relaxation.",
+            "stat1_value": "Natural",
+            "stat1_label": "relaxant",
+            "stat2_value": "Sleep",
+            "stat2_label": "quality"
+          }
+        }
+      },
+      "block_order": ["ingredient-1", "ingredient-2", "ingredient-3"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "title": "What DREAM Users Say",
+        "show_filter": false
+      },
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I am waking up with new realizations, insights and clarity from my dreams",
+            "details": "I am having the deepest level of sleep and waking up so refreshed. Also because I am sleeping so deeply, my subconscious is getting a lot of time to dream and repattern my consciousness.",
+            "name": "Jennifer Partridge",
+            "title": "Life Coach, EFT/Tapping Expert",
+            "product_name": "DREAM",
+            "product_filter": "dream",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["testimonial-1"]
+    },
+    "creators": {
+      "type": "creators",
+      "settings": {
+        "title": "Created By Experts"
+      },
+      "blocks": {
+        "creator-1": {
+          "type": "creator",
+          "settings": {
+            "role": "Formulated By",
+            "name": "Shawn Wells",
+            "bio": "World's leading nutritional biochemist with 1,000+ formulations and 40+ patents.",
+            "credentials": "MPH, RD, CISSN, 40+ Patents"
+          }
+        },
+        "creator-2": {
+          "type": "creator",
+          "settings": {
+            "role": "Co-Created By",
+            "name": "Vishen Lakhiani",
+            "bio": "Founder of Mindvalley, NYT bestselling author, transformational learning pioneer.",
+            "credentials": "Mindvalley Founder, 20M+ Community"
+          }
+        }
+      },
+      "block_order": ["creator-1", "creator-2"]
+    },
+    "cross-sell": {
+      "type": "cross-sell",
+      "settings": {
+        "title": "Want to Try All 5 States?",
+        "subtitle": "Get the complete States Box Set and discover which states work best for you.",
+        "product_tagline": "FOCUS + ZEN + BLISS + DREAM + GAZM",
+        "button_text": "Add Box Set to Cart",
+        "background_gradient": "linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      },
+      "blocks": {
+        "faq-1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will DREAM make me feel groggy in the morning?",
+            "answer": "<p>No. Unlike prescription sleep aids, DREAM uses natural ingredients that support your body's sleep processes without causing next-day grogginess.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long before bed should I take DREAM?",
+            "answer": "<p>Take DREAM about 60 minutes before you want to sleep. This gives the ingredients time to start working as you prepare for bed.</p>"
+          }
+        }
+      },
+      "block_order": ["faq-1", "faq-2"]
+    }
+  },
+  "order": [
+    "main-product",
+    "benefits",
+    "ingredients",
+    "testimonials",
+    "creators",
+    "cross-sell",
+    "faq"
+  ]
+}
+

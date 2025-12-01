@@ -1,0 +1,250 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {
+        "show_clinical_highlights": true,
+        "clinical_title": "Clinically Validated Results"
+      },
+      "blocks": {
+        "stat-1": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "45 min",
+            "label": "Effects felt"
+          }
+        },
+        "stat-2": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "5+",
+            "label": "Patented ingredients"
+          }
+        },
+        "stat-3": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "Both",
+            "label": "Genders supported"
+          }
+        },
+        "trust-1": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "60-Day Money Back"
+          }
+        },
+        "trust-2": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "100% Vegan"
+          }
+        },
+        "trust-3": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Third-Party Tested"
+          }
+        },
+        "trust-4": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Free US Shipping"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3", "trust-1", "trust-2", "trust-3", "trust-4"]
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {
+        "title": "Deeper Connection & Intimacy",
+        "image_position": "left"
+      },
+      "blocks": {
+        "benefit-1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🔥",
+            "icon_bg": "#fce7f3",
+            "title": "Enhanced Desire",
+            "description": "Natural ingredients that support healthy libido in both partners."
+          }
+        },
+        "benefit-2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "💝",
+            "icon_bg": "#fce7f3",
+            "title": "Emotional Connection",
+            "description": "Feel more open, present, and connected with your partner."
+          }
+        },
+        "benefit-3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "⚡",
+            "icon_bg": "#fce7f3",
+            "title": "Physical Performance",
+            "description": "Support healthy blood flow and physical responsiveness."
+          }
+        },
+        "benefit-4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "✨",
+            "icon_bg": "#fce7f3",
+            "title": "Heightened Sensations",
+            "description": "Enhanced sensitivity and pleasure for both partners."
+          }
+        }
+      },
+      "block_order": ["benefit-1", "benefit-2", "benefit-3", "benefit-4"]
+    },
+    "ingredients": {
+      "type": "ingredients",
+      "settings": {
+        "title": "The GAZM Formula",
+        "subtitle": "Scientifically-validated ingredients for enhanced intimacy",
+        "background_color": "#1f2937"
+      },
+      "blocks": {
+        "ingredient-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Libifem Fenugreek",
+            "subtitle": "Desire Support",
+            "dose": "600mg",
+            "dose_color": "#e11d48",
+            "description": "Clinically proven to support healthy libido and sexual function in both men and women.",
+            "stat1_value": "Libido",
+            "stat1_label": "support",
+            "stat2_value": "Both",
+            "stat2_label": "genders"
+          }
+        },
+        "ingredient-2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "S7 Nitric Oxide Blend",
+            "subtitle": "Blood Flow",
+            "dose": "100mg",
+            "dose_color": "#e11d48",
+            "description": "Plant-based blend that supports healthy blood flow and circulation.",
+            "stat1_value": "Blood",
+            "stat1_label": "flow",
+            "stat2_value": "Natural",
+            "stat2_label": "boost"
+          }
+        },
+        "ingredient-3": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zembrin",
+            "subtitle": "Mood & Connection",
+            "dose": "25mg",
+            "dose_color": "#e11d48",
+            "description": "Reduces anxiety and enhances emotional openness for deeper connection.",
+            "stat1_value": "Emotional",
+            "stat1_label": "openness",
+            "stat2_value": "Anxiety",
+            "stat2_label": "relief"
+          }
+        }
+      },
+      "block_order": ["ingredient-1", "ingredient-2", "ingredient-3"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "title": "What GAZM Users Say",
+        "show_filter": false
+      },
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I became more open to my feminine side",
+            "details": "I tried GAZM and I became more open to my feminine side. Mindvalley States is so powerful. And to be able to combine them in different ways - it's just a big feeling.",
+            "name": "Bianca Ioana",
+            "title": "11X Time World Karate Champion",
+            "product_name": "GAZM",
+            "product_filter": "gazm",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["testimonial-1"]
+    },
+    "creators": {
+      "type": "creators",
+      "settings": {
+        "title": "Created By Experts"
+      },
+      "blocks": {
+        "creator-1": {
+          "type": "creator",
+          "settings": {
+            "role": "Formulated By",
+            "name": "Shawn Wells",
+            "bio": "World's leading nutritional biochemist with 1,000+ formulations and 40+ patents.",
+            "credentials": "MPH, RD, CISSN, 40+ Patents"
+          }
+        },
+        "creator-2": {
+          "type": "creator",
+          "settings": {
+            "role": "Co-Created By",
+            "name": "Vishen Lakhiani",
+            "bio": "Founder of Mindvalley, NYT bestselling author, transformational learning pioneer.",
+            "credentials": "Mindvalley Founder, 20M+ Community"
+          }
+        }
+      },
+      "block_order": ["creator-1", "creator-2"]
+    },
+    "cross-sell": {
+      "type": "cross-sell",
+      "settings": {
+        "title": "Want to Try All 5 States?",
+        "subtitle": "Get the complete States Box Set and discover which states work best for you.",
+        "product_tagline": "FOCUS + ZEN + BLISS + DREAM + GAZM",
+        "button_text": "Add Box Set to Cart",
+        "background_gradient": "linear-gradient(135deg, #e11d48 0%, #be123c 100%)"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      },
+      "blocks": {
+        "faq-1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is GAZM for both men and women?",
+            "answer": "<p>Yes. GAZM is formulated for both partners. The ingredients support healthy libido and intimate function regardless of gender.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "When should I take GAZM?",
+            "answer": "<p>Take GAZM about 45-60 minutes before intimate moments. Can also be combined with BLISS for enhanced social and emotional connection.</p>"
+          }
+        }
+      },
+      "block_order": ["faq-1", "faq-2"]
+    }
+  },
+  "order": [
+    "main-product",
+    "benefits",
+    "ingredients",
+    "testimonials",
+    "creators",
+    "cross-sell",
+    "faq"
+  ]
+}
+

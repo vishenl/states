@@ -1,0 +1,155 @@
+<section class="ingredients" id="ingredients" style="background-color: {{ section.settings.background_color }};">
+  <div class="mv-container">
+    <div class="section-header">
+      <h2 class="mv-type--headline3">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p>{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+    
+    <div class="ingredient-cards">
+      {% for block in section.blocks %}
+        {% if block.type == 'ingredient' %}
+          <div class="ingredient-card" {{ block.shopify_attributes }}>
+            <div class="ingredient-header">
+              <div class="ingredient-name">
+                {{ block.settings.name }}
+                {% if block.settings.subtitle != blank %}
+                  <span>{{ block.settings.subtitle }}</span>
+                {% endif %}
+              </div>
+              <div class="ingredient-dose" style="background-color: {{ block.settings.dose_color | default: product.metafields.custom.product_color | default: '#7a12d4' }};">
+                {{ block.settings.dose }}
+              </div>
+            </div>
+            
+            <div class="ingredient-desc">
+              {{ block.settings.description }}
+            </div>
+            
+            {% if block.settings.stat1_label != blank or block.settings.stat2_label != blank %}
+              <div class="ingredient-stats">
+                {% if block.settings.stat1_label != blank %}
+                  <div class="ingredient-stat">
+                    <strong style="color: {{ block.settings.dose_color | default: product.metafields.custom.product_color | default: '#7a12d4' }};">{{ block.settings.stat1_value }}</strong> {{ block.settings.stat1_label }}
+                  </div>
+                {% endif %}
+                {% if block.settings.stat2_label != blank %}
+                  <div class="ingredient-stat">
+                    <strong style="color: {{ block.settings.dose_color | default: product.metafields.custom.product_color | default: '#7a12d4' }};">{{ block.settings.stat2_value }}</strong> {{ block.settings.stat2_label }}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredients",
+  "tag": "section",
+  "class": "ingredients-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "The Formula"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Scientifically-validated ingredients for optimal performance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#1f2937"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Ingredient name",
+          "default": "Ingredient Name"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Ingredient subtitle",
+          "default": "Category"
+        },
+        {
+          "type": "text",
+          "id": "dose",
+          "label": "Dosage",
+          "default": "100mg"
+        },
+        {
+          "type": "color",
+          "id": "dose_color",
+          "label": "Dose badge color"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Description of the ingredient and its benefits."
+        },
+        {
+          "type": "text",
+          "id": "stat1_value",
+          "label": "Stat 1 value"
+        },
+        {
+          "type": "text",
+          "id": "stat1_label",
+          "label": "Stat 1 label"
+        },
+        {
+          "type": "text",
+          "id": "stat2_value",
+          "label": "Stat 2 value"
+        },
+        {
+          "type": "text",
+          "id": "stat2_label",
+          "label": "Stat 2 label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredients",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "enfinity Paraxanthine",
+            "subtitle": "Clean Energy",
+            "dose": "100mg",
+            "description": "Caffeine's active metabolite provides sustained alertness without jitters or crashes.",
+            "stat1_value": "No",
+            "stat1_label": "crash",
+            "stat2_value": "Mood",
+            "stat2_label": "support"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

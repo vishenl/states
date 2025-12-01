@@ -1,0 +1,127 @@
+<section class="faq" id="faq">
+  <div class="mv-container">
+    <div class="section-header">
+      <h2 class="mv-type--headline3">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p>{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+    
+    <div class="faq-list">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' %}
+          <div class="faq-item" {{ block.shopify_attributes }}>
+            <div class="faq-question" role="button" aria-expanded="false" tabindex="0">
+              {{ block.settings.question }}
+            </div>
+            <div class="faq-answer">
+              {{ block.settings.answer }}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_cta %}
+      <div class="faq-cta">
+        <p>{{ section.settings.cta_text }}</p>
+        <a href="{{ section.settings.cta_link }}" class="btn-secondary">
+          {{ section.settings.cta_button_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "faq-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section subtitle"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show contact CTA",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Still have questions?"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA button text",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How do I take this product?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Take 1-2 capsules with water. Best taken 30-60 minutes before desired effect.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How quickly will I feel effects?",
+            "answer": "<p>Most people notice effects within 1-2 hours. Effects last several hours without a crash.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is this product safe to take regularly?",
+            "answer": "<p>Yes. All ingredients are natural, clinically studied, and non-habit forming.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I combine with other States?",
+            "answer": "<p>Absolutely. Many users combine different States for specific situations. Always start with recommended doses.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

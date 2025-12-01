@@ -1,0 +1,261 @@
+{
+  "sections": {
+    "hero-banner": {
+      "type": "hero-banner",
+      "settings": {
+        "show_badge": true,
+        "badge_icon": "🧬",
+        "badge_text": "Science-Backed Nootropics",
+        "title": "Design Your Optimal State",
+        "title_before": "Design Your",
+        "title_highlight": "Optimal State",
+        "title_after": "",
+        "subtitle": "Premium nootropics designed to help you shift your mental and emotional state on demand. Choose from 5 clinically-formulated compounds.",
+        "show_cta": true,
+        "cta_text": "Shop Now",
+        "cta_link": "#products",
+        "show_cta_arrow": true,
+        "show_trust_badges": true,
+        "background_gradient": true,
+        "gradient_start": "#f5f0ff",
+        "gradient_end": "#ffffff"
+      },
+      "blocks": {
+        "trust-1": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "60-Day Money Back"
+          }
+        },
+        "trust-2": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Third-Party Tested"
+          }
+        },
+        "trust-3": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Free US Shipping"
+          }
+        }
+      },
+      "block_order": ["trust-1", "trust-2", "trust-3"]
+    },
+    "products-grid": {
+      "type": "products-grid",
+      "settings": {
+        "title": "Choose Your State",
+        "subtitle": "Each formula is designed for a specific mental or emotional state. Pick the ones that match your lifestyle.",
+        "products_limit": 6
+      }
+    },
+    "value-stack": {
+      "type": "value-stack",
+      "settings": {
+        "title": "Everything You Get in the Box Set",
+        "total_label": "Total Value",
+        "total_price": "$99",
+        "total_note": "$347 if purchased separately",
+        "show_cta": true,
+        "cta_text": "Get the Box Set",
+        "cta_link": "/products/box-set"
+      },
+      "blocks": {
+        "value-1": {
+          "type": "value_item",
+          "settings": {
+            "text": "<strong>FOCUS</strong> - Enhanced concentration & mental clarity"
+          }
+        },
+        "value-2": {
+          "type": "value_item",
+          "settings": {
+            "text": "<strong>ZEN</strong> - Calm focus without drowsiness"
+          }
+        },
+        "value-3": {
+          "type": "value_item",
+          "settings": {
+            "text": "<strong>BLISS</strong> - Mood elevation & social confidence"
+          }
+        },
+        "value-4": {
+          "type": "value_item",
+          "settings": {
+            "text": "<strong>DREAM</strong> - Deep, restorative sleep"
+          }
+        },
+        "value-5": {
+          "type": "value_item",
+          "settings": {
+            "text": "<strong>GAZM</strong> - Intimacy & connection"
+          }
+        }
+      },
+      "block_order": ["value-1", "value-2", "value-3", "value-4", "value-5"]
+    },
+    "clinical-stats": {
+      "type": "clinical-stats",
+      "settings": {
+        "title": "Backed By Science",
+        "subtitle": "Every ingredient is clinically validated and third-party tested",
+        "background_color": "#f9fafb"
+      },
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "12+",
+            "label": "Patented Ingredients"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "90+",
+            "label": "Clinical Studies"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Natural Formula"
+          }
+        },
+        "stat-4": {
+          "type": "stat",
+          "settings": {
+            "value": "0",
+            "label": "Artificial Additives"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3", "stat-4"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "title": "What Customers Say",
+        "subtitle": "Real results from real people",
+        "show_filter": false,
+        "show_cta": true,
+        "cta_text": "Read More Reviews",
+        "cta_link": "/pages/testimonials"
+      },
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I notice a significant improvement in my concentration",
+            "details": "I've been testing FOCUS for several weeks, and every time I take it before my writing sessions, I notice a significant improvement in my concentration.",
+            "name": "Jimmy Naraine",
+            "title": "International Bestselling Author",
+            "product_name": "FOCUS",
+            "product_filter": "focus",
+            "verified": true
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I am having the deepest level of sleep",
+            "details": "I am having the deepest level of sleep and waking up so refreshed. Also because I am sleeping so deeply, my subconscious is getting a lot of time to dream.",
+            "name": "Jennifer Partridge",
+            "title": "Life Coach, EFT/Tapping Expert",
+            "product_name": "DREAM",
+            "product_filter": "dream",
+            "verified": true
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The bliss pills were wonderful",
+            "details": "I'm an herbalist and the formula of this is really well put together. It gave me a really nice elevation.",
+            "name": "Lee Holden",
+            "title": "Qi Gong Master",
+            "product_name": "BLISS",
+            "product_filter": "bliss",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["testimonial-1", "testimonial-2", "testimonial-3"]
+    },
+    "creators": {
+      "type": "creators",
+      "settings": {
+        "title": "Created By Experts"
+      },
+      "blocks": {
+        "creator-1": {
+          "type": "creator",
+          "settings": {
+            "role": "Formulated By",
+            "name": "Shawn Wells",
+            "bio": "World's leading nutritional biochemist with 1,000+ formulations and 40+ patents.",
+            "credentials": "MPH, RD, CISSN, 40+ Patents"
+          }
+        },
+        "creator-2": {
+          "type": "creator",
+          "settings": {
+            "role": "Co-Created By",
+            "name": "Vishen Lakhiani",
+            "bio": "Founder of Mindvalley, NYT bestselling author, transformational learning pioneer.",
+            "credentials": "Mindvalley Founder, 20M+ Community"
+          }
+        }
+      },
+      "block_order": ["creator-1", "creator-2"]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      },
+      "blocks": {
+        "faq-1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How quickly will I feel effects?",
+            "answer": "<p>Most people notice effects within 1-2 hours. The specific timing varies by product - FOCUS works in about 30 minutes, while DREAM takes about an hour before bed.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are these products safe?",
+            "answer": "<p>Yes. All ingredients are natural, clinically studied, and non-habit forming. Each product is third-party tested for purity and potency.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I take multiple States together?",
+            "answer": "<p>Absolutely. Many users combine different States for specific situations. For example, BLISS + GAZM for social events. Always start with recommended doses.</p>"
+          }
+        },
+        "faq-4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 60-day money-back guarantee. If you're not satisfied for any reason, simply contact us for a full refund.</p>"
+          }
+        }
+      },
+      "block_order": ["faq-1", "faq-2", "faq-3", "faq-4"]
+    }
+  },
+  "order": [
+    "hero-banner",
+    "products-grid",
+    "value-stack",
+    "clinical-stats",
+    "testimonials",
+    "creators",
+    "faq"
+  ]
+}

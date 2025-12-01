@@ -1,0 +1,142 @@
+<section class="hero science-hero">
+  <div class="hero-content mv-container">
+    {% if section.settings.show_badge %}
+      <div class="hero-badge">
+        {{ section.settings.badge_icon }} {{ section.settings.badge_text }}
+      </div>
+    {% endif %}
+
+    <h1 class="mv-type--headline1">
+      {{ section.settings.title_before }} <span>{{ section.settings.title_highlight }}</span> {{ section.settings.title_after }}
+    </h1>
+
+    <p class="hero-sub">{{ section.settings.subtitle }}</p>
+
+    {% if section.settings.show_stats %}
+      <div class="hero-stats">
+        {% for block in section.blocks %}
+          {% if block.type == 'stat' %}
+            <div class="hero-stat" {{ block.shopify_attributes }}>
+              <div class="hero-stat-number">{{ block.settings.value }}</div>
+              <div class="hero-stat-label">{{ block.settings.label }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Science Hero",
+  "tag": "section",
+  "class": "science-hero-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_icon",
+      "label": "Badge icon (emoji)",
+      "default": "🧬"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Research & Development"
+    },
+    {
+      "type": "text",
+      "id": "title_before",
+      "label": "Title (before highlight)",
+      "default": "The"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight",
+      "label": "Title (highlighted)",
+      "default": "Science"
+    },
+    {
+      "type": "text",
+      "id": "title_after",
+      "label": "Title (after highlight)",
+      "default": "Behind States"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Every ingredient in our formulas is backed by peer-reviewed research and clinical studies."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Show statistics",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Stat value",
+          "default": "12+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Stat label",
+          "default": "Patented Compounds"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Science Hero",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "value": "12+",
+            "label": "Patented Compounds"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "90+",
+            "label": "Clinical Studies"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "40+",
+            "label": "Patents Held"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "1000+",
+            "label": "Formulations"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

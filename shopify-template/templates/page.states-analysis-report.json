@@ -1,0 +1,84 @@
+{
+  "sections": {
+    "page-hero": {
+      "type": "page-hero",
+      "settings": {
+        "show_badge": true,
+        "badge_icon": "🧬",
+        "badge_text": "Deep Analysis",
+        "title": "States Deep Analysis Report",
+        "title_before": "Deep",
+        "title_highlight": "Analysis",
+        "title_after": "Report",
+        "subtitle": "A comprehensive look at your mental and emotional patterns with detailed States recommendations.",
+        "background": "linear-gradient(180deg, #f5f0ff 0%, #ffffff 100%)"
+      }
+    },
+    "rich-text-intro": {
+      "type": "rich-text",
+      "settings": {
+        "title": "Your Comprehensive Analysis",
+        "content": "<p>This deep analysis provides a thorough examination of your assessment results, including detailed insights into your strengths, areas for optimization, and a customized States protocol designed for your unique needs.</p>",
+        "center_text": false,
+        "narrow_width": true,
+        "padding_top": 60,
+        "padding_bottom": 30
+      }
+    },
+    "clinical-stats": {
+      "type": "clinical-stats",
+      "settings": {
+        "title": "Your Assessment Overview",
+        "background_color": "#f9fafb"
+      },
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "Focus",
+            "label": "Primary Need"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "Morning",
+            "label": "Peak Opportunity"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "3",
+            "label": "Recommended States"
+          }
+        },
+        "stat-4": {
+          "type": "stat",
+          "settings": {
+            "value": "High",
+            "label": "Optimization Potential"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3", "stat-4"]
+    },
+    "cta": {
+      "type": "cross-sell",
+      "settings": {
+        "title": "Begin Your Optimization Journey",
+        "subtitle": "Get the complete States Box Set and start implementing your personalized protocol today.",
+        "product_tagline": "FOCUS + ZEN + BLISS + DREAM + GAZM",
+        "button_text": "Get Started Now",
+        "background_gradient": "linear-gradient(135deg, #7a12d4 0%, #5b21b6 100%)"
+      }
+    }
+  },
+  "order": [
+    "page-hero",
+    "rich-text-intro",
+    "clinical-stats",
+    "cta"
+  ]
+}
+

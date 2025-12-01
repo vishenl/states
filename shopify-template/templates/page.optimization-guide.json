@@ -1,0 +1,121 @@
+{
+  "sections": {
+    "page-hero": {
+      "type": "page-hero",
+      "settings": {
+        "show_badge": true,
+        "badge_icon": "📚",
+        "badge_text": "Complete Guide",
+        "title": "States Optimization Guide",
+        "title_before": "States",
+        "title_highlight": "Optimization",
+        "title_after": "Guide",
+        "subtitle": "Everything you need to know about using States to unlock your peak performance throughout the day.",
+        "background": "linear-gradient(180deg, #f5f0ff 0%, #ffffff 100%)"
+      }
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {
+        "title": "How to Get Started",
+        "image_position": "left"
+      },
+      "blocks": {
+        "step-1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "1️⃣",
+            "icon_bg": "#f5f0ff",
+            "title": "Take the Assessment",
+            "description": "Complete our quick assessment to understand your unique needs and get personalized recommendations."
+          }
+        },
+        "step-2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "2️⃣",
+            "icon_bg": "#f5f0ff",
+            "title": "Start with the Box Set",
+            "description": "Try all 5 States to discover which ones resonate most with your body and lifestyle."
+          }
+        },
+        "step-3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "3️⃣",
+            "icon_bg": "#f5f0ff",
+            "title": "Build Your Protocol",
+            "description": "Create a daily routine using 2-3 States for consistent optimization."
+          }
+        },
+        "step-4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "4️⃣",
+            "icon_bg": "#f5f0ff",
+            "title": "Track Your Progress",
+            "description": "Monitor how you feel and adjust your protocol for optimal results."
+          }
+        }
+      },
+      "block_order": ["step-1", "step-2", "step-3", "step-4"]
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "settings": {
+        "title": "Daily Protocol Examples",
+        "content": "<h3>High-Performance Protocol</h3><p><strong>Morning:</strong> FOCUS for peak productivity<br><strong>Afternoon:</strong> ZEN to maintain calm focus<br><strong>Evening:</strong> BLISS for social events, DREAM for sleep</p><h3>Wellness Protocol</h3><p><strong>Morning:</strong> ZEN for centered calm<br><strong>As Needed:</strong> FOCUS for demanding tasks<br><strong>Night:</strong> DREAM for restorative sleep</p><h3>Social Protocol</h3><p><strong>Before Events:</strong> BLISS for mood elevation<br><strong>Date Nights:</strong> BLISS + GAZM for enhanced connection</p>",
+        "center_text": false,
+        "narrow_width": true
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Optimization FAQs"
+      },
+      "blocks": {
+        "faq-1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I combine multiple States?",
+            "answer": "<p>Yes! Many users combine States for specific situations. Popular combinations include BLISS + GAZM for date nights, FOCUS + ZEN for high-pressure work, and ZEN + DREAM for evening wind-down.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long before I see results?",
+            "answer": "<p>Most States work within 30-60 minutes. Some benefits compound over time with consistent use, especially for stress resilience and cognitive function.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Should I take States every day?",
+            "answer": "<p>States are designed for daily use, but you can also use them situationally. Many people use FOCUS on workdays, BLISS for social events, and DREAM nightly.</p>"
+          }
+        }
+      },
+      "block_order": ["faq-1", "faq-2", "faq-3"]
+    },
+    "cta": {
+      "type": "cross-sell",
+      "settings": {
+        "title": "Ready to Optimize Your Performance?",
+        "subtitle": "Start with the complete States Box Set and discover your perfect protocol.",
+        "product_tagline": "FOCUS + ZEN + BLISS + DREAM + GAZM",
+        "button_text": "Get the Box Set",
+        "background_gradient": "linear-gradient(135deg, #7a12d4 0%, #5b21b6 100%)"
+      }
+    }
+  },
+  "order": [
+    "page-hero",
+    "benefits",
+    "rich-text",
+    "faq",
+    "cta"
+  ]
+}
+

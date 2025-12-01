@@ -1,0 +1,350 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {
+        "show_clinical_highlights": true,
+        "clinical_title": "Clinically Validated Results"
+      },
+      "blocks": {
+        "stat-1": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "2 hrs",
+            "label": "Effects felt"
+          }
+        },
+        "stat-2": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "6",
+            "label": "Patented ingredients"
+          }
+        },
+        "stat-3": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "0",
+            "label": "Hangover effects"
+          }
+        },
+        "trust-1": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "60-Day Money Back"
+          }
+        },
+        "trust-2": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "100% Vegan"
+          }
+        },
+        "trust-3": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Third-Party Tested"
+          }
+        },
+        "trust-4": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Free US Shipping"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3", "trust-1", "trust-2", "trust-3", "trust-4"]
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {
+        "title": "Next-Gen Socializing Without the Downside",
+        "image_position": "left"
+      },
+      "blocks": {
+        "benefit-1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "😊",
+            "icon_bg": "#fef3c7",
+            "title": "Boost Mood & Wellbeing",
+            "description": "Support serotonin and dopamine pathways for natural mood elevation."
+          }
+        },
+        "benefit-2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "💬",
+            "icon_bg": "#fef3c7",
+            "title": "Spark Social Confidence",
+            "description": "Feel open, connected, and at ease in any social situation."
+          }
+        },
+        "benefit-3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "⚡",
+            "icon_bg": "#fef3c7",
+            "title": "Sustained Alertness",
+            "description": "Stay energized and present without the crash or jitters."
+          }
+        },
+        "benefit-4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🌟",
+            "icon_bg": "#fef3c7",
+            "title": "No Hangover Effects",
+            "description": "Wake up refreshed with no adverse effects the next day."
+          }
+        }
+      },
+      "block_order": ["benefit-1", "benefit-2", "benefit-3", "benefit-4"]
+    },
+    "ingredients": {
+      "type": "ingredients",
+      "settings": {
+        "title": "The BLISS Formula",
+        "subtitle": "6 scientifically-validated ingredients for elevated mood and connection",
+        "background_color": "#1f2937"
+      },
+      "blocks": {
+        "ingredient-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "enfinity Paraxanthine",
+            "subtitle": "Clean Energy",
+            "dose": "100mg",
+            "dose_color": "#f59e0b",
+            "description": "Caffeine's active metabolite provides sustained alertness without jitters or crashes. Enhances mood and well-being while keeping you energized and present.",
+            "stat1_value": "No",
+            "stat1_label": "crash",
+            "stat2_value": "Mood",
+            "stat2_label": "support"
+          }
+        },
+        "ingredient-2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "CurcuPrime",
+            "subtitle": "Tetrahydrocurcumin",
+            "dose": "250mg",
+            "dose_color": "#f59e0b",
+            "description": "A patented form 10x more bioavailable than regular curcumin. Potent antioxidant and anti-inflammatory that supports brain health and cognitive function.",
+            "stat1_value": "10x",
+            "stat1_label": "bioavailable",
+            "stat2_value": "BDNF",
+            "stat2_label": "support"
+          }
+        },
+        "ingredient-3": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Synapsa Bacopa",
+            "subtitle": "Cognitive Enhancer",
+            "dose": "320mg",
+            "dose_color": "#f59e0b",
+            "description": "Patented Bacopa extract renowned for enhancing memory, learning, and information processing. Improves multitasking accuracy and cognitive speed.",
+            "stat1_value": "Memory",
+            "stat1_label": "boost",
+            "stat2_value": "Learning",
+            "stat2_label": "support"
+          }
+        },
+        "ingredient-4": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Affron Saffron",
+            "subtitle": "Mood Enhancer",
+            "dose": "28mg",
+            "dose_color": "#f59e0b",
+            "description": "Clinically proven to improve mood, reduce anxiety, and support emotional health by influencing serotonin and dopamine pathways.",
+            "stat1_value": "Serotonin",
+            "stat1_label": "support",
+            "stat2_value": "Anxiety",
+            "stat2_label": "relief"
+          }
+        },
+        "ingredient-5": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Zembrin",
+            "subtitle": "Sceletium Extract",
+            "dose": "25mg",
+            "dose_color": "#f59e0b",
+            "description": "A patented extract that reduces stress and anxiety, elevates mood, and enhances cognitive flexibility. Effects felt in as little as 2 hours.",
+            "stat1_value": "2 hr",
+            "stat1_label": "onset",
+            "stat2_value": "Stress",
+            "stat2_label": "relief"
+          }
+        },
+        "ingredient-6": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Nobiletin",
+            "subtitle": "Citrus Flavonoid",
+            "dose": "50mg",
+            "dose_color": "#f59e0b",
+            "description": "A powerful flavonoid from citrus that offers neuroprotective benefits, enhances cognitive function, and provides antioxidant support.",
+            "stat1_value": "Neuro",
+            "stat1_label": "protective",
+            "stat2_value": "Cognitive",
+            "stat2_label": "boost"
+          }
+        }
+      },
+      "block_order": ["ingredient-1", "ingredient-2", "ingredient-3", "ingredient-4", "ingredient-5", "ingredient-6"]
+    },
+    "video-section": {
+      "type": "video-section",
+      "settings": {
+        "show_header": true,
+        "title": "Experience BLISS",
+        "subtitle": "See how BLISS transforms social experiences",
+        "background_color": "#f9fafb"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "title": "What BLISS Users Say",
+        "show_filter": false
+      },
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The bliss pills were wonderful",
+            "details": "I'm an herbalist and the formula of this is really well put together. It gave me a really nice elevation. We were at a party and I didn't have any drinks. I felt really open-hearted, very social.",
+            "name": "Lee Holden",
+            "title": "Qi Gong Master",
+            "product_name": "BLISS",
+            "product_filter": "bliss",
+            "verified": true
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I took two pills and I didn't need to drink any wine or alcohol",
+            "details": "It was just a great experience and I felt so relaxed. Today I didn't have any headache in the morning. No hangovers. This is definitely the best product.",
+            "name": "Trajana",
+            "title": "Mindvalley Member",
+            "product_name": "BLISS",
+            "product_filter": "bliss",
+            "verified": true
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I was able to flow more with people",
+            "details": "Sometimes I have social anxiety, but last night I felt joyful, grounded, and solid. It's subtle but strong. Better than alcohol or coffee.",
+            "name": "Faisal",
+            "title": "Entrepreneur",
+            "product_name": "BLISS",
+            "product_filter": "bliss",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["testimonial-1", "testimonial-2", "testimonial-3"]
+    },
+    "creators": {
+      "type": "creators",
+      "settings": {
+        "title": "Created By Experts"
+      },
+      "blocks": {
+        "creator-1": {
+          "type": "creator",
+          "settings": {
+            "role": "Formulated By",
+            "name": "Shawn Wells",
+            "bio": "World's leading nutritional biochemist with 1,000+ formulations and 40+ patents.",
+            "credentials": "MPH, RD, CISSN, 40+ Patents"
+          }
+        },
+        "creator-2": {
+          "type": "creator",
+          "settings": {
+            "role": "Co-Created By",
+            "name": "Vishen Lakhiani",
+            "bio": "Founder of Mindvalley, NYT bestselling author, transformational learning pioneer.",
+            "credentials": "Mindvalley Founder, 20M+ Community"
+          }
+        }
+      },
+      "block_order": ["creator-1", "creator-2"]
+    },
+    "cross-sell": {
+      "type": "cross-sell",
+      "settings": {
+        "title": "Want to Try All 5 States?",
+        "subtitle": "Get the complete States Box Set and discover which states work best for you throughout your day.",
+        "product_tagline": "FOCUS + ZEN + BLISS + DREAM + GAZM",
+        "fallback_title": "States Box Set",
+        "fallback_price": "$99",
+        "fallback_compare_price": "$347",
+        "button_text": "Add Box Set to Cart",
+        "background_gradient": "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      },
+      "blocks": {
+        "faq-1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can BLISS replace alcohol at social events?",
+            "answer": "<p>Many users find BLISS provides a similar social ease and mood elevation without the negative effects of alcohol. You'll feel open, confident, and present - and wake up refreshed the next day with no hangover.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How quickly will I feel BLISS working?",
+            "answer": "<p>Most people notice effects within 1-2 hours. The Zembrin extract in particular is clinically shown to work within 2 hours. Effects last several hours without a crash.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is BLISS safe to take regularly?",
+            "answer": "<p>Yes. All ingredients are natural, clinically studied, and non-habit forming. Unlike alcohol or other substances, BLISS supports healthy brain function without depleting neurotransmitters.</p>"
+          }
+        },
+        "faq-4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I combine BLISS with other States?",
+            "answer": "<p>Absolutely. Many users combine BLISS with GAZM for social events and intimacy. You can also pair it with ZEN if you want mood elevation with extra calm. Always start with recommended doses.</p>"
+          }
+        },
+        "faq-5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "When is the best time to take BLISS?",
+            "answer": "<p>Take BLISS 1-2 hours before social events, parties, dates, or whenever you want elevated mood and social confidence. It's also great for brightening regular days when you need a mood boost.</p>"
+          }
+        }
+      },
+      "block_order": ["faq-1", "faq-2", "faq-3", "faq-4", "faq-5"]
+    }
+  },
+  "order": [
+    "main-product",
+    "benefits",
+    "ingredients",
+    "video-section",
+    "testimonials",
+    "creators",
+    "cross-sell",
+    "faq"
+  ]
+}
+

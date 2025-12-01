@@ -1,0 +1,167 @@
+{
+  "sections": {
+    "page-hero": {
+      "type": "page-hero",
+      "settings": {
+        "show_badge": true,
+        "badge_icon": "⭐",
+        "badge_text": "Customer Reviews",
+        "title_before": "Real",
+        "title_highlight": "Results",
+        "title_after": "From Real People",
+        "subtitle": "Hear from our community of high performers who use States to optimize their mental and emotional states daily.",
+        "background": "linear-gradient(180deg, #f5f0ff 0%, #ffffff 100%)"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "title": "",
+        "show_filter": true
+      },
+      "blocks": {
+        "filter-focus": {
+          "type": "filter_tab",
+          "settings": {
+            "filter_label": "FOCUS",
+            "filter_value": "focus"
+          }
+        },
+        "filter-zen": {
+          "type": "filter_tab",
+          "settings": {
+            "filter_label": "ZEN",
+            "filter_value": "zen"
+          }
+        },
+        "filter-bliss": {
+          "type": "filter_tab",
+          "settings": {
+            "filter_label": "BLISS",
+            "filter_value": "bliss"
+          }
+        },
+        "filter-dream": {
+          "type": "filter_tab",
+          "settings": {
+            "filter_label": "DREAM",
+            "filter_value": "dream"
+          }
+        },
+        "filter-gazm": {
+          "type": "filter_tab",
+          "settings": {
+            "filter_label": "GAZM",
+            "filter_value": "gazm"
+          }
+        },
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I notice a significant improvement in my concentration",
+            "details": "I've been testing FOCUS for several weeks, and every time I take it before my writing sessions, I notice a significant improvement in my concentration.",
+            "name": "Jimmy Naraine",
+            "title": "International Bestselling Author",
+            "product_name": "FOCUS",
+            "product_filter": "focus",
+            "verified": true
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "It gave me a good solid three or four hours of alertness and clarity",
+            "details": "Recently I just tried Focus to replace the coffee I would usually have, and I'm quite happy with the results. It basically delivered the effect that was promised - a solid three to four hours of being alert with good clarity.",
+            "name": "Hans",
+            "title": "Marketing Specialist",
+            "product_name": "FOCUS",
+            "product_filter": "focus",
+            "verified": true
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Thank you for making such a wonderful product",
+            "details": "ZEN is the way to go if you have chronic stress, any anxiety, any agitation, overstimulation. This works immediately, as soon as I take it I feel more chill and more calm.",
+            "name": "Roxana",
+            "title": "Verified Customer",
+            "product_name": "ZEN",
+            "product_filter": "zen",
+            "verified": true
+          }
+        },
+        "testimonial-4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The bliss pills were wonderful",
+            "details": "I'm an herbalist and the formula of this is really well put together. It gave me a really nice elevation. We were at a party and I didn't have any drinks. I felt really open-hearted, very social.",
+            "name": "Lee Holden",
+            "title": "Qi Gong Master",
+            "product_name": "BLISS",
+            "product_filter": "bliss",
+            "verified": true
+          }
+        },
+        "testimonial-5": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I took two pills and I didn't need to drink any wine or alcohol",
+            "details": "It was just a great experience and I felt so relaxed. Today I didn't have any headache in the morning. No hangovers. This is definitely the best product.",
+            "name": "Trajana",
+            "title": "Mindvalley Member",
+            "product_name": "BLISS",
+            "product_filter": "bliss",
+            "verified": true
+          }
+        },
+        "testimonial-6": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I am waking up with new realizations, insights and clarity from my dreams",
+            "details": "I am having the deepest level of sleep and waking up so refreshed. Also because I am sleeping so deeply, my subconscious is getting a lot of time to dream and repattern my consciousness.",
+            "name": "Jennifer Partridge",
+            "title": "Life Coach, EFT/Tapping Expert",
+            "product_name": "DREAM",
+            "product_filter": "dream",
+            "verified": true
+          }
+        },
+        "testimonial-7": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I became more open to my feminine side",
+            "details": "I tried GAZM and I became more open to my feminine side. Mindvalley States is so powerful. And to be able to combine them in different ways - it's just a big feeling.",
+            "name": "Bianca Ioana",
+            "title": "11X Time World Karate Champion",
+            "product_name": "GAZM",
+            "product_filter": "gazm",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["filter-focus", "filter-zen", "filter-bliss", "filter-dream", "filter-gazm", "testimonial-1", "testimonial-2", "testimonial-3", "testimonial-4", "testimonial-5", "testimonial-6", "testimonial-7"]
+    },
+    "cta": {
+      "type": "hero-banner",
+      "settings": {
+        "show_badge": false,
+        "title": "Ready to Try States?",
+        "subtitle": "Join thousands of high performers who use States to optimize their daily performance.",
+        "show_cta": true,
+        "cta_text": "Shop All Products",
+        "cta_link": "/collections/all",
+        "show_trust_badges": false,
+        "background_gradient": true,
+        "gradient_start": "#7a12d4",
+        "gradient_end": "#5b21b6"
+      }
+    }
+  },
+  "order": [
+    "page-hero",
+    "testimonials",
+    "cta"
+  ]
+}
+

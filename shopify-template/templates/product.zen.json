@@ -1,0 +1,250 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {
+        "show_clinical_highlights": true,
+        "clinical_title": "Clinically Validated Results"
+      },
+      "blocks": {
+        "stat-1": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "20 min",
+            "label": "Effects felt"
+          }
+        },
+        "stat-2": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "5+",
+            "label": "Patented ingredients"
+          }
+        },
+        "stat-3": {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "0",
+            "label": "Drowsiness"
+          }
+        },
+        "trust-1": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "60-Day Money Back"
+          }
+        },
+        "trust-2": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "100% Vegan"
+          }
+        },
+        "trust-3": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Third-Party Tested"
+          }
+        },
+        "trust-4": {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Free US Shipping"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3", "trust-1", "trust-2", "trust-3", "trust-4"]
+    },
+    "benefits": {
+      "type": "benefits",
+      "settings": {
+        "title": "Calm Focus Without Drowsiness",
+        "image_position": "left"
+      },
+      "blocks": {
+        "benefit-1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🧘",
+            "icon_bg": "#d1fae5",
+            "title": "Instant Calm",
+            "description": "Reduce stress and anxiety within minutes, not hours."
+          }
+        },
+        "benefit-2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🎯",
+            "icon_bg": "#d1fae5",
+            "title": "Stay Sharp",
+            "description": "Maintain mental clarity while feeling relaxed and centered."
+          }
+        },
+        "benefit-3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "💪",
+            "icon_bg": "#d1fae5",
+            "title": "Stress Resilience",
+            "description": "Build long-term resistance to stress and overwhelm."
+          }
+        },
+        "benefit-4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🌿",
+            "icon_bg": "#d1fae5",
+            "title": "Natural Ingredients",
+            "description": "Adaptogens and botanicals that work with your body."
+          }
+        }
+      },
+      "block_order": ["benefit-1", "benefit-2", "benefit-3", "benefit-4"]
+    },
+    "ingredients": {
+      "type": "ingredients",
+      "settings": {
+        "title": "The ZEN Formula",
+        "subtitle": "Clinically-validated ingredients for calm, focused performance",
+        "background_color": "#1f2937"
+      },
+      "blocks": {
+        "ingredient-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "KSM-66 Ashwagandha",
+            "subtitle": "Adaptogen",
+            "dose": "600mg",
+            "dose_color": "#10b981",
+            "description": "The world's most clinically studied ashwagandha for stress reduction and cortisol management.",
+            "stat1_value": "Stress",
+            "stat1_label": "reduction",
+            "stat2_value": "Cortisol",
+            "stat2_label": "balance"
+          }
+        },
+        "ingredient-2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "L-Theanine",
+            "subtitle": "Calm Focus",
+            "dose": "200mg",
+            "dose_color": "#10b981",
+            "description": "Promotes alpha brain waves for relaxed alertness without sedation.",
+            "stat1_value": "Alpha",
+            "stat1_label": "waves",
+            "stat2_value": "No",
+            "stat2_label": "drowsiness"
+          }
+        },
+        "ingredient-3": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Magnesium L-Threonate",
+            "subtitle": "Brain Mineral",
+            "dose": "144mg",
+            "dose_color": "#10b981",
+            "description": "The only form of magnesium proven to cross the blood-brain barrier for cognitive support.",
+            "stat1_value": "Brain",
+            "stat1_label": "penetrating",
+            "stat2_value": "Cognitive",
+            "stat2_label": "support"
+          }
+        }
+      },
+      "block_order": ["ingredient-1", "ingredient-2", "ingredient-3"]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "title": "What ZEN Users Say",
+        "show_filter": false
+      },
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Thank you for making such a wonderful product",
+            "details": "ZEN is the way to go if you have chronic stress, any anxiety, any agitation, overstimulation. This works immediately, as soon as I take it I feel more chill and more calm.",
+            "name": "Roxana",
+            "title": "Verified Customer",
+            "product_name": "ZEN",
+            "product_filter": "zen",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["testimonial-1"]
+    },
+    "creators": {
+      "type": "creators",
+      "settings": {
+        "title": "Created By Experts"
+      },
+      "blocks": {
+        "creator-1": {
+          "type": "creator",
+          "settings": {
+            "role": "Formulated By",
+            "name": "Shawn Wells",
+            "bio": "World's leading nutritional biochemist with 1,000+ formulations and 40+ patents.",
+            "credentials": "MPH, RD, CISSN, 40+ Patents"
+          }
+        },
+        "creator-2": {
+          "type": "creator",
+          "settings": {
+            "role": "Co-Created By",
+            "name": "Vishen Lakhiani",
+            "bio": "Founder of Mindvalley, NYT bestselling author, transformational learning pioneer.",
+            "credentials": "Mindvalley Founder, 20M+ Community"
+          }
+        }
+      },
+      "block_order": ["creator-1", "creator-2"]
+    },
+    "cross-sell": {
+      "type": "cross-sell",
+      "settings": {
+        "title": "Want to Try All 5 States?",
+        "subtitle": "Get the complete States Box Set and discover which states work best for you.",
+        "product_tagline": "FOCUS + ZEN + BLISS + DREAM + GAZM",
+        "button_text": "Add Box Set to Cart",
+        "background_gradient": "linear-gradient(135deg, #10b981 0%, #059669 100%)"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      },
+      "blocks": {
+        "faq-1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will ZEN make me drowsy?",
+            "answer": "<p>No. ZEN is designed to promote calm without sedation. You'll feel relaxed yet alert, able to focus and perform at your best.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "When should I take ZEN?",
+            "answer": "<p>Take ZEN whenever you need to reduce stress while maintaining clarity. Great for high-pressure work situations, before important meetings, or during overwhelming days.</p>"
+          }
+        }
+      },
+      "block_order": ["faq-1", "faq-2"]
+    }
+  },
+  "order": [
+    "main-product",
+    "benefits",
+    "ingredients",
+    "testimonials",
+    "creators",
+    "cross-sell",
+    "faq"
+  ]
+}
+

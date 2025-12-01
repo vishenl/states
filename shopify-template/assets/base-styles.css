@@ -1,0 +1,351 @@
+/* =========================================
+   Mindvalley / Self Reset – Core theme
+   Extracted from app.css (fonts + type + layout)
+   ========================================= */
+
+/* -------- Fonts (Sharp Grotesk / Grotesk) -------- */
+
+@font-face {
+    font-display: swap;
+    font-family: Grotesk-Regular;
+    src:
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.ed0b68c.woff2) format("woff2"),
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBook-19.cfae424.woff) format("woff");
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: Grotesk-Medium;
+    src:
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.36349e7.woff2) format("woff2"),
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrMedium-20.f7afa74.woff) format("woff");
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: Grotesk-Bold-16;
+    src:
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.d5a4b9e.woff2) format("woff2"),
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrBold-16.0396c00.woff) format("woff");
+  }
+
+  /* Optional "sleek" headline variants use this too */
+  @font-face {
+    font-display: swap;
+    font-family: Grotesk-Bold;
+    src:
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.2e6314a.woff2) format("woff2"),
+      url(https://storyblok-assets.mindvalley.com/fonts/SharpGroteskCyrSmBold-21.4b5d971.woff) format("woff");
+  }
+
+  /* -------- Global base -------- */
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    color: #0f131a;
+    font-size: 16px;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Grotesk-Regular, sans-serif;
+    font-weight: 400;
+  }
+
+  /* Links (purple, same as MV) */
+
+  h1 a,
+  h2 a,
+  h3 a,
+  h4 a,
+  h5 a,
+  h6 a,
+  p a {
+    color: #7a12d4;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  h1 a:hover,
+  h2 a:hover,
+  h3 a:hover,
+  h4 a:hover,
+  h5 a:hover,
+  h6 a:hover,
+  p a:hover {
+    text-decoration-color: #7a12d4;
+    text-decoration-line: underline;
+  }
+
+  p {
+    font-family: Grotesk-Regular, sans-serif;
+    margin: 0 0 1.25rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    font-family: inherit;
+    font-weight: inherit;
+  }
+
+  /* -------- Core layout container (mv-container) -------- */
+
+  .mv-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+  }
+
+  @media (min-width: 1200px) {
+    .mv-container {
+      max-width: 1200px;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @media (min-width: 1600px) {
+    .mv-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  /* You can still use the "--full" modifiers if you want, but this
+     single base is enough for most Self Reset style pages. */
+
+  /* -------- Typography scale (headlines / titles) -------- */
+  /* Use these utility classes on wrappers or on headings directly.
+     They are exactly what app.css defines, just grouped here. */
+
+  /* Display 1 – biggest (hero on some pages) */
+  .mv-type--display1 {
+    font-family: Grotesk-Bold-16, Verdana, "sans-serif";
+    font-size: 3.75rem;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    line-height: 3.75rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--display1 {
+      font-size: 7.5rem;
+      line-height: 7.5rem;
+    }
+  }
+
+  /* Display 2 */
+  .mv-type--display2 {
+    font-family: Grotesk-Bold-16, Verdana, "sans-serif";
+    font-size: 3.125rem;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    line-height: 3.125rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--display2 {
+      font-size: 5.625rem;
+      line-height: 5.625rem;
+    }
+  }
+
+  /* Display 3 */
+  .mv-type--display3 {
+    font-family: Grotesk-Bold-16, Verdana, "sans-serif";
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 0.25px;
+    line-height: 2.5rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--display3 {
+      font-size: 3.75rem;
+      line-height: 3.75rem;
+    }
+  }
+
+  /* Headline 1 / titlebold1 – typical hero H1 on MV pages */
+  .mv-type--headline1,
+  .mv-type--titlebold1 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 0.0052083333em;
+    line-height: 3.5rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline1,
+    .mv-type--titlebold1 {
+      font-size: 4.5rem;
+      letter-spacing: 0.0034722222em;
+      line-height: 5rem;
+    }
+  }
+
+  /* Headline 2 */
+  .mv-type--headline2,
+  .mv-type--titlebold2 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: 0.0069444444em;
+    line-height: 2.75rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline2,
+    .mv-type--titlebold2 {
+      font-size: 3.75rem;
+      letter-spacing: 0.0041666667em;
+      line-height: 4.25rem;
+    }
+  }
+
+  /* Headline 3 */
+  .mv-type--headline3,
+  .mv-type--titlebold3 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1.875rem;
+    font-weight: 700;
+    letter-spacing: 0.0083333333em;
+    line-height: 2.25rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline3,
+    .mv-type--titlebold3 {
+      font-size: 3rem;
+      letter-spacing: 0.0052083333em;
+      line-height: 3.5rem;
+    }
+  }
+
+  /* Headline 4 */
+  .mv-type--headline4,
+  .mv-type--titlebold4 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0.0089285714em;
+    line-height: 2.125rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline4,
+    .mv-type--titlebold4 {
+      font-size: 2.25rem;
+      letter-spacing: 0.0069444444em;
+      line-height: 2.75rem;
+    }
+  }
+
+  /* Headline 5 */
+  .mv-type--headline5,
+  .mv-type--titlebold5 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.0104166667em;
+    line-height: 1.875rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline5,
+    .mv-type--titlebold5 {
+      font-size: 1.75rem;
+      letter-spacing: 0.0089285714em;
+      line-height: 2.125rem;
+    }
+  }
+
+  /* Headline 6 */
+  .mv-type--headline6,
+  .mv-type--titlebold6 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: 0.0113636364em;
+    line-height: 1.625rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline6,
+    .mv-type--titlebold6 {
+      font-size: 1.5rem;
+      letter-spacing: 0.0104166667em;
+      line-height: 1.875rem;
+    }
+  }
+
+  /* Headline 7 */
+  .mv-type--headline7,
+  .mv-type--titlebold7 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.0125em;
+    line-height: 1.5rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline7,
+    .mv-type--titlebold7 {
+      font-size: 1.375rem;
+      letter-spacing: 0.0113636364em;
+      line-height: 1.625rem;
+    }
+  }
+
+  /* Headline 8 */
+  .mv-type--headline8,
+  .mv-type--titlebold8 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.0138888889em;
+    line-height: 1.375rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline8,
+    .mv-type--titlebold8 {
+      font-size: 1.25rem;
+      letter-spacing: 0.0125em;
+      line-height: 1.5rem;
+    }
+  }
+
+  /* Headline 9 */
+  .mv-type--headline9,
+  .mv-type--titlebold9 {
+    font-family: Grotesk-Bold, Verdana, "sans-serif";
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.015625em;
+    line-height: 1.25rem;
+  }
+
+  @media (min-width: 992px) {
+    .mv-type--headline9,
+    .mv-type--titlebold9 {
+      font-size: 1.125rem;
+      letter-spacing: 0.0138888889em;
+      line-height: 1.375rem;
+    }
+  }

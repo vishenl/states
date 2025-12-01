@@ -1,0 +1,214 @@
+<section class="testimonials" id="testimonials">
+  <div class="mv-container">
+    <div class="section-header">
+      <h2 class="mv-type--headline3">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p>{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    {% if section.settings.show_filter %}
+      <div class="filter-tabs">
+        <div class="tabs-inner">
+          <button class="filter-tab active" data-filter="all">All Reviews</button>
+          {% for block in section.blocks %}
+            {% if block.type == 'filter_tab' %}
+              <button class="filter-tab" data-filter="{{ block.settings.filter_value }}">
+                {{ block.settings.filter_label }}
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    
+    <div class="testimonial-grid" id="testimonials-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'testimonial' %}
+          <div class="testimonial-card" data-product="{{ block.settings.product_filter | downcase }}" {{ block.shopify_attributes }}>
+            <div class="testimonial-quote">{{ block.settings.quote }}</div>
+            
+            {% if block.settings.details != blank %}
+              <div class="testimonial-details">{{ block.settings.details }}</div>
+            {% endif %}
+            
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">
+                {% if block.settings.avatar != blank %}
+                  <img 
+                    src="{{ block.settings.avatar | image_url: width: 112 }}" 
+                    alt="{{ block.settings.name }}"
+                    loading="lazy"
+                  >
+                {% endif %}
+              </div>
+              <div class="testimonial-info">
+                <div class="testimonial-name">{{ block.settings.name }}</div>
+                <div class="testimonial-title">{{ block.settings.title }}</div>
+                
+                {% if block.settings.product_name != blank %}
+                  <div class="testimonial-product">
+                    <span class="product-pill product-{{ block.settings.product_filter | downcase }}">
+                      {{ block.settings.product_name }}
+                    </span>
+                    {% if block.settings.verified %}
+                      <span class="verified-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                        </svg>
+                        Verified
+                      </span>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_cta %}
+      <div class="testimonials-cta">
+        <a href="{{ section.settings.cta_link }}" class="btn-secondary">
+          {{ section.settings.cta_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "testimonials-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "What Customers Say"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section subtitle"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filter",
+      "label": "Show product filter tabs",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Read More Reviews"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_tab",
+      "name": "Filter Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_label",
+          "label": "Tab label",
+          "default": "FOCUS"
+        },
+        {
+          "type": "text",
+          "id": "filter_value",
+          "label": "Filter value",
+          "default": "focus"
+        }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote headline",
+          "default": "Amazing product that changed my life"
+        },
+        {
+          "type": "textarea",
+          "id": "details",
+          "label": "Quote details (optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Author avatar"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Author name",
+          "default": "John Doe"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Author title",
+          "default": "Verified Customer"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product name (for badge)"
+        },
+        {
+          "type": "text",
+          "id": "product_filter",
+          "label": "Product filter value",
+          "info": "Used for filtering (e.g., focus, zen, bliss)"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show verified badge",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I notice a significant improvement in my concentration",
+            "details": "I've been testing FOCUS for several weeks, and every time I take it before my writing sessions, I notice a significant improvement in my concentration.",
+            "name": "Jimmy Naraine",
+            "title": "Entrepreneur & Leadership Expert",
+            "product_name": "FOCUS",
+            "product_filter": "focus",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

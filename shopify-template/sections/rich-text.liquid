@@ -1,0 +1,101 @@
+<section class="rich-text-section" style="background-color: {{ section.settings.background_color }}; padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;">
+  <div class="mv-container {% if section.settings.narrow_width %}content-width{% endif %}">
+    {% if section.settings.title != blank %}
+      <div class="section-header {% if section.settings.center_text %}text-center{% endif %}">
+        <h2 class="mv-type--headline4">{{ section.settings.title }}</h2>
+      </div>
+    {% endif %}
+    
+    <div class="rich-text-content {% if section.settings.center_text %}text-center{% endif %}">
+      {{ section.settings.content }}
+    </div>
+    
+    {% if section.settings.show_cta %}
+      <div class="rich-text-cta {% if section.settings.center_text %}text-center{% endif %}">
+        <a href="{{ section.settings.cta_link }}" class="btn-primary">
+          {{ section.settings.cta_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rich Text",
+  "tag": "section",
+  "class": "rich-text-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Add your content here.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "center_text",
+      "label": "Center text",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "narrow_width",
+      "label": "Narrow width",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich Text"
+    }
+  ]
+}
+{% endschema %}
+

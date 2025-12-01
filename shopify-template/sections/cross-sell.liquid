@@ -1,0 +1,115 @@
+<section class="cross-sell" style="background: {{ section.settings.background_gradient | default: 'linear-gradient(135deg, #7a12d4 0%, #5b21b6 100%)' }};">
+  <div class="mv-container">
+    <h2 class="mv-type--headline3">{{ section.settings.title }}</h2>
+    <p>{{ section.settings.subtitle }}</p>
+    
+    <div class="cross-sell-card">
+      {% if section.settings.product != blank %}
+        {% assign cross_product = section.settings.product %}
+        
+        {% if cross_product.featured_image %}
+          <img 
+            src="{{ cross_product.featured_image | image_url: width: 400 }}" 
+            alt="{{ cross_product.title }}"
+            loading="lazy"
+          >
+        {% endif %}
+        
+        <h3>{{ cross_product.title }}</h3>
+        <p class="cross-sell-tagline">{{ cross_product.metafields.custom.tagline | default: section.settings.product_tagline }}</p>
+        
+        <div class="price">
+          {{ cross_product.price | money }}
+          {% if cross_product.compare_at_price > cross_product.price %}
+            <span>{{ cross_product.compare_at_price | money }} value</span>
+          {% endif %}
+        </div>
+        
+        <button class="cross-sell-btn" data-product-id="{{ cross_product.variants.first.id }}">
+          {{ section.settings.button_text }}
+        </button>
+      {% else %}
+        <img src="{{ 'bundle_pills.png' | asset_url }}" alt="Box Set">
+        <h3>{{ section.settings.fallback_title }}</h3>
+        <p class="cross-sell-tagline">{{ section.settings.product_tagline }}</p>
+        
+        <div class="price">
+          {{ section.settings.fallback_price }} <span>{{ section.settings.fallback_compare_price }} value</span>
+        </div>
+        
+        <button class="cross-sell-btn">
+          {{ section.settings.button_text }}
+        </button>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cross-sell",
+  "tag": "section",
+  "class": "cross-sell-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Want to Try All 5 States?"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Get the complete States Box Set and discover which states work best for you."
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Cross-sell product"
+    },
+    {
+      "type": "text",
+      "id": "product_tagline",
+      "label": "Product tagline",
+      "default": "FOCUS + ZEN + BLISS + DREAM + GAZM"
+    },
+    {
+      "type": "text",
+      "id": "fallback_title",
+      "label": "Fallback title",
+      "default": "States Box Set"
+    },
+    {
+      "type": "text",
+      "id": "fallback_price",
+      "label": "Fallback price",
+      "default": "$99"
+    },
+    {
+      "type": "text",
+      "id": "fallback_compare_price",
+      "label": "Fallback compare price",
+      "default": "$347"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Add Box Set to Cart"
+    },
+    {
+      "type": "text",
+      "id": "background_gradient",
+      "label": "Background gradient CSS",
+      "default": "linear-gradient(135deg, #7a12d4 0%, #5b21b6 100%)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cross-sell"
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,235 @@
+<section class="quiz-section" id="quiz">
+  <div class="quiz-container mv-container">
+    {% comment %} Quiz Intro Screen {% endcomment %}
+    <div class="quiz-intro" id="quiz-intro">
+      <div class="quiz-intro-icon">{{ section.settings.intro_icon }}</div>
+      <h1 class="mv-type--headline4">{{ section.settings.intro_title }}</h1>
+      <p>{{ section.settings.intro_subtitle }}</p>
+      
+      <div class="quiz-intro-features">
+        {% for block in section.blocks %}
+          {% if block.type == 'intro_feature' %}
+            <div class="quiz-intro-feature">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+              </svg>
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      
+      <button class="btn-start" id="quiz-start">
+        {{ section.settings.start_button_text }}
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    {% comment %} Quiz Questions Container {% endcomment %}
+    <div class="quiz-questions" id="quiz-questions" style="display: none;">
+      {% comment %} Questions will be rendered dynamically by JavaScript {% endcomment %}
+      {% comment %} Static questions can also be defined in blocks {% endcomment %}
+      
+      {% assign question_num = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'question' %}
+          {% assign question_num = question_num | plus: 1 %}
+          <div class="quiz-question-screen" data-question="{{ question_num }}" {{ block.shopify_attributes }}>
+            <div class="question-number">Question {{ question_num }}</div>
+            <div class="question-text">{{ block.settings.question }}</div>
+            
+            {% if block.settings.subtext != blank %}
+              <div class="question-subtext">{{ block.settings.subtext }}</div>
+            {% endif %}
+            
+            <div class="quiz-options {% if block.settings.multi_select %}multi-select{% endif %}">
+              {% assign options = block.settings.options | split: '|' %}
+              {% for option in options %}
+                {% assign option_parts = option | split: ':' %}
+                <div class="quiz-option" data-value="{{ option_parts[0] | strip }}">
+                  <div class="quiz-option-icon">{{ option_parts[2] | default: '📌' }}</div>
+                  <div class="quiz-option-content">
+                    <div class="quiz-option-title">{{ option_parts[0] | strip }}</div>
+                    {% if option_parts[1] %}
+                      <div class="quiz-option-desc">{{ option_parts[1] | strip }}</div>
+                    {% endif %}
+                  </div>
+                  <div class="quiz-option-check"></div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+      
+      <div class="quiz-nav">
+        <button class="btn-back" id="quiz-back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back
+        </button>
+        <button class="btn-next" id="quiz-next">
+          Next
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    {% comment %} Quiz Results Container {% endcomment %}
+    <div class="quiz-results" id="quiz-results" style="display: none;">
+      <div class="results-header">
+        <h2 class="mv-type--headline4">{{ section.settings.results_title }}</h2>
+        <p>{{ section.settings.results_subtitle }}</p>
+      </div>
+      
+      {% comment %} Results will be populated by JavaScript {% endcomment %}
+      <div id="quiz-results-content"></div>
+      
+      <div class="restart-link">
+        <a href="#" id="quiz-restart">Take the quiz again</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Quiz",
+  "tag": "section",
+  "class": "quiz-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Intro Screen"
+    },
+    {
+      "type": "text",
+      "id": "intro_icon",
+      "label": "Intro icon (emoji)",
+      "default": "🎯"
+    },
+    {
+      "type": "text",
+      "id": "intro_title",
+      "label": "Intro title",
+      "default": "Find Your Perfect State"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_subtitle",
+      "label": "Intro subtitle",
+      "default": "Answer a few quick questions and we'll recommend the perfect States for your lifestyle."
+    },
+    {
+      "type": "text",
+      "id": "start_button_text",
+      "label": "Start button text",
+      "default": "Start Quiz"
+    },
+    {
+      "type": "header",
+      "content": "Results Screen"
+    },
+    {
+      "type": "text",
+      "id": "results_title",
+      "label": "Results title",
+      "default": "Your Personalized Recommendation"
+    },
+    {
+      "type": "textarea",
+      "id": "results_subtitle",
+      "label": "Results subtitle",
+      "default": "Based on your answers, here's your ideal States protocol."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "intro_feature",
+      "name": "Intro Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature text",
+          "default": "Takes 2 minutes"
+        }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question text",
+          "default": "What's your primary goal?"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Question subtext"
+        },
+        {
+          "type": "textarea",
+          "id": "options",
+          "label": "Options (format: Title:Description:Emoji|...)",
+          "default": "Focus:Better concentration:🎯|Energy:More alertness:⚡|Calm:Reduce stress:🧘|Sleep:Better rest:🌙"
+        },
+        {
+          "type": "checkbox",
+          "id": "multi_select",
+          "label": "Allow multiple selections",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quiz",
+      "blocks": [
+        {
+          "type": "intro_feature",
+          "settings": {
+            "text": "Takes 2 minutes"
+          }
+        },
+        {
+          "type": "intro_feature",
+          "settings": {
+            "text": "Personalized results"
+          }
+        },
+        {
+          "type": "intro_feature",
+          "settings": {
+            "text": "Science-backed"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "What's your primary goal right now?",
+            "options": "Better Focus:Improve concentration and productivity:🎯|More Energy:Feel more alert without jitters:⚡|Stress Relief:Reduce anxiety and feel calm:🧘|Better Sleep:Improve sleep quality:🌙|Mood Boost:Feel happier and more social:😊"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "When do you need the most support?",
+            "options": "Morning:Starting my day:🌅|Afternoon:After lunch slump:☀️|Evening:Winding down:🌆|Night:Getting quality sleep:🌙|All Day:Throughout the day:🔄"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

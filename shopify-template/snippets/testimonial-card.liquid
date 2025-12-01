@@ -1,0 +1,50 @@
+{% comment %}
+  Testimonial Card Snippet
+  
+  Parameters:
+  - quote: The main quote text
+  - details: Extended quote details
+  - name: Author name
+  - title: Author title/role
+  - avatar: Avatar image URL
+  - product_name: Product name for badge
+  - product_filter: Product filter value (focus, zen, bliss, dream, gazm)
+  - verified: Boolean for verified badge
+{% endcomment %}
+
+<div class="testimonial-card" {% if product_filter %}data-product="{{ product_filter | downcase }}"{% endif %}>
+  <div class="testimonial-quote">{{ quote }}</div>
+  
+  {% if details != blank %}
+    <div class="testimonial-details">{{ details }}</div>
+  {% endif %}
+  
+  <div class="testimonial-author">
+    <div class="testimonial-avatar">
+      {% if avatar != blank %}
+        <img src="{{ avatar }}" alt="{{ name }}" loading="lazy" width="56" height="56">
+      {% endif %}
+    </div>
+    <div class="testimonial-info">
+      <div class="testimonial-name">{{ name }}</div>
+      <div class="testimonial-title">{{ title }}</div>
+      
+      {% if product_name != blank %}
+        <div class="testimonial-product">
+          <span class="product-pill product-{{ product_filter | downcase }}">
+            {{ product_name }}
+          </span>
+          {% if verified %}
+            <span class="verified-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+              Verified
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+

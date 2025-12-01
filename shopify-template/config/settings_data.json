@@ -1,0 +1,50 @@
+{
+  "current": {
+    "color_primary": "#7a12d4",
+    "color_primary_dark": "#6a0dad",
+    "color_primary_light": "#f5f0ff",
+    "color_focus": "#3b82f6",
+    "color_zen": "#10b981",
+    "color_bliss": "#f59e0b",
+    "color_dream": "#6366f1",
+    "color_gazm": "#e11d48",
+    "color_text": "#0f131a",
+    "color_text_secondary": "#6b7280",
+    "color_background": "#ffffff",
+    "color_background_alt": "#f9fafb",
+    "type_body_size": 16,
+    "cart_type": "drawer",
+    "cart_show_vendor": false,
+    "product_sticky_cart": true,
+    "product_show_rating": true,
+    "product_show_share_buttons": true,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_description": "Premium nootropics designed to help you shift your mental and emotional state on demand.",
+          "show_payment_icons": true
+        }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": false
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+          "show_shipping_note": true,
+          "shipping_note": "Shipping calculated at checkout"
+        }
+      }
+    }
+  }
+}

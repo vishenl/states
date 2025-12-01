@@ -1,0 +1,89 @@
+<section class="products" id="products">
+  <div class="mv-container">
+    <div class="section-header">
+      <h2 class="mv-type--headline3">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p>{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+    
+    <div class="product-grid">
+      {% if section.settings.collection != blank %}
+        {% for product in section.settings.collection.products limit: section.settings.products_limit %}
+          {% render 'product-card', product: product, featured: forloop.first %}
+        {% endfor %}
+      {% else %}
+        {% comment %} Fallback to all products {% endcomment %}
+        {% for product in collections.all.products limit: section.settings.products_limit %}
+          {% render 'product-card', product: product, featured: forloop.first %}
+        {% endfor %}
+      {% endif %}
+      
+      {% comment %} Show placeholder cards if no products {% endcomment %}
+      {% if collections.all.products.size == 0 %}
+        {% for i in (1..6) %}
+          <div class="product-card{% if forloop.first %} featured{% endif %}">
+            <div class="product-image">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+            <div class="product-info">
+              <div class="product-name">Product {{ i }}</div>
+              <div class="product-tagline">Amazing product description</div>
+              <div class="product-rating">
+                <span class="stars">★★★★★</span>
+                <span class="rating-text">4.8 (120 reviews)</span>
+              </div>
+              <div class="product-price">
+                <span class="price-current">$49</span>
+                <span class="price-sub">/bottle</span>
+              </div>
+              <button class="product-btn">Add to Cart</button>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Products Grid",
+  "tag": "section",
+  "class": "products-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Our Products"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Choose your state"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Max products to show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products Grid"
+    }
+  ]
+}
+{% endschema %}
+

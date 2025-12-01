@@ -1,0 +1,128 @@
+<section class="creators">
+  <div class="mv-container">
+    <div class="section-header">
+      <h2 class="mv-type--headline3">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p>{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+    
+    <div class="creator-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'creator' %}
+          <div class="creator-card" {{ block.shopify_attributes }}>
+            <div class="creator-image">
+              {% if block.settings.image != blank %}
+                <img 
+                  src="{{ block.settings.image | image_url: width: 200 }}" 
+                  alt="{{ block.settings.name }}"
+                  loading="lazy"
+                >
+              {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+            <div class="creator-info">
+              <div class="creator-role">{{ block.settings.role }}</div>
+              <div class="creator-name">{{ block.settings.name }}</div>
+              <div class="creator-bio">{{ block.settings.bio }}</div>
+              
+              {% if block.settings.credentials != blank %}
+                <div class="creator-creds">
+                  {% assign creds = block.settings.credentials | split: ',' %}
+                  {% for cred in creds %}
+                    <span class="creator-cred">{{ cred | strip }}</span>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Creators",
+  "tag": "section",
+  "class": "creators-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Created By Experts"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section subtitle"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "creator",
+      "name": "Creator",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Creator image"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Role",
+          "default": "Formulated By"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Shawn Wells"
+        },
+        {
+          "type": "textarea",
+          "id": "bio",
+          "label": "Bio",
+          "default": "World's leading nutritional biochemist with 1,000+ formulations and 40+ patents."
+        },
+        {
+          "type": "text",
+          "id": "credentials",
+          "label": "Credentials (comma-separated)",
+          "default": "MPH, RD, CISSN, 40+ Patents"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Creators",
+      "blocks": [
+        {
+          "type": "creator",
+          "settings": {
+            "role": "Formulated By",
+            "name": "Shawn Wells",
+            "bio": "World's leading nutritional biochemist with 1,000+ formulations and 40+ patents.",
+            "credentials": "MPH, RD, CISSN, 40+ Patents"
+          }
+        },
+        {
+          "type": "creator",
+          "settings": {
+            "role": "Co-Created By",
+            "name": "Vishen Lakhiani",
+            "bio": "Founder of Mindvalley, NYT bestselling author, transformational learning pioneer.",
+            "credentials": "Mindvalley Founder, 20M+ Community"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

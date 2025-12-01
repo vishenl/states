@@ -1,0 +1,213 @@
+<section class="hero" style="{% if section.settings.background_gradient %}background: linear-gradient(180deg, {{ section.settings.gradient_start }} 0%, {{ section.settings.gradient_end }} 100%);{% else %}background-color: {{ section.settings.background_color }};{% endif %}">
+  <div class="mv-container">
+    {% if section.settings.show_badge and section.settings.badge_text != blank %}
+      <div class="hero-badge">
+        {{ section.settings.badge_icon }}
+        {{ section.settings.badge_text }}
+      </div>
+    {% endif %}
+
+    <h1 class="mv-type--headline1">
+      {% if section.settings.title_highlight != blank %}
+        {{ section.settings.title_before }} <span>{{ section.settings.title_highlight }}</span> {{ section.settings.title_after }}
+      {% else %}
+        {{ section.settings.title }}
+      {% endif %}
+    </h1>
+
+    {% if section.settings.subtitle != blank %}
+      <p class="hero-sub">{{ section.settings.subtitle }}</p>
+    {% endif %}
+
+    {% if section.settings.show_cta %}
+      <a href="{{ section.settings.cta_link }}" class="btn-primary">
+        {{ section.settings.cta_text }}
+        {% if section.settings.show_cta_arrow %}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        {% endif %}
+      </a>
+    {% endif %}
+
+    {% if section.settings.show_trust_badges %}
+      <div class="hero-trust">
+        {% for block in section.blocks %}
+          {% if block.type == 'trust_badge' %}
+            <div class="trust-item">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+              </svg>
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "hero-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_icon",
+      "label": "Badge icon (emoji)",
+      "default": "🧬"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Science-Backed Nootropics"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Design Your Optimal State"
+    },
+    {
+      "type": "text",
+      "id": "title_before",
+      "label": "Title (before highlight)"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight",
+      "label": "Title (highlighted)",
+      "default": "Optimal State"
+    },
+    {
+      "type": "text",
+      "id": "title_after",
+      "label": "Title (after highlight)"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Premium nootropics designed to help you shift your mental and emotional state on demand."
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta_arrow",
+      "label": "Show arrow icon",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Trust Badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "checkbox",
+      "id": "background_gradient",
+      "label": "Use gradient background",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "gradient_start",
+      "label": "Gradient start color",
+      "default": "#f5f0ff"
+    },
+    {
+      "type": "color",
+      "id": "gradient_end",
+      "label": "Gradient end color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Badge text",
+          "default": "60-Day Money Back"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "blocks": [
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "60-Day Money Back"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Third-Party Tested"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Free US Shipping"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

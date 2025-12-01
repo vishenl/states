@@ -1,0 +1,146 @@
+{
+  "sections": {
+    "science-hero": {
+      "type": "science-hero",
+      "settings": {
+        "show_badge": true,
+        "badge_icon": "🧬",
+        "badge_text": "Research & Development",
+        "title_before": "The",
+        "title_highlight": "Science",
+        "title_after": "Behind States",
+        "subtitle": "Every ingredient in our formulas is backed by peer-reviewed research and clinical studies. We use only patented compounds with proven efficacy.",
+        "show_stats": true
+      },
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "12+",
+            "label": "Patented Compounds"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "90+",
+            "label": "Clinical Studies"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "40+",
+            "label": "Patents Held"
+          }
+        },
+        "stat-4": {
+          "type": "stat",
+          "settings": {
+            "value": "1000+",
+            "label": "Formulations"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3", "stat-4"]
+    },
+    "creators": {
+      "type": "creators",
+      "settings": {
+        "title": "World-Class Formulators"
+      },
+      "blocks": {
+        "creator-1": {
+          "type": "creator",
+          "settings": {
+            "role": "Lead Formulator",
+            "name": "Shawn Wells",
+            "bio": "Known as the 'Ingredientologist,' Shawn Wells is the world's leading nutritional biochemist and formulator. With 1,000+ formulations created and 40+ patents held, he's the mind behind many of the supplement industry's most innovative products.",
+            "credentials": "MPH, RD, CISSN, FISSN, 40+ Patents"
+          }
+        },
+        "creator-2": {
+          "type": "creator",
+          "settings": {
+            "role": "Co-Creator",
+            "name": "Vishen Lakhiani",
+            "bio": "Founder of Mindvalley, one of the world's most powerful transformational learning platforms. NYT bestselling author and pioneer in personal growth, biohacking, and human potential optimization.",
+            "credentials": "Mindvalley Founder, 20M+ Community, NYT Bestselling Author"
+          }
+        }
+      },
+      "block_order": ["creator-1", "creator-2"]
+    },
+    "clinical-stats": {
+      "type": "clinical-stats",
+      "settings": {
+        "title": "Our Quality Standards",
+        "subtitle": "Every batch is tested and verified for purity, potency, and safety",
+        "background_color": "#f9fafb"
+      },
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Natural Ingredients"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "0",
+            "label": "Artificial Additives"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "GMP",
+            "label": "Certified Facility"
+          }
+        },
+        "stat-4": {
+          "type": "stat",
+          "settings": {
+            "value": "3rd Party",
+            "label": "Lab Tested"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3", "stat-4"]
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "settings": {
+        "title": "Our Approach to Formulation",
+        "content": "<p>Unlike typical supplement companies that chase trends, we work backward from results. Every States formula begins with a clear outcome in mind, then uses only ingredients with clinical evidence supporting that specific outcome.</p><p>We use patented, trademarked ingredients whenever possible because they offer guaranteed potency and verified research. This costs more, but ensures you get exactly what the science says works.</p><p>We also use clinical doses - the exact amounts shown to be effective in research studies. No fairy-dusting or proprietary blends that hide inadequate amounts.</p>",
+        "center_text": false,
+        "narrow_width": true
+      }
+    },
+    "cta": {
+      "type": "hero-banner",
+      "settings": {
+        "show_badge": false,
+        "title": "Experience Science-Backed Performance",
+        "subtitle": "Try States and feel the difference clinically-validated ingredients can make.",
+        "show_cta": true,
+        "cta_text": "Shop All Products",
+        "cta_link": "/collections/all",
+        "show_trust_badges": false,
+        "background_gradient": true,
+        "gradient_start": "#7a12d4",
+        "gradient_end": "#5b21b6"
+      }
+    }
+  },
+  "order": [
+    "science-hero",
+    "creators",
+    "clinical-stats",
+    "rich-text",
+    "cta"
+  ]
+}
+

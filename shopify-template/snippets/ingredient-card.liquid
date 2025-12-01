@@ -1,0 +1,48 @@
+{% comment %}
+  Ingredient Card Snippet
+  
+  Parameters:
+  - name: Ingredient name
+  - subtitle: Ingredient category/subtitle
+  - dose: Dosage amount
+  - dose_color: Color for dose badge
+  - description: Ingredient description
+  - stat1_value: First stat value
+  - stat1_label: First stat label
+  - stat2_value: Second stat value
+  - stat2_label: Second stat label
+{% endcomment %}
+
+<div class="ingredient-card">
+  <div class="ingredient-header">
+    <div class="ingredient-name">
+      {{ name }}
+      {% if subtitle != blank %}
+        <span>{{ subtitle }}</span>
+      {% endif %}
+    </div>
+    <div class="ingredient-dose" {% if dose_color %}style="background-color: {{ dose_color }};"{% endif %}>
+      {{ dose }}
+    </div>
+  </div>
+  
+  <div class="ingredient-desc">
+    {{ description }}
+  </div>
+  
+  {% if stat1_label != blank or stat2_label != blank %}
+    <div class="ingredient-stats">
+      {% if stat1_label != blank %}
+        <div class="ingredient-stat">
+          <strong {% if dose_color %}style="color: {{ dose_color }};"{% endif %}>{{ stat1_value }}</strong> {{ stat1_label }}
+        </div>
+      {% endif %}
+      {% if stat2_label != blank %}
+        <div class="ingredient-stat">
+          <strong {% if dose_color %}style="color: {{ dose_color }};"{% endif %}>{{ stat2_value }}</strong> {{ stat2_label }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+

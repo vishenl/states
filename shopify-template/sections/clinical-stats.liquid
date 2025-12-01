@@ -1,0 +1,120 @@
+<section class="clinical" style="background-color: {{ section.settings.background_color }};">
+  <div class="mv-container">
+    <div class="section-header">
+      <h2 class="mv-type--headline3">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p>{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+    
+    <div class="clinical-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'stat' %}
+          <div class="clinical-card" {{ block.shopify_attributes }}>
+            <div class="clinical-stat" style="color: {{ block.settings.color | default: '#7a12d4' }};">
+              {{ block.settings.value }}
+            </div>
+            <div class="clinical-label">{{ block.settings.label }}</div>
+            {% if block.settings.source != blank %}
+              <div class="clinical-source">{{ block.settings.source }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Clinical Stats",
+  "tag": "section",
+  "class": "clinical-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Backed By Science"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section subtitle"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f9fafb"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Stat value",
+          "default": "12+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Stat label",
+          "default": "Patented Ingredients"
+        },
+        {
+          "type": "text",
+          "id": "source",
+          "label": "Source (optional)"
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Value color",
+          "default": "#7a12d4"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clinical Stats",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "value": "12+",
+            "label": "Patented Ingredients"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "90+",
+            "label": "Clinical Studies"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Natural Formula"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "0",
+            "label": "Artificial Additives"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% comment %} CSS Variables for theme customization {% endcomment %}
+    {% render 'css-variables' %}
+
+    {% comment %} Mindvalley Fonts - Sharp Grotesk {% endcomment %}
+    <link rel="preconnect" href="https://storyblok-assets.mindvalley.com" crossorigin>
+    
+    {% comment %} Theme CSS {% endcomment %}
+    {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+    
+    {% comment %} Meta tags for SEO and social {% endcomment %}
+    {% render 'meta-tags' %}
+    
+    <title>
+      {%- if request.page_type == 'index' -%}
+        {{ shop.name }} - Design Your Optimal State
+      {%- else -%}
+        {{ page_title }} | {{ shop.name }}
+      {%- endif -%}
+    </title>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix }}{% endif %}">
+    {% comment %} Announcement Bar (optional) {% endcomment %}
+    {% section 'announcement-bar' %}
+    
+    {% comment %} Header Section {% endcomment %}
+    {% section 'header' %}
+
+    <main id="main-content" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% comment %} Footer Section {% endcomment %}
+    {% section 'footer' %}
+
+    {% comment %} Cart Drawer {% endcomment %}
+    {% section 'cart-drawer' %}
+
+    {% comment %} Theme JavaScript {% endcomment %}
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  </body>
+</html>

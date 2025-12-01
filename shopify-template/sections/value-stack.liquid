@@ -1,0 +1,133 @@
+<section class="value-stack">
+  <div class="mv-container">
+    <div class="value-content">
+      <h2 class="mv-type--headline3">{{ section.settings.title }}</h2>
+      
+      <ul class="value-list">
+        {% for block in section.blocks %}
+          {% if block.type == 'value_item' %}
+            <li {{ block.shopify_attributes }}>
+              <span class="value-check">✓</span>
+              <span>{{ block.settings.text }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    
+    <div class="value-total">
+      <div class="value-total-label">{{ section.settings.total_label }}</div>
+      <div class="value-total-price">{{ section.settings.total_price }}</div>
+      <div class="value-total-note">{{ section.settings.total_note }}</div>
+      
+      {% if section.settings.show_cta %}
+        <a href="{{ section.settings.cta_link }}" class="value-cta btn-primary">
+          {{ section.settings.cta_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Value Stack",
+  "tag": "section",
+  "class": "value-stack-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Everything You Get"
+    },
+    {
+      "type": "text",
+      "id": "total_label",
+      "label": "Total label",
+      "default": "Total Value"
+    },
+    {
+      "type": "text",
+      "id": "total_price",
+      "label": "Total price",
+      "default": "$99"
+    },
+    {
+      "type": "text",
+      "id": "total_note",
+      "label": "Total note",
+      "default": "For a limited time only"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "Get Started Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value_item",
+      "name": "Value Item",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Item text",
+          "default": "<strong>$49 value</strong> - Premium ingredient formula"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Value Stack",
+      "blocks": [
+        {
+          "type": "value_item",
+          "settings": {
+            "text": "<strong>FOCUS</strong> - Enhanced concentration & mental clarity"
+          }
+        },
+        {
+          "type": "value_item",
+          "settings": {
+            "text": "<strong>ZEN</strong> - Calm focus without drowsiness"
+          }
+        },
+        {
+          "type": "value_item",
+          "settings": {
+            "text": "<strong>BLISS</strong> - Mood elevation & social confidence"
+          }
+        },
+        {
+          "type": "value_item",
+          "settings": {
+            "text": "<strong>DREAM</strong> - Deep, restorative sleep"
+          }
+        },
+        {
+          "type": "value_item",
+          "settings": {
+            "text": "<strong>GAZM</strong> - Intimacy & connection"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

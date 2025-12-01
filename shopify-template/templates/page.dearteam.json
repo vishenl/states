@@ -1,0 +1,73 @@
+{
+  "sections": {
+    "page-hero": {
+      "type": "page-hero",
+      "settings": {
+        "show_badge": true,
+        "badge_icon": "👋",
+        "badge_text": "A Message to Our Team",
+        "title": "Dear Team",
+        "title_before": "Dear",
+        "title_highlight": "Team",
+        "title_after": "",
+        "subtitle": "A personal note from our founder about States and our mission.",
+        "background": "linear-gradient(180deg, #f5f0ff 0%, #ffffff 100%)"
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "settings": {
+        "title": "",
+        "content": "<p>Dear Team,</p><p>I wanted to share something deeply personal with you - the story behind States and why I believe it represents the future of human optimization.</p><p>For years, I've been fascinated by a simple question: What if we could consciously choose our mental and emotional state at any moment? Not through force or suppression, but by giving our brain and body exactly what it needs to shift naturally.</p><p>That question led to States - five carefully formulated compounds, each designed for a specific outcome. FOCUS for when you need clarity. ZEN for calm without drowsiness. BLISS for elevated mood and connection. DREAM for restorative sleep. And GAZM for deeper intimacy.</p><p>Working with Shawn Wells, one of the world's leading formulators with over 1,000 products and 40 patents to his name, we created something I believe is unprecedented: nootropics that actually work, backed by real clinical research, using patented ingredients at proper doses.</p><p>No proprietary blends hiding inadequate amounts. No cheap fillers. No compromise on quality.</p><p>I invite you to try States and experience the difference for yourself. I believe once you do, you'll understand why I'm so passionate about bringing this to the world.</p><p>To your optimal states,</p><p><strong>Vishen Lakhiani</strong><br>Founder, Mindvalley</p>",
+        "center_text": false,
+        "narrow_width": true,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "creators": {
+      "type": "creators",
+      "settings": {
+        "title": "The Minds Behind States"
+      },
+      "blocks": {
+        "creator-1": {
+          "type": "creator",
+          "settings": {
+            "role": "Founder",
+            "name": "Vishen Lakhiani",
+            "bio": "Founder of Mindvalley, one of the world's most powerful transformational learning platforms reaching 20+ million people globally.",
+            "credentials": "Mindvalley Founder, NYT Bestselling Author"
+          }
+        },
+        "creator-2": {
+          "type": "creator",
+          "settings": {
+            "role": "Formulator",
+            "name": "Shawn Wells",
+            "bio": "World's leading nutritional biochemist known as the 'Ingredientologist' with over 1,000 formulations and 40+ patents.",
+            "credentials": "MPH, RD, CISSN, 40+ Patents"
+          }
+        }
+      },
+      "block_order": ["creator-1", "creator-2"]
+    },
+    "cta": {
+      "type": "cross-sell",
+      "settings": {
+        "title": "Experience States for Yourself",
+        "subtitle": "Try the complete States Box Set and discover your optimal states.",
+        "product_tagline": "FOCUS + ZEN + BLISS + DREAM + GAZM",
+        "button_text": "Try States Now",
+        "background_gradient": "linear-gradient(135deg, #7a12d4 0%, #5b21b6 100%)"
+      }
+    }
+  },
+  "order": [
+    "page-hero",
+    "rich-text",
+    "creators",
+    "cta"
+  ]
+}
+

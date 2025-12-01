@@ -1,0 +1,63 @@
+{% if section.settings.show_announcement %}
+<div class="announcement-bar" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};">
+  <div class="mv-container">
+    <p class="announcement-text">
+      {% if section.settings.announcement_link != blank %}
+        <a href="{{ section.settings.announcement_link }}" style="color: {{ section.settings.text_color }};">
+          {{ section.settings.announcement_text }}
+        </a>
+      {% else %}
+        {{ section.settings.announcement_text }}
+      {% endif %}
+    </p>
+    
+    {% if section.settings.show_close_button %}
+      <button class="announcement-close" aria-label="Close announcement">&times;</button>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement bar",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Free shipping on orders over $99"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link (optional)"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#7a12d4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_close_button",
+      "label": "Show close button",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+

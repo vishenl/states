@@ -1,0 +1,90 @@
+<section class="page-hero" style="background: {{ section.settings.background }};">
+  <div class="mv-container">
+    {% if section.settings.show_badge and section.settings.badge_text != blank %}
+      <div class="hero-badge" style="{% if section.settings.badge_bg %}background: {{ section.settings.badge_bg }};{% endif %}">
+        {{ section.settings.badge_icon }} {{ section.settings.badge_text }}
+      </div>
+    {% endif %}
+
+    <h1 class="mv-type--headline2">
+      {% if section.settings.title_highlight != blank %}
+        {{ section.settings.title_before }} <span>{{ section.settings.title_highlight }}</span> {{ section.settings.title_after }}
+      {% else %}
+        {{ page.title | default: section.settings.title }}
+      {% endif %}
+    </h1>
+
+    {% if section.settings.subtitle != blank %}
+      <p class="hero-sub">{{ section.settings.subtitle }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page Hero",
+  "tag": "section",
+  "class": "page-hero-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show badge",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "badge_icon",
+      "label": "Badge icon (emoji)",
+      "default": "📄"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg",
+      "label": "Badge background color"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title (fallback if no page title)"
+    },
+    {
+      "type": "text",
+      "id": "title_before",
+      "label": "Title (before highlight)"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight",
+      "label": "Title (highlighted)"
+    },
+    {
+      "type": "text",
+      "id": "title_after",
+      "label": "Title (after highlight)"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "background",
+      "label": "Background (CSS)",
+      "default": "linear-gradient(180deg, #f5f0ff 0%, #ffffff 100%)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Hero"
+    }
+  ]
+}
+{% endschema %}
+

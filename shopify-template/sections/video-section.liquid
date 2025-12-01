@@ -1,0 +1,114 @@
+<section class="video-section" style="background-color: {{ section.settings.background_color }};">
+  <div class="video-container mv-container">
+    {% if section.settings.show_header %}
+      <div class="section-header">
+        <h2 class="mv-type--headline3">{{ section.settings.title }}</h2>
+        {% if section.settings.subtitle != blank %}
+          <p>{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    <div class="video-wrapper" data-video-id="{{ section.settings.video_id }}" data-video-type="{{ section.settings.video_type }}">
+      {% if section.settings.thumbnail != blank %}
+        <img 
+          src="{{ section.settings.thumbnail | image_url: width: 1200 }}" 
+          alt="{{ section.settings.title }}"
+          loading="lazy"
+        >
+      {% else %}
+        <div class="video-placeholder"></div>
+      {% endif %}
+      
+      <button class="play-button" aria-label="Play video">
+        <svg width="32" height="32" fill="{{ section.settings.play_button_color | default: '#7a12d4' }}" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+    </div>
+    
+    {% if section.settings.caption != blank %}
+      <p class="video-caption">{{ section.settings.caption }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video Section",
+  "tag": "section",
+  "class": "video-section-wrapper",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "See It In Action"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section subtitle"
+    },
+    {
+      "type": "image_picker",
+      "id": "thumbnail",
+      "label": "Video thumbnail"
+    },
+    {
+      "type": "select",
+      "id": "video_type",
+      "label": "Video type",
+      "options": [
+        {
+          "value": "youtube",
+          "label": "YouTube"
+        },
+        {
+          "value": "vimeo",
+          "label": "Vimeo"
+        },
+        {
+          "value": "hosted",
+          "label": "Hosted video"
+        }
+      ],
+      "default": "youtube"
+    },
+    {
+      "type": "text",
+      "id": "video_id",
+      "label": "Video ID or URL"
+    },
+    {
+      "type": "color",
+      "id": "play_button_color",
+      "label": "Play button color",
+      "default": "#7a12d4"
+    },
+    {
+      "type": "textarea",
+      "id": "caption",
+      "label": "Video caption (optional)"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f9fafb"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Section"
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "page-hero": {
+      "type": "page-hero",
+      "settings": {
+        "show_badge": true,
+        "badge_icon": "📊",
+        "badge_text": "Analysis Report",
+        "title": "Your States Analysis",
+        "title_before": "Your",
+        "title_highlight": "States",
+        "title_after": "Analysis",
+        "subtitle": "Based on your assessment, here's your personalized States optimization plan.",
+        "background": "linear-gradient(180deg, #f5f0ff 0%, #ffffff 100%)"
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "settings": {
+        "title": "Understanding Your Results",
+        "content": "<p>This analysis report provides insights into your current mental and emotional patterns, along with specific recommendations for which States products may help optimize your daily performance.</p><p>Remember: States are tools for optimization, not quick fixes. The best results come from consistent use alongside healthy lifestyle habits.</p>",
+        "center_text": false,
+        "narrow_width": true
+      }
+    },
+    "cta": {
+      "type": "cross-sell",
+      "settings": {
+        "title": "Start Your States Journey",
+        "subtitle": "Based on your analysis, we recommend starting with the Box Set to discover which States work best for you.",
+        "product_tagline": "FOCUS + ZEN + BLISS + DREAM + GAZM",
+        "button_text": "Get the Box Set",
+        "background_gradient": "linear-gradient(135deg, #7a12d4 0%, #5b21b6 100%)"
+      }
+    }
+  },
+  "order": [
+    "page-hero",
+    "rich-text",
+    "cta"
+  ]
+}
+

@@ -1,0 +1,83 @@
+{
+  "sections": {
+    "quiz": {
+      "type": "quiz",
+      "settings": {
+        "intro_icon": "🎯",
+        "intro_title": "Find Your Perfect States",
+        "intro_subtitle": "Answer a few quick questions and we'll recommend the perfect States combination for your unique lifestyle and goals.",
+        "start_button_text": "Start Quiz",
+        "results_title": "Your Personalized Recommendation",
+        "results_subtitle": "Based on your answers, here's your ideal States protocol."
+      },
+      "blocks": {
+        "intro-1": {
+          "type": "intro_feature",
+          "settings": {
+            "text": "Takes 2 minutes"
+          }
+        },
+        "intro-2": {
+          "type": "intro_feature",
+          "settings": {
+            "text": "Personalized results"
+          }
+        },
+        "intro-3": {
+          "type": "intro_feature",
+          "settings": {
+            "text": "Science-backed"
+          }
+        },
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "What's your primary goal right now?",
+            "subtext": "Select the area you want to improve most",
+            "options": "Better Focus:Improve concentration and productivity:🎯|More Energy:Feel more alert without jitters:⚡|Stress Relief:Reduce anxiety and feel calm:🧘|Better Sleep:Improve sleep quality:🌙|Mood Boost:Feel happier and more social:😊|Enhanced Intimacy:Deeper connection with partner:💕",
+            "multi_select": false
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "When do you need the most support?",
+            "subtext": "Choose the time of day you struggle most",
+            "options": "Morning:Starting my day right:🌅|Afternoon:Beating the post-lunch slump:☀️|Evening:Winding down from work:🌆|Night:Getting quality sleep:🌙|Social Events:Parties and gatherings:🎉|All Day:Need consistent support:🔄",
+            "multi_select": false
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "What's your biggest challenge?",
+            "subtext": "Select all that apply",
+            "options": "Brain Fog:Difficulty thinking clearly:🧠|Low Energy:Feeling tired throughout the day:🔋|Stress:Overwhelm and anxiety:😰|Poor Sleep:Trouble falling or staying asleep:😴|Social Anxiety:Feeling uncomfortable in groups:👥|Low Motivation:Struggling to get started:📉",
+            "multi_select": true
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "What's your caffeine sensitivity?",
+            "options": "High:I'm sensitive to caffeine:☕|Normal:Regular coffee drinker:☕☕|Low:Caffeine doesn't affect me much:☕☕☕",
+            "multi_select": false
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "What describes your lifestyle best?",
+            "options": "High Performance:Entrepreneur, executive, or athlete:🚀|Creative:Artist, writer, or designer:🎨|Student:Learning and studying regularly:📚|Wellness Focused:Health and balance are priorities:🧘|Social Butterfly:Active social and dating life:🦋",
+            "multi_select": false
+          }
+        }
+      },
+      "block_order": ["intro-1", "intro-2", "intro-3", "q1", "q2", "q3", "q4", "q5"]
+    }
+  },
+  "order": [
+    "quiz"
+  ]
+}
+

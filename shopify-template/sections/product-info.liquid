@@ -1,0 +1,268 @@
+<div class="product-info">
+  {% comment %} Product Badge {% endcomment %}
+  {% if product.metafields.custom.badge_text %}
+    <div class="product-badge" style="background-color: {{ product.metafields.custom.badge_bg | default: '#f5f0ff' }}; color: {{ product.metafields.custom.product_color | default: '#7a12d4' }};">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/>
+      </svg>
+      {{ product.metafields.custom.badge_text }}
+    </div>
+  {% endif %}
+
+  {% comment %} Product Title {% endcomment %}
+  <h1 class="product-title">{{ product.title }}</h1>
+  
+  {% comment %} Product Tagline {% endcomment %}
+  {% if product.metafields.custom.tagline %}
+    <p class="product-tagline">{{ product.metafields.custom.tagline }}</p>
+  {% endif %}
+
+  {% comment %} Rating {% endcomment %}
+  {% if section.settings.show_rating %}
+    <div class="product-rating">
+      <span class="stars">★★★★★</span>
+      <span class="rating-text">
+        {{ section.settings.rating_value }}/5 based on 
+        <a href="#testimonials">{{ section.settings.review_count }} reviews</a>
+      </span>
+    </div>
+  {% endif %}
+
+  {% comment %} Clinical Highlights {% endcomment %}
+  {% if section.settings.show_clinical_highlights %}
+    <div class="clinical-highlights">
+      <h4>{{ section.settings.clinical_title | default: 'Clinically Validated Results' }}</h4>
+      <div class="clinical-stats">
+        {% for block in section.blocks %}
+          {% if block.type == 'clinical_stat' %}
+            <div class="clinical-stat">
+              <div class="clinical-stat-value" style="color: {{ product.metafields.custom.product_color | default: '#7a12d4' }};">
+                {{ block.settings.value }}
+              </div>
+              <div class="clinical-stat-label">{{ block.settings.label }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% comment %} Pricing Section {% endcomment %}
+  <div class="pricing-section">
+    {% form 'product', product %}
+      {% comment %} Pricing Options {% endcomment %}
+      {% if product.selling_plan_groups.size > 0 %}
+        <div class="pricing-options">
+          {% comment %} Subscribe Option {% endcomment %}
+          {% for selling_plan_group in product.selling_plan_groups %}
+            {% for selling_plan in selling_plan_group.selling_plans %}
+              <div class="pricing-option" data-selling-plan="{{ selling_plan.id }}">
+                <div class="pricing-radio"></div>
+                <div class="pricing-details">
+                  <div class="pricing-label">
+                    {{ selling_plan.name }}
+                    {% if selling_plan.price_adjustments[0].value > 0 %}
+                      <span class="save-badge">SAVE {{ selling_plan.price_adjustments[0].value }}%</span>
+                    {% endif %}
+                  </div>
+                  <div class="pricing-desc">Delivered monthly. Cancel anytime.</div>
+                </div>
+                <div class="pricing-amount">
+                  {{ product.selected_or_first_available_variant.price | times: selling_plan.price_adjustments[0].value | divided_by: 100 | minus: product.selected_or_first_available_variant.price | abs | money }}<span>/mo</span>
+                </div>
+              </div>
+            {% endfor %}
+          {% endfor %}
+          
+          {% comment %} One-time Purchase Option {% endcomment %}
+          <div class="pricing-option selected" data-selling-plan="">
+            <div class="pricing-radio"></div>
+            <div class="pricing-details">
+              <div class="pricing-label">One-Time Purchase</div>
+              <div class="pricing-desc">{{ product.metafields.custom.supply_duration | default: '30-day supply (30 servings)' }}</div>
+            </div>
+            <div class="pricing-amount">{{ product.selected_or_first_available_variant.price | money }}</div>
+          </div>
+        </div>
+      {% else %}
+        <div class="pricing-simple">
+          <div class="price-current">{{ product.selected_or_first_available_variant.price | money }}</div>
+          {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+            <div class="price-compare">{{ product.selected_or_first_available_variant.compare_at_price | money }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% comment %} Hidden inputs {% endcomment %}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="selling_plan" id="selling-plan-input" value="">
+
+      {% comment %} Quantity & Add to Cart {% endcomment %}
+      <div class="purchase-row">
+        <div class="qty-selector">
+          <button type="button" class="qty-btn qty-decrease" aria-label="Decrease quantity">-</button>
+          <input type="number" name="quantity" class="qty-value" id="qty-value" value="1" min="1" max="10" readonly>
+          <button type="button" class="qty-btn qty-increase" aria-label="Increase quantity">+</button>
+        </div>
+        
+        <button type="submit" class="add-to-cart" {% unless product.available %}disabled{% endunless %}>
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+          {% if product.available %}
+            Add to Cart - <span id="add-to-cart-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+          {% else %}
+            Sold Out
+          {% endif %}
+        </button>
+      </div>
+    {% endform %}
+
+    {% comment %} Trust Badges {% endcomment %}
+    <div class="trust-badges">
+      {% for block in section.blocks %}
+        {% if block.type == 'trust_badge' %}
+          <div class="trust-badge">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+            </svg>
+            {{ block.settings.text }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Info",
+  "tag": "div",
+  "class": "product-info-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Rating"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_value",
+      "label": "Rating value",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review count",
+      "default": "112"
+    },
+    {
+      "type": "header",
+      "content": "Clinical Highlights"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_clinical_highlights",
+      "label": "Show clinical highlights",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "clinical_title",
+      "label": "Section title",
+      "default": "Clinically Validated Results"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "clinical_stat",
+      "name": "Clinical Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Stat value",
+          "default": "6"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Stat label",
+          "default": "Patented ingredients"
+        }
+      ]
+    },
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Badge text",
+          "default": "60-Day Money Back"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Info",
+      "blocks": [
+        {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "2 hrs",
+            "label": "Effects felt"
+          }
+        },
+        {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "6",
+            "label": "Patented ingredients"
+          }
+        },
+        {
+          "type": "clinical_stat",
+          "settings": {
+            "value": "0",
+            "label": "Side effects"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "60-Day Money Back"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "100% Vegan"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Third-Party Tested"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "text": "Free US Shipping"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
