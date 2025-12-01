@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley States - Strategic Analysis Report</title>
+    <link rel="stylesheet" href="./mv-selfreset-base.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { line-height: 1.7; background: #f9fafb; }
+
+        /* Header */
+        header { background: linear-gradient(135deg, #0f131a 0%, #1e1b4b 100%); color: white; padding: 80px 0 60px; }
+        .header-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 100px; font-size: 13px; margin-bottom: 24px; }
+        header h1 { font-family: Grotesk-Bold, sans-serif; font-size: 2.5rem; margin-bottom: 16px; }
+        header p { font-size: 1.125rem; opacity: 0.8; max-width: 700px; }
+        .report-meta { display: flex; gap: 32px; margin-top: 32px; flex-wrap: wrap; }
+        .report-meta-item { font-size: 14px; opacity: 0.7; }
+        .report-meta-item strong { display: block; opacity: 1; color: #c4b5fd; }
+
+        /* Navigation */
+        .report-nav { background: white; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; z-index: 100; }
+        .report-nav-inner { display: flex; gap: 32px; padding: 16px 0; overflow-x: auto; }
+        .report-nav a { color: #71767f; text-decoration: none; font-size: 14px; font-family: Grotesk-Medium, sans-serif; white-space: nowrap; transition: color 0.2s; }
+        .report-nav a:hover { color: #7a12d4; }
+
+        /* Main Content */
+        main { padding: 60px 0; }
+
+        /* Section Styling */
+        .report-section { background: white; border-radius: 16px; padding: 48px; margin-bottom: 32px; border: 1px solid #e5e7eb; }
+        .report-section h2 { font-family: Grotesk-Bold, sans-serif; font-size: 1.75rem; margin-bottom: 24px; color: #0f131a; display: flex; align-items: center; gap: 12px; }
+        .report-section h2 .section-icon { width: 40px; height: 40px; background: #f5f0ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .report-section h3 { font-family: Grotesk-Bold, sans-serif; font-size: 1.25rem; margin: 32px 0 16px; color: #0f131a; }
+        .report-section h4 { font-family: Grotesk-Bold, sans-serif; font-size: 1rem; margin: 24px 0 12px; color: #4b5563; }
+        .report-section p { color: #4b5563; margin-bottom: 16px; }
+        .report-section ul, .report-section ol { color: #4b5563; margin-left: 24px; margin-bottom: 16px; }
+        .report-section li { margin-bottom: 8px; }
+
+        /* Highlight Cards */
+        .highlight-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 24px 0; }
+        .highlight-card { background: #f9fafb; border-radius: 12px; padding: 24px; border-left: 4px solid #7a12d4; }
+        .highlight-card.green { border-left-color: #10b981; }
+        .highlight-card.orange { border-left-color: #f59e0b; }
+        .highlight-card.red { border-left-color: #ef4444; }
+        .highlight-card h4 { font-family: Grotesk-Bold, sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: #71767f; }
+        .highlight-card p { color: #0f131a; font-size: 15px; margin: 0; }
+
+        /* Priority Cards */
+        .priority-item { display: flex; gap: 16px; padding: 20px; background: #f9fafb; border-radius: 12px; margin-bottom: 16px; }
+        .priority-number { width: 36px; height: 36px; background: #7a12d4; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: Grotesk-Bold, sans-serif; flex-shrink: 0; }
+        .priority-content h4 { font-family: Grotesk-Bold, sans-serif; margin-bottom: 4px; }
+        .priority-content p { margin: 0; font-size: 14px; }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 24px 0; }
+        .stat-card { background: linear-gradient(135deg, #7a12d4 0%, #6a0dad 100%); color: white; padding: 24px; border-radius: 12px; text-align: center; }
+        .stat-card .stat-value { font-family: Grotesk-Bold, sans-serif; font-size: 2rem; }
+        .stat-card .stat-label { font-size: 13px; opacity: 0.9; margin-top: 4px; }
+
+        /* Table */
+        .data-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+        .data-table th, .data-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        .data-table th { background: #f9fafb; font-family: Grotesk-Bold, sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #71767f; }
+        .data-table td { font-size: 14px; color: #4b5563; }
+        .data-table tr:hover td { background: #f9fafb; }
+
+        /* Callout Box */
+        .callout { background: #f5f0ff; border: 1px solid #c4b5fd; border-radius: 12px; padding: 24px; margin: 24px 0; }
+        .callout.success { background: #ecfdf5; border-color: #6ee7b7; }
+        .callout.warning { background: #fffbeb; border-color: #fcd34d; }
+        .callout h4 { font-family: Grotesk-Bold, sans-serif; margin-bottom: 8px; }
+        .callout p { margin: 0; font-size: 14px; }
+
+        /* Product Stack Cards */
+        .stack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin: 24px 0; }
+        .stack-card { background: white; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; }
+        .stack-card h4 { font-family: Grotesk-Bold, sans-serif; color: #7a12d4; margin-bottom: 8px; }
+        .stack-card .stack-time { font-size: 13px; color: #71767f; margin-bottom: 12px; }
+        .stack-card p { font-size: 14px; margin: 0; }
+
+        /* Footer */
+        footer { background: #0f131a; color: white; padding: 40px 0; text-align: center; }
+        footer p { opacity: 0.7; font-size: 14px; }
+
+        @media (max-width: 768px) {
+            header { padding: 60px 0 40px; }
+            header h1 { font-size: 1.75rem; }
+            .report-section { padding: 24px; }
+            .report-nav-inner { gap: 24px; padding: 12px 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="mv-container">
+            <div class="header-badge">Strategic Analysis Report</div>
+            <h1>Mindvalley States<br>Marketing & Website Optimization</h1>
+            <p>A comprehensive analysis of the Mindvalley States product line, marketing strategy, and website optimization opportunities based on product data, customer emails, and scientific research.</p>
+            <div class="report-meta">
+                <div class="report-meta-item">
+                    <strong>Report Date</strong>
+                    November 2025
+                </div>
+                <div class="report-meta-item">
+                    <strong>Data Sources</strong>
+                    Product Labels, Customer Emails, Marketing Videos, Scientific Research
+                </div>
+                <div class="report-meta-item">
+                    <strong>Products Analyzed</strong>
+                    FOCUS, BLISS, ZEN, DREAM, GAZM
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="report-nav">
+        <div class="mv-container">
+            <div class="report-nav-inner">
+                <a href="#executive-summary">Executive Summary</a>
+                <a href="#product-analysis">Product Analysis</a>
+                <a href="#marketing-insights">Marketing Insights</a>
+                <a href="#website-optimization">Website Optimization</a>
+                <a href="#email-strategy">Email Strategy</a>
+                <a href="#recommendations">Recommendations</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="mv-container">
+
+            <!-- Executive Summary -->
+            <section class="report-section" id="executive-summary">
+                <h2><span class="section-icon">1</span> Executive Summary</h2>
+
+                <div class="highlight-grid">
+                    <div class="highlight-card green">
+                        <h4>Key Strength</h4>
+                        <p>Premium formulations with clinically-dosed, patented ingredients (enfinity, PEAK ATP, Synapsa) differentiate States from commodity supplements.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Core Opportunity</h4>
+                        <p>"Choose Your State" positioning is unique in the market. The on-demand, experiential nature of the products is underutilized in current messaging.</p>
+                    </div>
+                    <div class="highlight-card orange">
+                        <h4>Primary Gap</h4>
+                        <p>Time-of-day usage guidance is inconsistent. Users need clearer protocols for when to take each State and how to stack them.</p>
+                    </div>
+                </div>
+
+                <h3>Key Findings</h3>
+                <ol>
+                    <li><strong>Paraxanthine (enfinity) is undermarketed</strong> - This is the most innovative ingredient across the line. The "Coffee 2.0" messaging from Vishen's videos should be more prominent on the website.</li>
+                    <li><strong>State stacking creates upsell opportunities</strong> - Email campaigns mention combining BLISS+GAZM and FOCUS+ZEN, but the website doesn't educate users on stacking protocols.</li>
+                    <li><strong>Scientific credibility is strong but buried</strong> - 23+ clinical studies support the ingredients, but this evidence isn't prominently displayed on product pages.</li>
+                    <li><strong>The Quiz is too short</strong> - The current 3-question quiz doesn't capture enough information to provide truly personalized recommendations including time-of-day guidance.</li>
+                    <li><strong>Pricing psychology favors the Box Set</strong> - At $299 for all 5 States (normally $395+), the Box Set is the obvious value choice. Individual product pages should reinforce this.</li>
+                </ol>
+            </section>
+
+            <!-- Product Analysis -->
+            <section class="report-section" id="product-analysis">
+                <h2><span class="section-icon">2</span> Product Analysis</h2>
+
+                <h3>Formulation Overview</h3>
+                <p>Each State targets a specific neurotransmitter pathway, creating a comprehensive system for mood and cognitive optimization:</p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Primary Pathway</th>
+                            <th>Key Ingredients</th>
+                            <th>Serving Size</th>
+                            <th>Optimal Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>FOCUS</strong></td>
+                            <td>Dopamine + ATP</td>
+                            <td>Paraxanthine 300mg, PEAK ATP 400mg, Alpha GPC 300mg, L-Tyrosine 500mg</td>
+                            <td>4 capsules</td>
+                            <td>Morning / Pre-work</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BLISS</strong></td>
+                            <td>Serotonin + Mood</td>
+                            <td>Synapsa Bacopa 320mg, CurcuPrime 250mg, Paraxanthine 100mg, Zembrin 25mg</td>
+                            <td>2 capsules</td>
+                            <td>Afternoon / Social events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ZEN</strong></td>
+                            <td>GABA + Calm</td>
+                            <td>Lemon Balm 500mg, L-Theanine 200mg, Apigenin 200mg, Rhodioprime 6X 150mg</td>
+                            <td>2 capsules</td>
+                            <td>High-stress moments / Afternoon</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DREAM</strong></td>
+                            <td>Sleep + Recovery</td>
+                            <td>EZGABA 750mg, Mugwort 450mg, DMAE 150mg, Melatonin 0.5mg</td>
+                            <td>4 capsules</td>
+                            <td>30-60 min before bed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>GAZM</strong></td>
+                            <td>Nitric Oxide + Libido</td>
+                            <td>Nitrosigine 1.5g, Beet Root 400mg, Tongkat Ali 200mg, Ashwagandha 120mg</td>
+                            <td>4 capsules</td>
+                            <td>30-60 min before intimacy</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Unique Selling Points by Product</h3>
+
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>FOCUS Differentiators</h4>
+                        <p><strong>Paraxanthine 300mg</strong> - Caffeine's active metabolite without the jitters. Plus PEAK ATP for cellular energy. This is "Coffee 2.0" - the next evolution of energy.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>BLISS Differentiators</h4>
+                        <p><strong>Zembrin 25mg</strong> - Reduces amygdala reactivity (fear center). <strong>Synapsa 320mg</strong> - Clinically proven memory enhancement. Only 2 capsules needed.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>ZEN Differentiators</h4>
+                        <p><strong>Rhodioprime 6X</strong> - 6% salidroside (most concentrated form). <strong>Apigenin 200mg</strong> - Same calming compound in chamomile, but 40x more potent.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>DREAM Differentiators</h4>
+                        <p><strong>EZGABA 750mg</strong> - Crosses blood-brain barrier (unlike regular GABA). <strong>Mugwort 450mg</strong> - Promotes vivid, lucid dreaming for creative insight.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>GAZM Differentiators</h4>
+                        <p><strong>Nitrosigine 1.5g</strong> - Patented arginine silicate for blood flow. <strong>Tongkat Ali + Ashwagandha</strong> - Hormone optimization stack for both genders.</p>
+                    </div>
+                </div>
+
+                <h3>Recommended State Stacks</h3>
+                <p>Based on email campaign content and Shawn Wells' recommendations:</p>
+
+                <div class="stack-grid">
+                    <div class="stack-card">
+                        <h4>The Presentation Stack</h4>
+                        <div class="stack-time">Before important meetings or public speaking</div>
+                        <p><strong>FOCUS + ZEN</strong> - Sharp cognition with calm confidence. Take 30-45 minutes before.</p>
+                    </div>
+                    <div class="stack-card">
+                        <h4>The Social Stack</h4>
+                        <div class="stack-time">Before parties, dates, or social events</div>
+                        <p><strong>BLISS + GAZM</strong> - Elevated mood with enhanced presence and connection.</p>
+                    </div>
+                    <div class="stack-card">
+                        <h4>The Deep Work Stack</h4>
+                        <div class="stack-time">For 4-6 hour focused work sessions</div>
+                        <p><strong>FOCUS alone</strong> - Take on empty stomach for maximum effect. Caffeine-free so no crash.</p>
+                    </div>
+                    <div class="stack-card">
+                        <h4>The Recovery Stack</h4>
+                        <div class="stack-time">After stressful days or travel</div>
+                        <p><strong>ZEN + DREAM</strong> - Calm the nervous system, then transition into deep restorative sleep.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Marketing Insights -->
+            <section class="report-section" id="marketing-insights">
+                <h2><span class="section-icon">3</span> Marketing Insights</h2>
+
+                <h3>Core Messaging Framework (from Vishen's Videos)</h3>
+
+                <div class="callout">
+                    <h4>Key Positioning: "High Vibration" vs "Low Vibration"</h4>
+                    <p>Shawn Wells frames supplements as "high vibration" solutions for optimizing natural brain function, contrasting them with pharmaceuticals/drugs which are "low vibration" because they create dependency and artificial states. This resonates with Mindvalley's conscious, personal-growth audience.</p>
+                </div>
+
+                <h4>Top Messaging Angles (Underutilized on Website)</h4>
+                <ol>
+                    <li><strong>"Design Your Mood on Demand"</strong> - Vishen's core promise. Currently buried.</li>
+                    <li><strong>"Coffee 2.0"</strong> - Paraxanthine is caffeine's active metabolite without side effects. This is a massive hook for coffee drinkers.</li>
+                    <li><strong>"Experiential Supplements"</strong> - Unlike vitamins you can't feel, States create a noticeable shift within 20-30 minutes.</li>
+                    <li><strong>"Sovereignty Over Your State"</strong> - Personal autonomy messaging appeals to the self-empowerment audience.</li>
+                    <li><strong>"The Anti-Drug Approach"</strong> - Working with your brain's natural chemistry, not against it.</li>
+                </ol>
+
+                <h3>Competitor Differentiation</h3>
+                <p>What makes Mindvalley States different from other nootropic brands:</p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Factor</th>
+                            <th>Mindvalley States</th>
+                            <th>Typical Nootropics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Formulation Approach</td>
+                            <td>5 targeted States for specific outcomes</td>
+                            <td>One-size-fits-all "brain pill"</td>
+                        </tr>
+                        <tr>
+                            <td>Ingredient Quality</td>
+                            <td>Patented, clinically-dosed ingredients</td>
+                            <td>Generic ingredients, proprietary blends</td>
+                        </tr>
+                        <tr>
+                            <td>Transparency</td>
+                            <td>Full disclosure of every ingredient and dose</td>
+                            <td>Hidden behind "proprietary blend"</td>
+                        </tr>
+                        <tr>
+                            <td>Time to Effect</td>
+                            <td>20-30 minutes (experiential)</td>
+                            <td>"Take daily for 30 days"</td>
+                        </tr>
+                        <tr>
+                            <td>Brand Trust</td>
+                            <td>Mindvalley's 20M+ community</td>
+                            <td>Unknown brands, Amazon sellers</td>
+                        </tr>
+                        <tr>
+                            <td>Formulator</td>
+                            <td>Shawn Wells (1,000+ formulas, 40+ patents)</td>
+                            <td>Anonymous or unknown</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Email Campaign Analysis</h3>
+                <p>Review of 17 customer emails from Q3 2025:</p>
+
+                <div class="highlight-grid">
+                    <div class="highlight-card green">
+                        <h4>What's Working</h4>
+                        <p>Ingredient deep-dives (Rhodioprime, EZGABA, Nitrosigine) - Educational content builds trust and justifies premium pricing.</p>
+                    </div>
+                    <div class="highlight-card green">
+                        <h4>What's Working</h4>
+                        <p>Use-case scenarios (presentation stack, daily routine) - Practical application helps users visualize benefits.</p>
+                    </div>
+                    <div class="highlight-card orange">
+                        <h4>Opportunity</h4>
+                        <p>Promotional frequency is high (40% off, Black Friday $99) - Risk of training customers to wait for discounts.</p>
+                    </div>
+                    <div class="highlight-card orange">
+                        <h4>Opportunity</h4>
+                        <p>No automated post-purchase sequences for usage guidance - New customers may not know how to use their States optimally.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Website Optimization -->
+            <section class="report-section" id="website-optimization">
+                <h2><span class="section-icon">4</span> Website Optimization</h2>
+
+                <h3>Priority Improvements</h3>
+
+                <div class="priority-item">
+                    <div class="priority-number">1</div>
+                    <div class="priority-content">
+                        <h4>Upgrade the State Assessment Quiz to 10 Questions</h4>
+                        <p>Current 3-question quiz is too shallow. A 10-question quiz can capture lifestyle factors, time-of-day needs, and provide personalized stack recommendations with usage protocols.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">2</div>
+                    <div class="priority-content">
+                        <h4>Add "Coffee 2.0" Section to Homepage</h4>
+                        <p>Paraxanthine is the most innovative ingredient and appeals to the massive coffee-drinking market. Create a dedicated section explaining why it's the "next evolution of caffeine."</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">3</div>
+                    <div class="priority-content">
+                        <h4>Create State Stacking Guide Page</h4>
+                        <p>A dedicated page showing recommended combinations: Presentation Stack, Social Stack, Recovery Stack, etc. This increases average order value and improves user outcomes.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">4</div>
+                    <div class="priority-content">
+                        <h4>Add Time-of-Day Icons to Product Cards</h4>
+                        <p>Simple visual cues (morning sun, afternoon, evening moon, night stars) help users quickly understand when to use each State.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">5</div>
+                    <div class="priority-content">
+                        <h4>Expand Science Page with Clinical Study Summaries</h4>
+                        <p>Create expandable sections for each ingredient showing: study name, participants, results, and citation. This builds trust with skeptical buyers.</p>
+                    </div>
+                </div>
+
+                <h3>Product Page Enhancements</h3>
+                <p>Each individual product page should include:</p>
+                <ul>
+                    <li><strong>Mechanism of Action section</strong> - Simple explanation of how it works in the brain</li>
+                    <li><strong>Best Time to Take</strong> - Clear guidance with clock icon</li>
+                    <li><strong>Pairs Well With</strong> - Cross-sell complementary States</li>
+                    <li><strong>What You'll Feel</strong> - Set expectations for the experience</li>
+                    <li><strong>Clinical Evidence accordion</strong> - Expandable section with study summaries</li>
+                    <li><strong>Box Set CTA</strong> - "Get all 5 States for just $99" reminder on every page</li>
+                </ul>
+
+                <h3>Homepage Improvements</h3>
+                <ul>
+                    <li>Add "Daily State Protocol" visual showing which State to use at each time of day</li>
+                    <li>Add video testimonials from real users (more compelling than text)</li>
+                    <li>Feature the "Coffee 2.0" angle prominently in hero or first section</li>
+                    <li>Add Shawn Wells credentials more prominently - his track record is a major differentiator</li>
+                    <li>Include a "What Makes Us Different" comparison section</li>
+                </ul>
+            </section>
+
+            <!-- Email Strategy -->
+            <section class="report-section" id="email-strategy">
+                <h2><span class="section-icon">5</span> Email Strategy Recommendations</h2>
+
+                <h3>New Automated Sequences to Build</h3>
+
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <h4>Post-Purchase Onboarding (Days 1-14)</h4>
+                        <p>Day 1: Welcome + How to take your first State. Day 3: What to expect. Day 7: Check-in + stacking tips. Day 14: Request review.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>State-Specific Education</h4>
+                        <p>If someone buys FOCUS only, send them content about FOCUS benefits, then introduce complementary States (ZEN for calm focus, DREAM for recovery).</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Reorder Reminder (Day 25)</h4>
+                        <p>Based on 30-day supply, remind customers to reorder before they run out. Include a small incentive for subscription sign-up.</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h4>Win-Back for Single-State Buyers</h4>
+                        <p>30 days after purchase, offer Box Set at special price to customers who only bought one State. "Now that you've experienced FOCUS, try the complete system."</p>
+                    </div>
+                </div>
+
+                <h3>Content Calendar Themes</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Theme</th>
+                            <th>Content Focus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Week 1</td>
+                            <td>Science Deep-Dive</td>
+                            <td>One ingredient spotlight (rotate through key ingredients)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 2</td>
+                            <td>Use Case Scenarios</td>
+                            <td>Real-life applications (presentations, creative work, date nights)</td>
+                        </tr>
+                        <tr>
+                            <td>Week 3</td>
+                            <td>Customer Stories</td>
+                            <td>Testimonials and transformation stories</td>
+                        </tr>
+                        <tr>
+                            <td>Week 4</td>
+                            <td>Stacking Protocols</td>
+                            <td>How to combine States for specific outcomes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Recommendations -->
+            <section class="report-section" id="recommendations">
+                <h2><span class="section-icon">6</span> Top 10 Recommendations</h2>
+
+                <div class="priority-item">
+                    <div class="priority-number">1</div>
+                    <div class="priority-content">
+                        <h4>Launch 10-Question State Assessment Quiz</h4>
+                        <p>Captures lifestyle, time-of-day needs, and goals. Provides personalized recommendations with usage protocols. Increases engagement and conversion.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">2</div>
+                    <div class="priority-content">
+                        <h4>Create "Coffee 2.0" Marketing Campaign</h4>
+                        <p>Paraxanthine is the hero ingredient. Target coffee drinkers who want energy without jitters. This is a massive market opportunity.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">3</div>
+                    <div class="priority-content">
+                        <h4>Build State Stacking Guide</h4>
+                        <p>Dedicated page showing recommended combinations with visual protocols. Increases average order value by 30-50%.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">4</div>
+                    <div class="priority-content">
+                        <h4>Add Time-of-Day Visual System</h4>
+                        <p>Icons and badges showing optimal usage time for each State. Reduces confusion and improves user outcomes.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">5</div>
+                    <div class="priority-content">
+                        <h4>Implement Post-Purchase Email Automation</h4>
+                        <p>Onboarding sequence teaches new customers how to use States effectively. Improves retention and review rates.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">6</div>
+                    <div class="priority-content">
+                        <h4>Expand Science Page with Clinical Evidence</h4>
+                        <p>Add study summaries for each patented ingredient. Builds trust and justifies premium pricing.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">7</div>
+                    <div class="priority-content">
+                        <h4>Add Video Content to Product Pages</h4>
+                        <p>Short clips from Vishen and Shawn Wells explaining each State. Video converts better than text.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">8</div>
+                    <div class="priority-content">
+                        <h4>Create Comparison Section</h4>
+                        <p>"What Makes Us Different" section comparing States to generic nootropics. Address objections proactively.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">9</div>
+                    <div class="priority-content">
+                        <h4>Launch Subscription Option</h4>
+                        <p>Monthly auto-ship with 15-20% discount. Improves LTV and provides predictable revenue.</p>
+                    </div>
+                </div>
+
+                <div class="priority-item">
+                    <div class="priority-number">10</div>
+                    <div class="priority-content">
+                        <h4>Reduce Promotional Frequency</h4>
+                        <p>Current discount frequency (40% off, $99 box set) may be training customers to wait for sales. Consider value-add offers instead of pure discounts.</p>
+                    </div>
+                </div>
+
+                <div class="callout success">
+                    <h4>Implementation Priority</h4>
+                    <p>Start with #1 (Quiz), #3 (Stacking Guide), and #4 (Time-of-Day System) - these have the highest impact on conversion and user experience with moderate development effort. The new 10-question quiz has been created and is ready for implementation.</p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="mv-container">
+            <p>Mindvalley States Strategic Analysis Report - November 2025</p>
+        </div>
+    </footer>
+</body>
+</html>

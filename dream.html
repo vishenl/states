@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DREAM - Drift into Restful, Restorative Sleep | Mindvalley States</title>
+    <link rel="stylesheet" href="./mv-selfreset-base.css">
+    <style>
+        :root {
+            --purple: #7a12d4;
+            --purple-dark: #6a0dad;
+            --purple-light: #c4b5fd;
+            --dream-color: #6366f1;
+            --dream-light: #e0e7ff;
+            --green: #10b981;
+            --orange: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; color: var(--gray-800); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background: white; border-bottom: 1px solid var(--gray-200); position: fixed; width: 100%; top: 0; z-index: 100; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; max-width: 1200px; margin: 0 auto; }
+        .logo { font-weight: 700; font-size: 20px; color: var(--gray-900); text-decoration: none; }
+        .logo span { color: var(--purple); }
+        nav { display: flex; gap: 32px; align-items: center; }
+        nav a { color: var(--gray-600); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        nav a:hover { color: var(--purple); }
+        .nav-products { position: relative; }
+        .nav-dropdown { position: absolute; top: 100%; left: -20px; background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); padding: 12px 0; min-width: 200px; opacity: 0; visibility: hidden; transition: all 0.2s; z-index: 101; }
+        .nav-products:hover .nav-dropdown { opacity: 1; visibility: visible; }
+        .nav-dropdown a { display: flex; align-items: center; gap: 12px; padding: 10px 20px; color: var(--gray-700); font-size: 14px; text-decoration: none; }
+        .nav-dropdown a:hover { background: var(--gray-50); color: var(--purple); }
+        .nav-dropdown a.active { color: var(--dream-color); font-weight: 600; }
+        .nav-dropdown-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .cart-btn { background: var(--gray-900); color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
+        .cart-count { background: var(--purple); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+
+        /* Breadcrumb */
+        .breadcrumb { padding: 100px 20px 20px; background: var(--gray-50); }
+        .breadcrumb-inner { max-width: 1200px; margin: 0 auto; font-size: 14px; color: var(--gray-500); }
+        .breadcrumb a { color: var(--gray-500); text-decoration: none; }
+        .breadcrumb a:hover { color: var(--purple); }
+
+        /* Product Hero */
+        .product-hero { background: var(--gray-50); padding: 0 20px 60px; }
+        .product-hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+        @media (max-width: 900px) { .product-hero-inner { grid-template-columns: 1fr; } }
+
+        /* Product Gallery */
+        .product-gallery { position: sticky; top: 100px; }
+        .main-image { background: white; border-radius: 20px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; overflow: hidden; }
+        .main-image img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .thumbnail-row { display: flex; gap: 12px; }
+        .thumbnail { width: 80px; height: 80px; background: white; border-radius: 12px; cursor: pointer; border: 2px solid transparent; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+        .thumbnail:hover, .thumbnail.active { border-color: var(--dream-color); }
+        .thumbnail img { max-width: 90%; max-height: 90%; object-fit: contain; }
+
+        /* Product Info */
+        .product-info { padding-top: 20px; }
+        .product-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--dream-light); color: var(--dream-color); padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; margin-bottom: 16px; }
+        .product-title { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 8px; color: var(--gray-900); }
+        .product-tagline { font-size: 18px; color: var(--gray-600); margin-bottom: 20px; }
+        .product-rating { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .stars { color: var(--orange); font-size: 16px; letter-spacing: 2px; }
+        .rating-text { font-size: 14px; color: var(--gray-600); }
+        .rating-text a { color: var(--dream-color); text-decoration: none; }
+
+        /* Clinical Highlights */
+        .clinical-highlights { background: white; border-radius: 16px; padding: 20px; margin-bottom: 24px; border: 1px solid var(--gray-200); }
+        .clinical-highlights h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-500); margin-bottom: 16px; }
+        .clinical-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .clinical-stat { text-align: center; }
+        .clinical-stat-value { font-size: 24px; font-weight: 800; color: var(--dream-color); }
+        .clinical-stat-label { font-size: 11px; color: var(--gray-600); margin-top: 4px; }
+
+        /* Pricing */
+        .pricing-section { background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; border: 1px solid var(--gray-200); }
+        .pricing-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .pricing-option { display: flex; align-items: center; gap: 12px; padding: 16px; border: 2px solid var(--gray-200); border-radius: 12px; cursor: pointer; transition: all 0.2s; }
+        .pricing-option:hover { border-color: var(--dream-color); }
+        .pricing-option.selected { border-color: var(--dream-color); background: var(--dream-light); }
+        .pricing-radio { width: 20px; height: 20px; border: 2px solid var(--gray-300); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .pricing-option.selected .pricing-radio { border-color: var(--dream-color); }
+        .pricing-option.selected .pricing-radio::after { content: ''; width: 10px; height: 10px; background: var(--dream-color); border-radius: 50%; }
+        .pricing-details { flex: 1; }
+        .pricing-label { font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+        .pricing-label .save-badge { background: var(--green); color: white; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+        .pricing-desc { font-size: 13px; color: var(--gray-500); margin-top: 2px; }
+        .pricing-amount { font-size: 20px; font-weight: 700; }
+        .pricing-amount span { font-size: 13px; color: var(--gray-500); font-weight: 400; }
+
+        /* Quantity & Add to Cart */
+        .purchase-row { display: flex; gap: 12px; margin-bottom: 16px; }
+        .qty-selector { display: flex; align-items: center; border: 1px solid var(--gray-300); border-radius: 10px; overflow: hidden; }
+        .qty-btn { width: 44px; height: 52px; border: none; background: var(--gray-50); cursor: pointer; font-size: 18px; transition: background 0.2s; }
+        .qty-btn:hover { background: var(--gray-200); }
+        .qty-value { width: 50px; text-align: center; font-weight: 600; font-size: 16px; border: none; background: white; }
+        .add-to-cart { flex: 1; background: var(--dream-color); color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .add-to-cart:hover { background: #4f46e5; transform: translateY(-1px); }
+
+        /* Trust Badges */
+        .trust-badges { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .trust-badge { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--gray-600); }
+        .trust-badge svg { color: var(--green); flex-shrink: 0; }
+
+        /* Benefits Section */
+        .benefits { padding: 80px 20px; background: white; }
+        .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        @media (max-width: 768px) { .benefits-grid { grid-template-columns: 1fr; } }
+        .benefits-image { border-radius: 20px; overflow: hidden; }
+        .benefits-image img { width: 100%; display: block; }
+        .benefits-content h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 24px; }
+        .benefit-list { list-style: none; }
+        .benefit-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-100); }
+        .benefit-item:last-child { border-bottom: none; }
+        .benefit-icon { width: 48px; height: 48px; background: var(--dream-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+        .benefit-text h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .benefit-text p { font-size: 14px; color: var(--gray-600); }
+
+        /* Ingredients Section */
+        .ingredients { padding: 80px 20px; background: var(--gray-900); color: white; }
+        .ingredients .section-header { text-align: center; margin-bottom: 48px; }
+        .ingredients .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 12px; }
+        .ingredients .section-header p { color: var(--gray-400); }
+        .ingredient-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+        .ingredient-card { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 28px; border: 1px solid rgba(255,255,255,0.1); }
+        .ingredient-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+        .ingredient-name { font-size: 18px; font-weight: 700; }
+        .ingredient-name span { display: block; font-size: 13px; color: var(--gray-400); font-weight: 400; margin-top: 4px; }
+        .ingredient-dose { background: var(--dream-color); padding: 6px 12px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+        .ingredient-desc { font-size: 14px; color: var(--gray-300); line-height: 1.7; margin-bottom: 16px; }
+        .ingredient-stats { display: flex; gap: 16px; flex-wrap: wrap; }
+        .ingredient-stat { background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 8px; font-size: 12px; }
+        .ingredient-stat strong { color: var(--dream-color); }
+
+        /* Video Section */
+        .video-section { padding: 80px 20px; background: var(--gray-50); }
+        .video-container { max-width: 900px; margin: 0 auto; }
+        .video-wrapper { position: relative; background: var(--gray-900); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; cursor: pointer; }
+        .video-wrapper img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .play-button svg { margin-left: 4px; }
+
+        /* Testimonials */
+        .testimonials { padding: 80px 20px; background: white; }
+        .testimonials .section-header { text-align: center; margin-bottom: 48px; }
+        .testimonials .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 12px; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; }
+        .testimonial-card { background: var(--gray-50); border-radius: 16px; padding: 32px; }
+        .testimonial-quote { font-size: 16px; color: var(--gray-700); margin-bottom: 24px; line-height: 1.7; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 16px; }
+        .testimonial-avatar { width: 56px; height: 56px; border-radius: 50%; overflow: hidden; }
+        .testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .testimonial-name { font-weight: 600; }
+        .testimonial-title { font-size: 13px; color: var(--gray-500); }
+        .verified { display: inline-flex; align-items: center; gap: 4px; color: var(--green); font-size: 12px; margin-top: 4px; }
+
+        /* Creators */
+        .creators { padding: 80px 20px; background: var(--gray-50); }
+        .creators .section-header { text-align: center; margin-bottom: 48px; }
+        .creators .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; }
+        .creator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        @media (max-width: 768px) { .creator-grid { grid-template-columns: 1fr; } }
+        .creator-card { background: white; border-radius: 20px; padding: 32px; display: flex; gap: 24px; }
+        .creator-image { width: 100px; height: 100px; border-radius: 16px; overflow: hidden; flex-shrink: 0; }
+        .creator-image img { width: 100%; height: 100%; object-fit: cover; }
+        .creator-role { font-size: 11px; color: var(--purple); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .creator-name { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .creator-bio { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+        .creator-creds { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+        .creator-cred { background: var(--gray-100); padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 500; }
+
+        /* Cross-sell */
+        .cross-sell { padding: 80px 20px; background: linear-gradient(135deg, var(--dream-color) 0%, #4f46e5 100%); color: white; text-align: center; }
+        .cross-sell h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 16px; }
+        .cross-sell p { opacity: 0.9; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .cross-sell-card { background: white; border-radius: 20px; padding: 32px; max-width: 500px; margin: 0 auto; color: var(--gray-800); }
+        .cross-sell-card img { width: 200px; margin-bottom: 16px; }
+        .cross-sell-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .cross-sell-card .price { font-size: 28px; font-weight: 700; color: var(--purple); margin: 16px 0; }
+        .cross-sell-card .price span { font-size: 14px; color: var(--gray-500); font-weight: 400; }
+        .cross-sell-btn { background: var(--purple); color: white; border: none; padding: 14px 32px; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer; width: 100%; }
+
+        /* FAQ */
+        .faq { padding: 80px 20px; background: white; }
+        .faq .section-header { text-align: center; margin-bottom: 48px; }
+        .faq .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; }
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--gray-200); }
+        .faq-question { padding: 20px 0; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question::after { content: '+'; font-size: 24px; color: var(--gray-400); transition: transform 0.3s; }
+        .faq-item.open .faq-question::after { transform: rotate(45deg); }
+        .faq-answer { padding: 0 0 20px; color: var(--gray-600); font-size: 15px; line-height: 1.7; display: none; }
+        .faq-item.open .faq-answer { display: block; }
+
+        /* Footer */
+        footer { background: var(--gray-900); color: white; padding: 60px 20px 24px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto; }
+        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        .footer-brand { font-size: 14px; color: var(--gray-400); line-height: 1.7; }
+        .footer-brand .logo { display: block; margin-bottom: 16px; color: white; }
+        .footer-col h4 { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+        .footer-col a { display: block; color: var(--gray-400); text-decoration: none; font-size: 14px; padding: 6px 0; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 48px; padding-top: 24px; text-align: center; color: var(--gray-500); font-size: 13px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+
+        /* Mobile Sticky */
+        .mobile-sticky { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid var(--gray-200); padding: 12px 20px; display: none; z-index: 90; gap: 12px; align-items: center; }
+        @media (max-width: 768px) { .mobile-sticky { display: flex; } body { padding-bottom: 80px; } nav { display: none; } }
+        .mobile-sticky-info { flex: 1; }
+        .mobile-sticky-name { font-weight: 600; font-size: 14px; }
+        .mobile-sticky-price { font-size: 13px; color: var(--gray-500); }
+        .mobile-sticky-btn { background: var(--dream-color); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; }
+
+        /* Cart Sidebar */
+        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; }
+        .cart-overlay.open { display: block; }
+        .cart-sidebar { position: fixed; top: 0; right: -400px; width: 400px; max-width: 100%; height: 100vh; background: white; z-index: 300; transition: right 0.3s; display: flex; flex-direction: column; }
+        .cart-sidebar.open { right: 0; }
+        .cart-header { padding: 20px; border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center; }
+        .cart-header h3 { font-size: 18px; font-weight: 700; }
+        .cart-close { background: none; border: none; font-size: 28px; cursor: pointer; color: var(--gray-500); line-height: 1; }
+        .cart-items { padding: 20px; flex: 1; overflow-y: auto; }
+        .cart-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-100); }
+        .cart-item-img { width: 64px; height: 64px; background: var(--gray-100); border-radius: 8px; overflow: hidden; }
+        .cart-item-img img { width: 100%; height: 100%; object-fit: contain; }
+        .cart-item-info { flex: 1; }
+        .cart-item-name { font-weight: 600; font-size: 14px; }
+        .cart-item-price { font-size: 14px; color: var(--gray-600); margin-top: 4px; }
+        .cart-item-qty { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+        .cart-item-qty button { width: 28px; height: 28px; border: 1px solid var(--gray-300); background: white; border-radius: 6px; cursor: pointer; font-size: 16px; }
+        .cart-footer { padding: 20px; border-top: 1px solid var(--gray-200); }
+        .cart-total { display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+        .cart-checkout { width: 100%; padding: 16px; background: var(--purple); color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer; }
+        .cart-empty { text-align: center; padding: 60px 20px; color: var(--gray-500); }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="mockup.html" class="logo">Mindvalley<span>States</span></a>
+            <nav>
+                <div class="nav-products">
+                    <a href="mockup.html#products">Products ▾</a>
+                    <div class="nav-dropdown">
+                        <a href="mockup.html#products"><span class="nav-dropdown-dot" style="background: var(--purple);"></span> Box Set</a>
+                        <a href="focus.html"><span class="nav-dropdown-dot" style="background: #3b82f6;"></span> FOCUS</a>
+                        <a href="zen.html"><span class="nav-dropdown-dot" style="background: #10b981;"></span> ZEN</a>
+                        <a href="bliss.html"><span class="nav-dropdown-dot" style="background: #f59e0b;"></span> BLISS</a>
+                        <a href="dream.html" class="active"><span class="nav-dropdown-dot" style="background: #6366f1;"></span> DREAM</a>
+                        <a href="gazm.html"><span class="nav-dropdown-dot" style="background: #e11d48;"></span> GAZM</a>
+                    </div>
+                </div>
+                <a href="#ingredients">Ingredients</a>
+                <a href="science.html">Science</a>
+                <a href="testimonials.html">Reviews</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <button class="cart-btn" onclick="openCart()">
+                Cart <span class="cart-count" id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-inner">
+            <a href="mockup.html">Home</a> / <a href="mockup.html#products">Products</a> / <strong>DREAM</strong>
+        </div>
+    </div>
+
+    <!-- Product Hero -->
+    <section class="product-hero">
+        <div class="product-hero-inner">
+            <!-- Gallery -->
+            <div class="product-gallery">
+                <div class="main-image" id="main-image">
+                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Dream_Image_1.jpg?v=1753155924&width=800" alt="DREAM">
+                </div>
+                <div class="thumbnail-row">
+                    <div class="thumbnail active" onclick="changeImage(this, 'https://www.mindvalleystates.com/cdn/shop/files/Dream_Image_1.jpg?v=1753155924&width=800')">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Dream_Image_1.jpg?v=1753155924&width=150" alt="DREAM">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage(this, 'https://www.mindvalleystates.com/cdn/shop/files/Dream_Image_2.jpg?v=1753155924&width=800')">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Dream_Image_2.jpg?v=1753155924&width=150" alt="DREAM">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage(this, 'https://www.mindvalleystates.com/cdn/shop/files/Dream_Image_3.jpg?v=1760015386&width=800')">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Dream_Image_3.jpg?v=1760015386&width=150" alt="DREAM">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage(this, 'https://www.mindvalleystates.com/cdn/shop/files/Dream_Image_4.jpg?v=1760015386&width=800')">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Dream_Image_4.jpg?v=1760015386&width=150" alt="DREAM">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <div class="product-badge">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+                    Deep Sleep & Dreams
+                </div>
+                <h1 class="product-title">DREAM</h1>
+                <p class="product-tagline">Fall asleep faster, dream deeper. Wake up truly refreshed.</p>
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">4.9/5 based on <a href="#testimonials">143 reviews</a></span>
+                </div>
+
+                <!-- Clinical Highlights -->
+                <div class="clinical-highlights">
+                    <h4>Clinically Validated Results</h4>
+                    <div class="clinical-stats">
+                        <div class="clinical-stat">
+                            <div class="clinical-stat-value">750mg</div>
+                            <div class="clinical-stat-label">EZGABA dose</div>
+                        </div>
+                        <div class="clinical-stat">
+                            <div class="clinical-stat-value">0.5mg</div>
+                            <div class="clinical-stat-label">Low-dose melatonin</div>
+                        </div>
+                        <div class="clinical-stat">
+                            <div class="clinical-stat-value">0</div>
+                            <div class="clinical-stat-label">Next-day grogginess</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing -->
+                <div class="pricing-section">
+                    <div class="pricing-options">
+                        <div class="pricing-option" onclick="selectPricing(this, 'subscribe')">
+                            <div class="pricing-radio"></div>
+                            <div class="pricing-details">
+                                <div class="pricing-label">Subscribe & Save <span class="save-badge">SAVE 20%</span></div>
+                                <div class="pricing-desc">Delivered monthly. Cancel anytime.</div>
+                            </div>
+                            <div class="pricing-amount">$39<span>/mo</span></div>
+                        </div>
+                        <div class="pricing-option selected" onclick="selectPricing(this, 'onetime')">
+                            <div class="pricing-radio"></div>
+                            <div class="pricing-details">
+                                <div class="pricing-label">One-Time Purchase</div>
+                                <div class="pricing-desc">30-day supply (30 servings)</div>
+                            </div>
+                            <div class="pricing-amount">$49</div>
+                        </div>
+                    </div>
+
+                    <div class="purchase-row">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                            <input type="text" class="qty-value" id="qty-value" value="1" readonly>
+                            <button class="qty-btn" onclick="updateQty(1)">+</button>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart()">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            Add to Cart - $49
+                        </button>
+                    </div>
+
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                            60-Day Money Back
+                        </div>
+                        <div class="trust-badge">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                            100% Vegan
+                        </div>
+                        <div class="trust-badge">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                            Third-Party Tested
+                        </div>
+                        <div class="trust-badge">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                            Free US Shipping
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-grid">
+                <div class="benefits-image">
+                    <img src="https://www.mindvalleystates.com/cdn/shop/files/DREAM_1.jpg?v=1717140430&width=800" alt="DREAM Benefits">
+                </div>
+                <div class="benefits-content">
+                    <h2>For Deep Sleep and Lucid Dreams</h2>
+                    <ul class="benefit-list">
+                        <li class="benefit-item">
+                            <div class="benefit-icon">😴</div>
+                            <div class="benefit-text">
+                                <h4>Fall Asleep Faster</h4>
+                                <p>Gentle, non-sedating formula that helps you drift off naturally without forcing sleep.</p>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon">🌙</div>
+                            <div class="benefit-text">
+                                <h4>Vivid Dream Enhancement</h4>
+                                <p>Mugwort extract promotes lucid dreaming and enhanced dream recall for subconscious exploration.</p>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon">🧠</div>
+                            <div class="benefit-text">
+                                <h4>Overnight Brain Recovery</h4>
+                                <p>Support REM sleep and memory consolidation while your brain recovers and repairs.</p>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon">☀️</div>
+                            <div class="benefit-text">
+                                <h4>Wake Up Refreshed</h4>
+                                <p>Low-dose melatonin (0.5mg) means no grogginess - just clear, energized mornings.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ingredients -->
+    <section class="ingredients" id="ingredients">
+        <div class="container">
+            <div class="section-header">
+                <h2>The DREAM Formula</h2>
+                <p>5 nature-powered ingredients for restorative sleep and vivid dreams</p>
+            </div>
+            <div class="ingredient-cards">
+                <div class="ingredient-card">
+                    <div class="ingredient-header">
+                        <div class="ingredient-name">EZGABA<span>Patented Neural Calmer</span></div>
+                        <div class="ingredient-dose">750mg</div>
+                    </div>
+                    <div class="ingredient-desc">A patented, "tingle-free" form of GABA that effectively dims neural activity to prepare for sleep. Promotes relaxation and enhances overall sleep quality including REM sleep.</div>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>REM</strong> support</div>
+                        <div class="ingredient-stat"><strong>No</strong> tingles</div>
+                    </div>
+                </div>
+                <div class="ingredient-card">
+                    <div class="ingredient-header">
+                        <div class="ingredient-name">Magnesium Glycinate<span>Restorative Mineral</span></div>
+                        <div class="ingredient-dose">85mg</div>
+                    </div>
+                    <div class="ingredient-desc">The most bioavailable form of magnesium, crucial for regulating neurotransmitters and promoting muscle relaxation. The glycine component further aids brain calming.</div>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>High</strong> absorption</div>
+                        <div class="ingredient-stat"><strong>Muscle</strong> relaxation</div>
+                    </div>
+                </div>
+                <div class="ingredient-card">
+                    <div class="ingredient-header">
+                        <div class="ingredient-name">Mugwort Extract<span>Dream Enhancer</span></div>
+                        <div class="ingredient-dose">450mg</div>
+                    </div>
+                    <div class="ingredient-desc">A concentrated extract traditionally used for its sedative effects and unique ability to increase dream recall and vividness - perfect for lucid dreamers and subconscious explorers.</div>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>Lucid</strong> dreams</div>
+                        <div class="ingredient-stat"><strong>Dream</strong> recall</div>
+                    </div>
+                </div>
+                <div class="ingredient-card">
+                    <div class="ingredient-header">
+                        <div class="ingredient-name">DMAE<span>Cognitive Restorer</span></div>
+                        <div class="ingredient-dose">150mg</div>
+                    </div>
+                    <div class="ingredient-desc">A precursor to acetylcholine, the neurotransmitter vital for memory, muscle control, and REM sleep. Enhances cognitive function while you rest and promotes vivid dreams.</div>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>REM</strong> enhancement</div>
+                        <div class="ingredient-stat"><strong>Memory</strong> support</div>
+                    </div>
+                </div>
+                <div class="ingredient-card">
+                    <div class="ingredient-header">
+                        <div class="ingredient-name">Melatonin<span>Circadian Regulator</span></div>
+                        <div class="ingredient-dose">0.5mg</div>
+                    </div>
+                    <div class="ingredient-desc">A precisely calibrated low dose to fine-tune your body's internal clock without causing next-day grogginess. Signals your body when it's time to sleep naturally.</div>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>Low</strong> dose</div>
+                        <div class="ingredient-stat"><strong>No</strong> grogginess</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="video-container">
+            <div class="section-header" style="text-align:center;margin-bottom:32px;">
+                <h2>Experience DREAM</h2>
+                <p style="color:var(--gray-600);">Discover the science of restorative sleep</p>
+            </div>
+            <div class="video-wrapper">
+                <img src="https://www.mindvalleystates.com/cdn/shop/files/Dream_1_06bf0e8c-5fcb-4555-9106-957cc36a853a.jpg?v=1745326502&width=800" alt="Video thumbnail">
+                <div class="play-button">
+                    <svg width="32" height="32" fill="var(--dream-color)" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What DREAM Users Say</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"Last night I took the DREAM pills and it was such a great experience. Normally I wake up at 3am or 4am and can't sleep anymore. But DREAM pills were incredible. I slept the whole night and woke up so rested with lots of energy."</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-06-13_at_9.48.59_PM.png?v=1749822555&width=96" alt="Chiara"></div>
+                        <div>
+                            <div class="testimonial-name">Chiara</div>
+                            <div class="testimonial-title">Transformational Coach</div>
+                            <div class="verified"><svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg> Verified Purchase</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"I am having the deepest level of sleep and waking up so refreshed. My subconscious is getting time to dream and repattern my consciousness, so I'm waking up with new realizations, insights and clarity from my dreams. Hallelujah!"</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-06-13_at_9.48.38_PM.png?v=1749822568&width=96" alt="Jennifer"></div>
+                        <div>
+                            <div class="testimonial-name">Jennifer Partridge</div>
+                            <div class="testimonial-title">Life Coach, EFT Expert</div>
+                            <div class="verified"><svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg> Verified Purchase</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"I've never had a supplement that was able to give me such a deep rest. I woke up the next morning fresh after a night of partying and dancing. I was able to wake up out of bed without feeling heavy."</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-08-12_at_1.29.55_PM.png?v=1754979653&width=96" alt="Melissa"></div>
+                        <div>
+                            <div class="testimonial-name">Melissa</div>
+                            <div class="testimonial-title">Author</div>
+                            <div class="verified"><svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg> Verified Purchase</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creators -->
+    <section class="creators">
+        <div class="container">
+            <div class="section-header">
+                <h2>Created By Experts</h2>
+            </div>
+            <div class="creator-grid">
+                <div class="creator-card">
+                    <div class="creator-image"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.50.13_PM.png?v=1761033028&width=200" alt="Shawn Wells"></div>
+                    <div>
+                        <div class="creator-role">Formulated By</div>
+                        <div class="creator-name">Shawn Wells</div>
+                        <div class="creator-bio">World's leading nutritional biochemist with 1,000+ formulations and 40+ patents.</div>
+                        <div class="creator-creds">
+                            <span class="creator-cred">MPH, RD, CISSN</span>
+                            <span class="creator-cred">40+ Patents</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="creator-card">
+                    <div class="creator-image"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.49.01_PM.png?v=1761032958&width=200" alt="Vishen"></div>
+                    <div>
+                        <div class="creator-role">Co-Created By</div>
+                        <div class="creator-name">Vishen Lakhiani</div>
+                        <div class="creator-bio">Founder of Mindvalley, NYT bestselling author, transformational learning pioneer.</div>
+                        <div class="creator-creds">
+                            <span class="creator-cred">Mindvalley Founder</span>
+                            <span class="creator-cred">20M+ Community</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cross-sell -->
+    <section class="cross-sell">
+        <div class="container">
+            <h2>Want to Try All 5 States?</h2>
+            <p>Get the complete States Box Set and discover which states work best for you throughout your day.</p>
+            <div class="cross-sell-card">
+                <img src="https://www.mindvalleystates.com/cdn/shop/files/bundle_pills.png?v=1726443185&width=400" alt="Box Set">
+                <h3>States Box Set</h3>
+                <p style="color:var(--gray-600);font-size:14px;">FOCUS + ZEN + BLISS + DREAM + GAZM</p>
+                <div class="price">$99 <span>$347 value</span></div>
+                <button class="cross-sell-btn" onclick="addBoxSet()">Add Box Set to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Why use such a low dose of melatonin?</div>
+                    <div class="faq-answer">Research shows that lower doses (0.3-0.5mg) of melatonin are actually more effective than high doses for regulating sleep. Higher doses can cause next-day grogginess and disrupt your natural melatonin production. Our precise 0.5mg dose works with your body, not against it.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Will DREAM give me vivid or lucid dreams?</div>
+                    <div class="faq-answer">Many users report more vivid dreams and better dream recall, thanks to the Mugwort extract and DMAE. These ingredients support REM sleep and acetylcholine production, which are both linked to dream vividness and lucid dreaming potential.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">When should I take DREAM?</div>
+                    <div class="faq-answer">Take DREAM 30-60 minutes before your desired bedtime. This gives the ingredients time to begin working as you wind down for sleep. Pair it with good sleep hygiene - dim lights, cool room, no screens.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Is DREAM habit-forming?</div>
+                    <div class="faq-answer">No. Unlike prescription sleep aids, DREAM contains no habit-forming ingredients. The low-dose melatonin actually helps regulate your natural sleep cycle rather than overriding it. You can use it nightly or as needed.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Can I take DREAM with ZEN?</div>
+                    <div class="faq-answer">Yes, they pair beautifully. Take ZEN in the evening to wind down from stress, then DREAM 30-60 minutes before bed. Many users find this combination creates the perfect evening wind-down routine.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="mockup.html" class="logo">Mindvalley<span>States</span></a>
+                <p style="margin-top:16px">Premium nootropics designed to help you shift your mental and emotional state on demand.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <a href="#">Box Set</a>
+                <a href="focus.html">FOCUS</a>
+                <a href="zen.html">ZEN</a>
+                <a href="bliss.html">BLISS</a>
+                <a href="#">DREAM</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="#">FAQ</a>
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#">About</a>
+                <a href="#">Science</a>
+                <a href="testimonials.html">Reviews</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mindvalley States. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky -->
+    <div class="mobile-sticky">
+        <div class="mobile-sticky-info">
+            <div class="mobile-sticky-name">DREAM</div>
+            <div class="mobile-sticky-price">$49 / 30 servings</div>
+        </div>
+        <button class="mobile-sticky-btn" onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <!-- Cart -->
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close" onclick="closeCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cart-total">$0</span>
+            </div>
+            <button class="cart-checkout">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('mindvalleyStatesCart') || '[]');
+        let selectedPrice = 59;
+        let quantity = 1;
+
+        function changeImage(thumb, src) {
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+            document.querySelector('.main-image img').src = src;
+        }
+
+        function selectPricing(el, type) {
+            document.querySelectorAll('.pricing-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedPrice = type === 'subscribe' ? 39 : 49;
+            updateAddButton();
+        }
+
+        function updateQty(delta) {
+            quantity = Math.max(1, quantity + delta);
+            document.getElementById('qty-value').value = quantity;
+            updateAddButton();
+        }
+
+        function updateAddButton() {
+            document.querySelector('.add-to-cart').innerHTML = `
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                Add to Cart - $${selectedPrice * quantity}
+            `;
+        }
+
+        function addToCart() {
+            const existing = cart.find(i => i.id === 'dream');
+            if (existing) {
+                existing.qty += quantity;
+            } else {
+                cart.push({ id: 'dream', name: 'DREAM', price: selectedPrice, qty: quantity, img: 'https://www.mindvalleystates.com/cdn/shop/files/Dream_Image_1.jpg?v=1753155924&width=200' });
+            }
+            renderCart();
+            openCart();
+        }
+
+        function addBoxSet() {
+            const existing = cart.find(i => i.id === 'box-set');
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ id: 'box-set', name: 'States Box Set', price: 99, qty: 1, img: 'https://www.mindvalleystates.com/cdn/shop/files/bundle_pills.png?v=1726443185&width=200' });
+            }
+            renderCart();
+            openCart();
+        }
+
+        function renderCart() {
+            // Save to localStorage
+            localStorage.setItem('mindvalleyStatesCart', JSON.stringify(cart));
+
+            const count = cart.reduce((s, i) => s + i.qty, 0);
+            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            document.getElementById('cart-count').textContent = count;
+            document.getElementById('cart-total').textContent = '$' + total;
+
+            const el = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                el.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+            } else {
+                el.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-img"><img src="${item.img}" alt="${item.name}"></div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">$${item.price}</div>
+                            <div class="cart-item-qty">
+                                <button onclick="changeCartQty('${item.id}', -1)">-</button>
+                                <span>${item.qty}</span>
+                                <button onclick="changeCartQty('${item.id}', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function changeCartQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+                renderCart();
+            }
+        }
+
+        function openCart() {
+            document.getElementById('cart-sidebar').classList.add('open');
+            document.getElementById('cart-overlay').classList.add('open');
+        }
+
+        function closeCart() {
+            document.getElementById('cart-sidebar').classList.remove('open');
+            document.getElementById('cart-overlay').classList.remove('open');
+        }
+
+        function toggleFaq(el) {
+            el.parentElement.classList.toggle('open');
+        }
+
+        // Initialize cart on page load
+        renderCart();
+    </script>
+</body>
+</html>

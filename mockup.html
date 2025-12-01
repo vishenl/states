@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley States - Design Your Optimal State</title>
+    <link rel="stylesheet" href="./mv-selfreset-base.css">
+    <style>
+        /* Page-specific styles only - NO font overrides */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { line-height: 1.6; }
+
+        /* Header */
+        header { background: white; border-bottom: 1px solid #e5e7eb; position: fixed; width: 100%; top: 0; z-index: 100; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: Grotesk-Bold, sans-serif; font-size: 20px; color: #0f131a; text-decoration: none; }
+        .logo span { color: #7a12d4; }
+        nav { display: flex; gap: 32px; align-items: center; }
+        nav > a, .nav-dropdown > a { color: #71767f; text-decoration: none; font-size: 14px; font-family: Grotesk-Medium, sans-serif; transition: color 0.2s; }
+        nav > a:hover, .nav-dropdown:hover > a { color: #7a12d4; }
+        .cart-btn { background: #0f131a; color: white; padding: 10px 20px; border-radius: 999px; font-family: Grotesk-Bold, sans-serif; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .cart-count { background: #7a12d4; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+
+        /* Dropdown */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown > a { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+        .nav-dropdown > a::after { content: ''; border: solid #71767f; border-width: 0 2px 2px 0; display: inline-block; padding: 3px; transform: rotate(45deg); margin-top: -3px; transition: transform 0.2s; }
+        .nav-dropdown:hover > a::after { transform: rotate(-135deg); margin-top: 3px; border-color: #7a12d4; }
+        .dropdown-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); padding: 12px 0; min-width: 200px; opacity: 0; visibility: hidden; transition: all 0.2s; margin-top: 12px; }
+        .nav-dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 8px; }
+        .dropdown-menu a { display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: #71767f; font-size: 14px; font-family: Grotesk-Medium, sans-serif; transition: all 0.2s; }
+        .dropdown-menu a:hover { background: #f9fafb; color: #7a12d4; }
+        .dropdown-menu .product-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .dropdown-menu .focus-icon { background: #fef3c7; }
+        .dropdown-menu .zen-icon { background: #dbeafe; }
+        .dropdown-menu .bliss-icon { background: #fce7f3; }
+        .dropdown-menu .dream-icon { background: #e0e7ff; }
+        .dropdown-menu .gazm-icon { background: #fecdd3; }
+
+        /* Hero */
+        .hero { padding: 140px 0 80px; background: linear-gradient(180deg, #f5f0ff 0%, white 100%); text-align: center; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: white; border: 1px solid #c4b5fd; padding: 8px 16px; border-radius: 100px; font-size: 13px; color: #7a12d4; font-family: Grotesk-Medium, sans-serif; margin-bottom: 24px; }
+        .hero h1 span { color: #7a12d4; }
+        .hero-sub { font-size: 1.125rem; color: #71767f; max-width: 600px; margin: 0 auto 32px; }
+        .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 1rem 2rem; background-color: #7a12d4; color: white; font-family: Grotesk-Bold, sans-serif; font-size: 1rem; border-radius: 999px; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s; }
+        .btn-primary:hover { background-color: #6a0dad; transform: translateY(-2px); }
+        .hero-trust { display: flex; justify-content: center; gap: 32px; margin-top: 48px; flex-wrap: wrap; }
+        .trust-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #71767f; }
+        .trust-item svg { color: #10b981; }
+
+        /* Quiz Modal */
+        .quiz-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .quiz-overlay.active { display: flex; }
+        .quiz-modal { background: white; border-radius: 24px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; }
+        .quiz-header { padding: 32px 32px 0; text-align: center; }
+        .quiz-header h2 { margin-bottom: 8px; }
+        .quiz-header p { color: #71767f; font-size: 14px; }
+        .quiz-progress { display: flex; gap: 8px; padding: 24px 32px; }
+        .quiz-progress span { flex: 1; height: 4px; background: #e5e7eb; border-radius: 4px; }
+        .quiz-progress span.active { background: #7a12d4; }
+        .quiz-content { padding: 0 32px 32px; }
+        .quiz-question { font-family: Grotesk-Bold, sans-serif; font-size: 18px; margin-bottom: 20px; }
+        .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+        .quiz-option { padding: 16px 20px; border: 2px solid #e5e7eb; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+        .quiz-option:hover { border-color: #c4b5fd; background: #f5f0ff; }
+        .quiz-option.selected { border-color: #7a12d4; background: #f5f0ff; }
+        .quiz-option-icon { font-size: 24px; }
+        .quiz-result { text-align: center; padding: 32px; display: none; }
+        .quiz-result.active { display: block; }
+        .quiz-result h3 { font-family: Grotesk-Bold, sans-serif; font-size: 20px; margin-bottom: 16px; }
+        .quiz-result-product { background: #f9fafb; border-radius: 16px; padding: 24px; margin: 24px 0; }
+        .quiz-result-product img { width: 120px; height: 120px; object-fit: contain; margin-bottom: 16px; }
+        .quiz-result-product h4 { font-family: Grotesk-Bold, sans-serif; font-size: 24px; color: #7a12d4; }
+        .quiz-result-product p { color: #71767f; font-size: 14px; margin: 8px 0 16px; }
+
+        /* Section styles */
+        .section-header { text-align: center; margin-bottom: 48px; }
+        .section-header p { color: #71767f; font-size: 16px; margin-top: 12px; }
+
+        /* Products */
+        .products { padding: 80px 0; background: white; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .product-card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #e5e7eb; transition: all 0.3s; text-decoration: none; color: inherit; display: block; }
+        .product-card:hover { box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); transform: translateY(-4px); }
+        .product-card.featured { border: 2px solid #7a12d4; position: relative; }
+        .product-card.featured::before { content: 'BEST VALUE'; position: absolute; top: 16px; right: 16px; background: #7a12d4; color: white; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-family: Grotesk-Bold, sans-serif; z-index: 1; }
+        .product-image { height: 240px; background: #f9fafb; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .product-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .product-info { padding: 24px; }
+        .product-name { font-family: Grotesk-Bold, sans-serif; font-size: 20px; margin-bottom: 4px; }
+        .product-tagline { color: #71767f; font-size: 14px; margin-bottom: 16px; }
+        .product-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+        .stars { color: #f59e0b; font-size: 14px; }
+        .rating-text { font-size: 13px; color: #71767f; }
+        .product-price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px; }
+        .price-current { font-family: Grotesk-Bold, sans-serif; font-size: 28px; color: #0f131a; }
+        .price-sub { font-size: 13px; color: #71767f; }
+        .product-btn { width: 100%; padding: 14px; background: #0f131a; color: white; border: none; border-radius: 999px; font-family: Grotesk-Bold, sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+        .product-btn:hover { background: #7a12d4; }
+        .product-card.featured .product-btn { background: #7a12d4; }
+        .product-card.featured .product-btn:hover { background: #6a0dad; }
+
+        /* Value Stack */
+        .value-stack { background: linear-gradient(135deg, #0f131a 0%, #1e1b4b 100%); padding: 80px 0; color: white; }
+        .value-stack .mv-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        @media (max-width: 768px) { .value-stack .mv-container { grid-template-columns: 1fr; } }
+        .value-list { list-style: none; }
+        .value-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .value-list li:last-child { border-bottom: none; }
+        .value-check { color: #10b981; font-size: 20px; flex-shrink: 0; }
+        .value-list strong { color: #c4b5fd; }
+        .value-total { background: rgba(255,255,255,0.1); border-radius: 16px; padding: 32px; text-align: center; }
+        .value-total-label { font-size: 14px; opacity: 0.7; margin-bottom: 8px; }
+        .value-total-price { font-family: Grotesk-Bold, sans-serif; font-size: 48px; }
+        .value-total-note { font-size: 14px; opacity: 0.7; margin-top: 8px; }
+        .value-cta { margin-top: 24px; width: 100%; padding: 16px; background: #7a12d4; color: white; border: none; border-radius: 999px; font-family: Grotesk-Bold, sans-serif; font-size: 16px; cursor: pointer; }
+
+        /* Clinical */
+        .clinical { padding: 80px 0; background: #f9fafb; }
+        .clinical-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 48px; }
+        .clinical-card { background: white; border-radius: 16px; padding: 32px; text-align: center; }
+        .clinical-stat { font-family: Grotesk-Bold, sans-serif; font-size: 48px; color: #7a12d4; margin-bottom: 8px; }
+        .clinical-label { font-size: 14px; color: #71767f; }
+        .clinical-source { font-size: 12px; color: #9ca3af; margin-top: 8px; }
+
+        /* Testimonials */
+        .testimonials { padding: 80px 0; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-top: 48px; }
+        .testimonial-card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 32px; }
+        .testimonial-quote { font-size: 16px; color: #4b5563; margin-bottom: 24px; line-height: 1.7; }
+        .testimonial-author { display: flex; align-items: center; gap: 16px; }
+        .testimonial-avatar { width: 48px; height: 48px; border-radius: 50%; background: #e5e7eb; overflow: hidden; }
+        .testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .testimonial-name { font-family: Grotesk-Bold, sans-serif; font-size: 14px; }
+        .testimonial-title { font-size: 13px; color: #71767f; }
+        .testimonial-product { display: inline-flex; align-items: center; gap: 6px; background: #f3f4f6; padding: 4px 10px; border-radius: 100px; font-size: 12px; color: #71767f; margin-top: 8px; }
+        .verified-badge { color: #10b981; font-size: 12px; }
+
+        /* Creators */
+        .creators { padding: 80px 0; background: white; }
+        .creator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; }
+        @media (max-width: 768px) { .creator-grid { grid-template-columns: 1fr; } }
+        .creator-card { display: flex; gap: 24px; align-items: flex-start; }
+        .creator-image { width: 120px; height: 120px; border-radius: 16px; overflow: hidden; flex-shrink: 0; }
+        .creator-image img { width: 100%; height: 100%; object-fit: cover; }
+        .creator-role { font-size: 12px; color: #7a12d4; font-family: Grotesk-Bold, sans-serif; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .creator-name { font-family: Grotesk-Bold, sans-serif; font-size: 24px; margin-bottom: 12px; }
+        .creator-bio { font-size: 14px; color: #71767f; line-height: 1.7; }
+        .creator-creds { display: flex; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+        .creator-cred { background: #f3f4f6; padding: 6px 12px; border-radius: 100px; font-size: 12px; font-family: Grotesk-Medium, sans-serif; color: #4b5563; }
+
+        /* FAQ */
+        .faq { padding: 80px 0; background: #f9fafb; }
+        .faq-list { max-width: 700px; margin: 48px auto 0; }
+        .faq-item { background: white; border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+        .faq-question { padding: 20px 24px; font-family: Grotesk-Bold, sans-serif; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question::after { content: '+'; font-size: 24px; color: #9ca3af; transition: transform 0.3s; }
+        .faq-item.open .faq-question::after { transform: rotate(45deg); }
+        .faq-answer { padding: 0 24px 20px; color: #71767f; font-size: 14px; line-height: 1.7; display: none; }
+        .faq-item.open .faq-answer { display: block; }
+
+        /* Footer */
+        footer { background: #0f131a; color: white; padding: 60px 0 24px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        .footer-brand { font-size: 14px; color: #9ca3af; line-height: 1.7; }
+        .footer-brand .logo { display: block; margin-bottom: 16px; color: white; }
+        .footer-col h4 { font-family: Grotesk-Bold, sans-serif; font-size: 14px; margin-bottom: 16px; }
+        .footer-col a { display: block; color: #9ca3af; text-decoration: none; font-size: 14px; padding: 6px 0; transition: color 0.2s; }
+        .footer-col a:hover { color: white; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 48px; padding-top: 24px; text-align: center; color: #71767f; font-size: 13px; }
+
+        /* Mobile Sticky CTA */
+        .mobile-cta { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e5e7eb; padding: 12px 20px; display: none; z-index: 90; }
+        @media (max-width: 768px) { .mobile-cta { display: flex; gap: 12px; align-items: center; } }
+        .mobile-cta-info { flex: 1; }
+        .mobile-cta-name { font-family: Grotesk-Bold, sans-serif; font-size: 14px; }
+        .mobile-cta-price { font-size: 13px; color: #71767f; }
+        .mobile-cta-btn { background: #7a12d4; color: white; padding: 12px 24px; border-radius: 999px; font-family: Grotesk-Bold, sans-serif; font-size: 14px; border: none; cursor: pointer; }
+
+        /* Cart Sidebar */
+        .cart-sidebar { position: fixed; top: 0; right: -400px; width: 400px; max-width: 100%; height: 100vh; background: white; z-index: 300; transition: right 0.3s; box-shadow: -10px 0 30px rgba(0,0,0,0.1); }
+        .cart-sidebar.open { right: 0; }
+        .cart-header { padding: 20px; border-bottom: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; }
+        .cart-header h3 { font-family: Grotesk-Bold, sans-serif; font-size: 18px; }
+        .cart-close { background: none; border: none; font-size: 24px; cursor: pointer; color: #71767f; }
+        .cart-items { padding: 20px; flex: 1; overflow-y: auto; }
+        .cart-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f3f4f6; }
+        .cart-item-img { width: 64px; height: 64px; background: #f3f4f6; border-radius: 8px; }
+        .cart-item-info { flex: 1; }
+        .cart-item-name { font-family: Grotesk-Bold, sans-serif; font-size: 14px; }
+        .cart-item-price { font-size: 14px; color: #71767f; margin-top: 4px; }
+        .cart-item-qty { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+        .cart-item-qty button { width: 28px; height: 28px; border: 1px solid #d1d5db; background: white; border-radius: 6px; cursor: pointer; }
+        .cart-footer { padding: 20px; border-top: 1px solid #e5e7eb; }
+        .cart-total { display: flex; justify-content: space-between; font-family: Grotesk-Bold, sans-serif; font-size: 18px; margin-bottom: 16px; }
+        .cart-checkout { width: 100%; padding: 16px; background: #7a12d4; color: white; border: none; border-radius: 999px; font-family: Grotesk-Bold, sans-serif; font-size: 16px; cursor: pointer; }
+        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 250; display: none; }
+        .cart-overlay.open { display: block; }
+        .cart-empty { text-align: center; padding: 60px 20px; color: #71767f; }
+
+        /* Hide nav on mobile */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .header-inner { padding: 12px 16px; }
+            .hero { padding: 100px 0 60px; }
+            .hero-trust { gap: 16px; }
+            .trust-item { font-size: 12px; }
+            body { padding-bottom: 70px; }
+        }
+
+        /* Responsive for problem/solution section */
+        @media (max-width: 768px) {
+            .problem-solution-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* Trust Badge Bar */
+        .trust-bar {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 24px 0;
+        }
+        .trust-bar-inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #4b5563;
+            font-size: 14px;
+        }
+        .trust-badge svg {
+            color: #7a12d4;
+        }
+        @media (max-width: 768px) {
+            .trust-bar-inner { gap: 24px; }
+            .trust-badge { font-size: 12px; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="#" class="logo">Mindvalley<span>States</span></a>
+            <nav>
+                <div class="nav-dropdown">
+                    <a href="#products">Products</a>
+                    <div class="dropdown-menu">
+                        <a href="focus.html">
+                            <span class="product-icon focus-icon">🎯</span>
+                            <span>FOCUS</span>
+                        </a>
+                        <a href="zen.html">
+                            <span class="product-icon zen-icon">🧘</span>
+                            <span>ZEN</span>
+                        </a>
+                        <a href="bliss.html">
+                            <span class="product-icon bliss-icon">✨</span>
+                            <span>BLISS</span>
+                        </a>
+                        <a href="dream.html">
+                            <span class="product-icon dream-icon">🌙</span>
+                            <span>DREAM</span>
+                        </a>
+                        <a href="gazm.html">
+                            <span class="product-icon gazm-icon">🔥</span>
+                            <span>GAZM</span>
+                        </a>
+                    </div>
+                </div>
+                <a href="science.html">Science</a>
+                <a href="testimonials.html">Reviews</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <a href="#" class="cart-btn" onclick="openCart()">
+                Cart <span class="cart-count" id="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="mv-container">
+            <div class="hero-badge">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M9.5 14.25l-5.584 2.936.784-6.197L.322 6.55l6.22-.903L9.5.275l2.958 5.372 6.22.903-4.378 4.439.784 6.197z"/></svg>
+                Formulated by Shawn Wells (1,000+ Formulas, 40+ Patents)
+            </div>
+            <h1 class="mv-type--headline1">Activate Your <span>Optimal State</span><br>in 20 Minutes</h1>
+            <p class="hero-sub">The first precision nootropic system designed for high performers who need to shift mental-emotional states on demand.</p>
+            <button class="btn-primary" onclick="openQuiz()">
+                Take the 60-Second State Assessment
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+            <div class="hero-trust">
+                <div class="trust-item">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    Clinically Tested
+                </div>
+                <div class="trust-item">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    100% Vegan
+                </div>
+                <div class="trust-item">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    60-Day Guarantee
+                </div>
+                <div class="trust-item">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    47,000+ Users
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <div class="trust-bar">
+        <div class="mv-container">
+            <div class="trust-bar-inner">
+                <div class="trust-badge">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                    60-Day Money-Back Guarantee
+                </div>
+                <div class="trust-badge">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Third-Party Lab Tested
+                </div>
+                <div class="trust-badge">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"/></svg>
+                    Free Shipping on US Orders
+                </div>
+                <div class="trust-badge">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                    100% Vegan & Non-GMO
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Modal - 10 Question Assessment -->
+    <div class="quiz-overlay" id="quiz-overlay" onclick="closeQuiz(event)">
+        <div class="quiz-modal" onclick="event.stopPropagation()" style="max-width:600px;max-height:95vh;">
+            <!-- Progress Bar -->
+            <div style="padding:20px 32px 0;display:flex;align-items:center;gap:16px;">
+                <div style="flex:1;height:4px;background:#e5e7eb;border-radius:2px;">
+                    <div id="quiz-progress-bar" style="height:100%;background:#7a12d4;border-radius:2px;transition:width 0.3s;width:0%"></div>
+                </div>
+                <span id="quiz-progress-text" style="font-size:13px;color:#71767f;font-family:Grotesk-Medium,sans-serif;">0/10</span>
+            </div>
+
+            <!-- Intro Screen -->
+            <div class="quiz-content" id="quiz-intro-screen">
+                <div style="text-align:center;padding:20px 0;">
+                    <div style="font-size:48px;margin-bottom:16px;">&#129504;</div>
+                    <div class="quiz-question" style="margin-bottom:12px;">Find Your Optimal State</div>
+                    <p style="color:#71767f;font-size:14px;margin-bottom:24px;">Answer 10 quick questions to get a personalized recommendation with time-of-day guidance.</p>
+                    <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;">
+                        <span style="display:flex;align-items:center;gap:6px;font-size:13px;color:#4b5563;"><svg width="16" height="16" fill="#10b981" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg> 2-3 minutes</span>
+                        <span style="display:flex;align-items:center;gap:6px;font-size:13px;color:#4b5563;"><svg width="16" height="16" fill="#10b981" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg> Personalized results</span>
+                    </div>
+                    <button class="btn-primary" onclick="startQuiz10()" style="width:100%;">Start Assessment</button>
+                </div>
+            </div>
+
+            <!-- Q1: Daily Challenge -->
+            <div class="quiz-content" id="quiz-q1" style="display:none">
+                <div style="font-size:12px;color:#7a12d4;font-family:Grotesk-Bold,sans-serif;margin-bottom:8px;">Question 1 of 10</div>
+                <div class="quiz-question">What's your biggest daily challenge?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="focus" onclick="selectAnswer10(1, this)">
+                        <span class="quiz-option-icon">&#127919;</span>
+                        <div><strong>Staying focused and productive</strong><br><span style="font-size:13px;color:#71767f">I get distracted easily</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="stress" onclick="selectAnswer10(1, this)">
+                        <span class="quiz-option-icon">&#128552;</span>
+                        <div><strong>Managing stress and anxiety</strong><br><span style="font-size:13px;color:#71767f">I often feel overwhelmed</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="mood" onclick="selectAnswer10(1, this)">
+                        <span class="quiz-option-icon">&#128148;</span>
+                        <div><strong>Low mood or motivation</strong><br><span style="font-size:13px;color:#71767f">I struggle to feel positive</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="sleep" onclick="selectAnswer10(1, this)">
+                        <span class="quiz-option-icon">&#128564;</span>
+                        <div><strong>Poor sleep quality</strong><br><span style="font-size:13px;color:#71767f">I don't wake up refreshed</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="energy" onclick="selectAnswer10(1, this)">
+                        <span class="quiz-option-icon">&#9889;</span>
+                        <div><strong>Low energy throughout the day</strong><br><span style="font-size:13px;color:#71767f">I rely on coffee but crash</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q2: Time of Day -->
+            <div class="quiz-content" id="quiz-q2" style="display:none">
+                <div style="font-size:12px;color:#7a12d4;font-family:Grotesk-Bold,sans-serif;margin-bottom:8px;">Question 2 of 10</div>
+                <div class="quiz-question">When do you need the most support?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="morning" onclick="selectAnswer10(2, this)">
+                        <span class="quiz-option-icon">&#127749;</span>
+                        <div><strong>Morning (6am - 12pm)</strong><br><span style="font-size:13px;color:#71767f">I need help getting started</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="afternoon" onclick="selectAnswer10(2, this)">
+                        <span class="quiz-option-icon">&#9728;&#65039;</span>
+                        <div><strong>Afternoon (12pm - 6pm)</strong><br><span style="font-size:13px;color:#71767f">I hit a wall mid-day</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="evening" onclick="selectAnswer10(2, this)">
+                        <span class="quiz-option-icon">&#127769;</span>
+                        <div><strong>Evening (6pm - 10pm)</strong><br><span style="font-size:13px;color:#71767f">I need help winding down</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="night" onclick="selectAnswer10(2, this)">
+                        <span class="quiz-option-icon">&#127775;</span>
+                        <div><strong>Night (10pm+)</strong><br><span style="font-size:13px;color:#71767f">I struggle to fall asleep</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q3: Caffeine -->
+            <div class="quiz-content" id="quiz-q3" style="display:none">
+                <div style="font-size:12px;color:#7a12d4;font-family:Grotesk-Bold,sans-serif;margin-bottom:8px;">Question 3 of 10</div>
+                <div class="quiz-question">What's your relationship with caffeine?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="heavy" onclick="selectAnswer10(3, this)">
+                        <span class="quiz-option-icon">&#9749;</span>
+                        <div><strong>Heavy coffee drinker (3+ cups)</strong><br><span style="font-size:13px;color:#71767f">I get jitters and crashes</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="moderate" onclick="selectAnswer10(3, this)">
+                        <span class="quiz-option-icon">&#9749;</span>
+                        <div><strong>Moderate (1-2 cups/day)</strong><br><span style="font-size:13px;color:#71767f">Works okay, want cleaner option</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="sensitive" onclick="selectAnswer10(3, this)">
+                        <span class="quiz-option-icon">&#128542;</span>
+                        <div><strong>Sensitive to caffeine</strong><br><span style="font-size:13px;color:#71767f">Even a little makes me anxious</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="none" onclick="selectAnswer10(3, this)">
+                        <span class="quiz-option-icon">&#128581;</span>
+                        <div><strong>I avoid caffeine</strong><br><span style="font-size:13px;color:#71767f">Prefer caffeine-free solutions</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q4: Work Type -->
+            <div class="quiz-content" id="quiz-q4" style="display:none">
+                <div style="font-size:12px;color:#7a12d4;font-family:Grotesk-Bold,sans-serif;margin-bottom:8px;">Question 4 of 10</div>
+                <div class="quiz-question">What type of work do you do?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="knowledge" onclick="selectAnswer10(4, this)">
+                        <span class="quiz-option-icon">&#128187;</span>
+                        <div><strong>Knowledge work / Creative</strong><br><span style="font-size:13px;color:#71767f">Writing, coding, design, analysis</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="leadership" onclick="selectAnswer10(4, this)">
+                        <span class="quiz-option-icon">&#128188;</span>
+                        <div><strong>Leadership / Management</strong><br><span style="font-size:13px;color:#71767f">Meetings, decisions, teams</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="entrepreneur" onclick="selectAnswer10(4, this)">
+                        <span class="quiz-option-icon">&#128640;</span>
+                        <div><strong>Entrepreneur / Founder</strong><br><span style="font-size:13px;color:#71767f">Multiple hats, high stakes</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="other" onclick="selectAnswer10(4, this)">
+                        <span class="quiz-option-icon">&#127919;</span>
+                        <div><strong>Other / Varied</strong><br><span style="font-size:13px;color:#71767f">Mix of different activities</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q5: Stress Level -->
+            <div class="quiz-content" id="quiz-q5" style="display:none">
+                <div style="font-size:12px;color:#7a12d4;font-family:Grotesk-Bold,sans-serif;margin-bottom:8px;">Question 5 of 10</div>
+                <div class="quiz-question">How would you describe your stress level?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="high" onclick="selectAnswer10(5, this)">
+                        <span class="quiz-option-icon">&#128293;</span>
+                        <div><strong>High - constantly stressed</strong><br><span style="font-size:13px;color:#71767f">I feel overwhelmed most of the time</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="moderate" onclick="selectAnswer10(5, this)">
+                        <span class="quiz-option-icon">&#128260;</span>
+                        <div><strong>Moderate - manageable</strong><br><span style="font-size:13px;color:#71767f">Some stressful periods but okay</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="situational" onclick="selectAnswer10(5, this)">
+                        <span class="quiz-option-icon">&#128161;</span>
+                        <div><strong>Situational</strong><br><span style="font-size:13px;color:#71767f">Only before big events/deadlines</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="low" onclick="selectAnswer10(5, this)">
+                        <span class="quiz-option-icon">&#128524;</span>
+                        <div><strong>Low - pretty calm</strong><br><span style="font-size:13px;color:#71767f">I handle stress well</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q6: Sleep Quality -->
+            <div class="quiz-content" id="quiz-q6" style="display:none">
+                <div style="font-size:12px;color:#7a12d4;font-family:Grotesk-Bold,sans-serif;margin-bottom:8px;">Question 6 of 10</div>
+                <div class="quiz-question">How's your sleep quality?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="poor" onclick="selectAnswer10(6, this)">
+                        <span class="quiz-option-icon">&#128555;</span>
+                        <div><strong>Poor - I rarely feel rested</strong><br><span style="font-size:13px;color:#71767f">Trouble falling/staying asleep</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="inconsistent" onclick="selectAnswer10(6, this)">
+                        <span class="quiz-option-icon">&#128260;</span>
+                        <div><strong>Inconsistent</strong><br><span style="font-size:13px;color:#71767f">Some nights good, others terrible</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="okay" onclick="selectAnswer10(6, this)">
+                        <span class="quiz-option-icon">&#128528;</span>
+                        <div><strong>Okay - could be better</strong><br><span style="font-size:13px;color:#71767f">I sleep but don't feel refreshed</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="good" onclick="selectAnswer10(6, this)">
+                        <span class="quiz-option-icon">&#128524;</span>
+                        <div><strong>Good - I sleep well</strong><br><span style="font-size:13px;color:#71767f">No major sleep issues</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q7: Presentations -->
+            <div class="quiz-content" id="quiz-q7" style="display:none">
+                <div style="font-size:12px;color:#7a12d4;font-family:Grotesk-Bold,sans-serif;margin-bottom:8px;">Question 7 of 10</div>
+                <div class="quiz-question">Do you have presentations or public speaking?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="frequent" onclick="selectAnswer10(7, this)">
+                        <span class="quiz-option-icon">&#127908;</span>
+                        <div><strong>Yes, frequently</strong><br><span style="font-size:13px;color:#71767f">Multiple times per week</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="sometimes" onclick="selectAnswer10(7, this)">
+                        <span class="quiz-option-icon">&#128221;</span>
+                        <div><strong>Sometimes</strong><br><span style="font-size:13px;color:#71767f">A few times per month</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="rarely" onclick="selectAnswer10(7, this)">
+                        <span class="quiz-option-icon">&#128172;</span>
+                        <div><strong>Rarely</strong><br><span style="font-size:13px;color:#71767f">Occasional big moments</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="never" onclick="selectAnswer10(7, this)">
+                        <span class="quiz-option-icon">&#128187;</span>
+                        <div><strong>Never</strong><br><span style="font-size:13px;color:#71767f">My work doesn't require it</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q8: Intimacy -->
+            <div class="quiz-content" id="quiz-q8" style="display:none">
+                <div style="font-size:12px;color:#7a12d4;font-family:Grotesk-Bold,sans-serif;margin-bottom:8px;">Question 8 of 10</div>
+                <div class="quiz-question">Is intimate connection important to you?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="priority" onclick="selectAnswer10(8, this)">
+                        <span class="quiz-option-icon">&#10084;&#65039;</span>
+                        <div><strong>Yes, it's a priority</strong><br><span style="font-size:13px;color:#71767f">I want to enhance connection</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="interested" onclick="selectAnswer10(8, this)">
+                        <span class="quiz-option-icon">&#128149;</span>
+                        <div><strong>I'm interested</strong><br><span style="font-size:13px;color:#71767f">I'd like to improve this area</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="not-now" onclick="selectAnswer10(8, this)">
+                        <span class="quiz-option-icon">&#128167;</span>
+                        <div><strong>Not a focus right now</strong><br><span style="font-size:13px;color:#71767f">Other priorities at the moment</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q9: Experience -->
+            <div class="quiz-content" id="quiz-q9" style="display:none">
+                <div style="font-size:12px;color:#7a12d4;font-family:Grotesk-Bold,sans-serif;margin-bottom:8px;">Question 9 of 10</div>
+                <div class="quiz-question">What's your experience with supplements?</div>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-value="new" onclick="selectAnswer10(9, this)">
+                        <span class="quiz-option-icon">&#127793;</span>
+                        <div><strong>New to this</strong><br><span style="font-size:13px;color:#71767f">Haven't tried nootropics before</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="some" onclick="selectAnswer10(9, this)">
+                        <span class="quiz-option-icon">&#128218;</span>
+                        <div><strong>Some experience</strong><br><span style="font-size:13px;color:#71767f">Tried basic supplements</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="experienced" onclick="selectAnswer10(9, this)">
+                        <span class="quiz-option-icon">&#128300;</span>
+                        <div><strong>Experienced</strong><br><span style="font-size:13px;color:#71767f">Experimented with various stacks</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="biohacker" onclick="selectAnswer10(9, this)">
+                        <span class="quiz-option-icon">&#129516;</span>
+                        <div><strong>Serious biohacker</strong><br><span style="font-size:13px;color:#71767f">Deep into optimization</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Q10: Goals (Multi-select) -->
+            <div class="quiz-content" id="quiz-q10" style="display:none">
+                <div style="font-size:12px;color:#7a12d4;font-family:Grotesk-Bold,sans-serif;margin-bottom:8px;">Question 10 of 10</div>
+                <div class="quiz-question">What would make the biggest difference?</div>
+                <p style="color:#71767f;font-size:13px;margin-top:-12px;margin-bottom:16px;">Select all that apply</p>
+                <div class="quiz-options" id="q10-options">
+                    <div class="quiz-option" data-value="productivity" onclick="toggleMulti10(this)">
+                        <span class="quiz-option-icon">&#128640;</span>
+                        <div><strong>More productivity</strong><br><span style="font-size:13px;color:#71767f">Get more done in less time</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="calm" onclick="toggleMulti10(this)">
+                        <span class="quiz-option-icon">&#128524;</span>
+                        <div><strong>More calm, less anxiety</strong><br><span style="font-size:13px;color:#71767f">Feel centered under pressure</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="happiness" onclick="toggleMulti10(this)">
+                        <span class="quiz-option-icon">&#127774;</span>
+                        <div><strong>More happiness</strong><br><span style="font-size:13px;color:#71767f">Feel genuinely good more often</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="rest" onclick="toggleMulti10(this)">
+                        <span class="quiz-option-icon">&#128164;</span>
+                        <div><strong>Better sleep</strong><br><span style="font-size:13px;color:#71767f">Wake up feeling refreshed</span></div>
+                    </div>
+                    <div class="quiz-option" data-value="connection" onclick="toggleMulti10(this)">
+                        <span class="quiz-option-icon">&#128150;</span>
+                        <div><strong>Deeper connection</strong><br><span style="font-size:13px;color:#71767f">More presence in relationships</span></div>
+                    </div>
+                </div>
+                <button class="btn-primary" id="show-results-btn" onclick="showQuizResults10()" style="width:100%;margin-top:20px;opacity:0.5;pointer-events:none;">See My Results</button>
+            </div>
+
+            <!-- Results Screen -->
+            <div class="quiz-result" id="quiz-result">
+                <h3 style="margin-bottom:8px;">Your Personalized Recommendation</h3>
+                <p style="color:#71767f;font-size:14px;margin-bottom:20px;">Based on your answers, here's your optimal State system:</p>
+
+                <!-- Primary Recommendation -->
+                <div class="quiz-result-product" style="border:2px solid #7a12d4;position:relative;">
+                    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#7a12d4;color:white;padding:4px 12px;border-radius:100px;font-size:11px;font-family:Grotesk-Bold,sans-serif;">TOP PICK</div>
+                    <img src="" alt="" id="result-img" style="width:100px;height:100px;">
+                    <h4 id="result-name" style="font-size:24px;">FOCUS</h4>
+                    <p id="result-desc" style="font-size:14px;"></p>
+                    <div id="result-timing" style="display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0;padding:12px;background:#f5f0ff;border-radius:8px;">
+                        <span id="timing-icon" style="font-size:20px;"></span>
+                        <span id="timing-text" style="font-size:13px;color:#4b5563;"></span>
+                    </div>
+                    <button class="btn-primary" onclick="addToCartFromQuiz()" style="width:100%">Add to Cart - $<span id="result-price">79</span></button>
+                </div>
+
+                <!-- Secondary Recommendations -->
+                <div id="secondary-recs" style="margin-top:20px;"></div>
+
+                <!-- Stack Recommendation -->
+                <div id="stack-rec" style="background:linear-gradient(135deg,#0f131a,#1e1b4b);color:white;border-radius:12px;padding:20px;margin-top:20px;text-align:center;">
+                    <h4 style="font-size:16px;margin-bottom:8px;" id="stack-title">Your Power Stack</h4>
+                    <div id="stack-products" style="display:flex;justify-content:center;align-items:center;gap:12px;margin:16px 0;"></div>
+                    <p id="stack-protocol" style="font-size:13px;opacity:0.9;margin:0;"></p>
+                </div>
+
+                <!-- Box Set CTA -->
+                <div style="background:#f5f0ff;border-radius:12px;padding:20px;margin-top:20px;text-align:center;">
+                    <p style="font-size:14px;color:#4b5563;margin-bottom:12px;">Want to experience all 5 States?</p>
+                    <div style="font-size:28px;font-family:Grotesk-Bold,sans-serif;color:#7a12d4;">$299 <span style="font-size:16px;color:#9ca3af;text-decoration:line-through;">$495</span></div>
+                    <button class="btn-primary" onclick="addToCart('box-set', 'States Box Set', 299); closeQuizDirect();" style="width:100%;margin-top:12px;background:#0f131a;">Get All 5 States</button>
+                </div>
+
+                <p style="color:#71767f;font-size:13px;margin-top:16px;"><a href="#" onclick="resetQuiz10(); return false;" style="color:#7a12d4;">Take the quiz again</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <div class="mv-container">
+            <div style="text-align: center; margin-bottom: 32px; max-width: 1080px; margin-left: auto; margin-right: auto; overflow: hidden;">
+                <img src="https://www.mindvalleystates.com/cdn/shop/files/Box_Set_Image_1_bg_removed.png?v=1763407749&width=1600" alt="Mindvalley States - All 5 Products" style="width: 100%; height: auto; margin-top: -18%; margin-bottom: -22%;">
+            </div>
+            <div class="section-header">
+                <h2 class="mv-type--headline2">Choose Your State</h2>
+                <p>5 clinically-formulated nootropics for every moment of your day</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card featured">
+                    <div class="product-image">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/bundle_pills.png?v=1726443185&width=400" alt="Box Set">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">States Box Set</div>
+                        <div class="product-tagline">All 5 states. Complete system.</div>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.9 (500+ reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">$99</span>
+                            <span class="price-sub">$347 value</span>
+                        </div>
+                        <button class="product-btn" onclick="addToCart('box-set', 'States Box Set', 99)">Add to Cart</button>
+                    </div>
+                </div>
+                <a href="focus.html" class="product-card">
+                    <div class="product-image">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Focus_4K_1.png?v=1760015485&width=400" alt="FOCUS">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">FOCUS</div>
+                        <div class="product-tagline">Caffeine-free energy for peak focus</div>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.9 (100+ reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">$49</span>
+                            <span class="price-sub">/30 servings</span>
+                        </div>
+                        <button class="product-btn" onclick="event.preventDefault(); addToCart('focus', 'FOCUS', 49)">Add to Cart</button>
+                    </div>
+                </a>
+                <a href="zen.html" class="product-card">
+                    <div class="product-image">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Zen_4K_1.png?v=1760015438&width=400" alt="ZEN">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">ZEN</div>
+                        <div class="product-tagline">De-stress and reset in minutes</div>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.8 (80+ reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">$59</span>
+                            <span class="price-sub">/30 servings</span>
+                        </div>
+                        <button class="product-btn" onclick="event.preventDefault(); addToCart('zen', 'ZEN', 59)">Add to Cart</button>
+                    </div>
+                </a>
+                <a href="bliss.html" class="product-card">
+                    <div class="product-image">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Bliss_4K_1.png?v=1760015460&width=400" alt="BLISS">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">BLISS</div>
+                        <div class="product-tagline">Happiness, powered by science</div>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.7 (90+ reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">$59</span>
+                            <span class="price-sub">/30 servings</span>
+                        </div>
+                        <button class="product-btn" onclick="event.preventDefault(); addToCart('bliss', 'BLISS', 59)">Add to Cart</button>
+                    </div>
+                </a>
+                <a href="dream.html" class="product-card">
+                    <div class="product-image">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Dream_4K_1.png?v=1760015386&width=400" alt="DREAM">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">DREAM</div>
+                        <div class="product-tagline">Drift into restful, restorative sleep</div>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.8 (95+ reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">$59</span>
+                            <span class="price-sub">/30 servings</span>
+                        </div>
+                        <button class="product-btn" onclick="event.preventDefault(); addToCart('dream', 'DREAM', 59)">Add to Cart</button>
+                    </div>
+                </a>
+                <a href="gazm.html" class="product-card">
+                    <div class="product-image">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Gazm_4K_1.png?v=1760015415&width=400" alt="GAZM">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">GAZM</div>
+                        <div class="product-tagline">Ignite connection and deepen pleasure</div>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.8 (80+ reviews)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="price-current">$69</span>
+                            <span class="price-sub">/30 servings</span>
+                        </div>
+                        <button class="product-btn" onclick="event.preventDefault(); addToCart('gazm', 'GAZM', 69)">Add to Cart</button>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Stack -->
+    <section class="value-stack">
+        <div class="mv-container">
+            <div>
+                <h2 class="mv-type--headline2">Try All 5 States.<br>One Complete System.</h2>
+                <ul class="value-list">
+                    <li><span class="value-check">✓</span><div>30-day supply of <strong>FOCUS</strong> - Peak concentration</div></li>
+                    <li><span class="value-check">✓</span><div>30-day supply of <strong>ZEN</strong> - Calm resilience</div></li>
+                    <li><span class="value-check">✓</span><div>30-day supply of <strong>BLISS</strong> - Elevated mood</div></li>
+                    <li><span class="value-check">✓</span><div>30-day supply of <strong>DREAM</strong> - Deep sleep</div></li>
+                    <li><span class="value-check">✓</span><div>30-day supply of <strong>GAZM</strong> - Peak performance</div></li>
+                    <li><span class="value-check">✓</span><div><strong>State Optimization Guide</strong> - $47 value</div></li>
+                    <li><span class="value-check">✓</span><div><strong>60-Day Money-Back Guarantee</strong></div></li>
+                    <li><span class="value-check">✓</span><div><strong>Free Shipping</strong> on US orders</div></li>
+                </ul>
+            </div>
+            <div class="value-total">
+                <div class="value-total-label">TOTAL VALUE: $347</div>
+                <div class="value-total-price">$99</div>
+                <div class="value-total-note">One-time purchase. No subscription required.</div>
+                <button class="value-cta" onclick="addToCart('box-set', 'States Box Set', 99)">Get the Complete Box Set</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why States - Problem/Solution -->
+    <section style="padding:80px 0;background:#f9fafb;">
+        <div class="mv-container">
+            <div class="section-header">
+                <h2 class="mv-type--headline2">Why Most Supplements Don't Work</h2>
+                <p>And how States is different</p>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;">
+                <div style="background:white;border-radius:20px;padding:40px;border:2px solid #fee2e2;">
+                    <div style="font-size:32px;margin-bottom:16px;">&#128683;</div>
+                    <h3 style="font-family:Grotesk-Bold,sans-serif;font-size:20px;margin-bottom:16px;color:#dc2626;">The Problem</h3>
+                    <ul style="list-style:none;padding:0;margin:0;color:#71767f;font-size:15px;line-height:1.8;">
+                        <li style="display:flex;gap:10px;margin-bottom:12px;"><span style="color:#dc2626;">&#10005;</span> Proprietary blends hide under-dosed ingredients</li>
+                        <li style="display:flex;gap:10px;margin-bottom:12px;"><span style="color:#dc2626;">&#10005;</span> Generic ingredients without clinical research</li>
+                        <li style="display:flex;gap:10px;margin-bottom:12px;"><span style="color:#dc2626;">&#10005;</span> "Fairy dust" amounts just to list on the label</li>
+                        <li style="display:flex;gap:10px;margin-bottom:12px;"><span style="color:#dc2626;">&#10005;</span> Cheap caffeine that causes jitters and crashes</li>
+                        <li style="display:flex;gap:10px;"><span style="color:#dc2626;">&#10005;</span> No transparency about what you're actually getting</li>
+                    </ul>
+                </div>
+                <div style="background:white;border-radius:20px;padding:40px;border:2px solid #bbf7d0;">
+                    <div style="font-size:32px;margin-bottom:16px;">&#9989;</div>
+                    <h3 style="font-family:Grotesk-Bold,sans-serif;font-size:20px;margin-bottom:16px;color:#16a34a;">The States Solution</h3>
+                    <ul style="list-style:none;padding:0;margin:0;color:#71767f;font-size:15px;line-height:1.8;">
+                        <li style="display:flex;gap:10px;margin-bottom:12px;"><span style="color:#16a34a;">&#10003;</span> <strong>Clinical dosages</strong> — exact amounts proven in studies</li>
+                        <li style="display:flex;gap:10px;margin-bottom:12px;"><span style="color:#16a34a;">&#10003;</span> <strong>12+ patented ingredients</strong> with real research</li>
+                        <li style="display:flex;gap:10px;margin-bottom:12px;"><span style="color:#16a34a;">&#10003;</span> <strong>Full transparency</strong> — every dose on the label</li>
+                        <li style="display:flex;gap:10px;margin-bottom:12px;"><span style="color:#16a34a;">&#10003;</span> <strong>Paraxanthine</strong> — caffeine's clean metabolite</li>
+                        <li style="display:flex;gap:10px;"><span style="color:#16a34a;">&#10003;</span> <strong>Third-party tested</strong> for purity and potency</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:40px;">
+                <a href="science.html" class="btn-primary" style="display:inline-flex;background:#0f131a;">
+                    Learn About Our Science
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clinical -->
+    <section class="clinical" id="science">
+        <div class="mv-container">
+            <div class="section-header">
+                <h2 class="mv-type--headline2">Backed by Clinical Research</h2>
+                <p>Every ingredient validated in peer-reviewed studies</p>
+            </div>
+            <div class="clinical-grid">
+                <div class="clinical-card">
+                    <div class="clinical-stat">23%</div>
+                    <div class="clinical-label">Improved cognitive performance</div>
+                    <div class="clinical-source">Paraxanthine study, Yoo et al. 2021</div>
+                </div>
+                <div class="clinical-card">
+                    <div class="clinical-stat">32%</div>
+                    <div class="clinical-label">Fewer mental errors post-exercise</div>
+                    <div class="clinical-source">enfinity® clinical trial</div>
+                </div>
+                <div class="clinical-card">
+                    <div class="clinical-stat">27%</div>
+                    <div class="clinical-label">Reduced cortisol levels</div>
+                    <div class="clinical-source">Ashwagandha meta-analysis</div>
+                </div>
+                <div class="clinical-card">
+                    <div class="clinical-stat">108%</div>
+                    <div class="clinical-label">Cognitive improvement (Alpha GPC)</div>
+                    <div class="clinical-source">Single-dose study</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section style="padding:80px 0;background:white;">
+        <div class="mv-container">
+            <div class="section-header">
+                <h2 class="mv-type--headline2">States for Every Moment</h2>
+                <p>Designed for high performers who need to shift on demand</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px;">
+                <div style="background:linear-gradient(135deg,#fef3c7,#fef9c3);border-radius:16px;padding:32px;text-align:center;">
+                    <div style="font-size:40px;margin-bottom:12px;">&#127749;</div>
+                    <h4 style="font-family:Grotesk-Bold,sans-serif;font-size:16px;margin-bottom:8px;">Morning Deep Work</h4>
+                    <p style="color:#71767f;font-size:14px;margin-bottom:16px;">4-6 hours of uninterrupted focus without the coffee crash</p>
+                    <span style="background:#f59e0b;color:white;padding:4px 12px;border-radius:100px;font-size:12px;font-family:Grotesk-Bold,sans-serif;">FOCUS</span>
+                </div>
+                <div style="background:linear-gradient(135deg,#dbeafe,#e0f2fe);border-radius:16px;padding:32px;text-align:center;">
+                    <div style="font-size:40px;margin-bottom:12px;">&#128221;</div>
+                    <h4 style="font-family:Grotesk-Bold,sans-serif;font-size:16px;margin-bottom:8px;">High-Stakes Meetings</h4>
+                    <p style="color:#71767f;font-size:14px;margin-bottom:16px;">Calm confidence under pressure. No anxiety, all presence.</p>
+                    <span style="background:#3b82f6;color:white;padding:4px 12px;border-radius:100px;font-size:12px;font-family:Grotesk-Bold,sans-serif;">ZEN</span>
+                </div>
+                <div style="background:linear-gradient(135deg,#fce7f3,#fdf2f8);border-radius:16px;padding:32px;text-align:center;">
+                    <div style="font-size:40px;margin-bottom:12px;">&#127881;</div>
+                    <h4 style="font-family:Grotesk-Bold,sans-serif;font-size:16px;margin-bottom:8px;">Social Events</h4>
+                    <p style="color:#71767f;font-size:14px;margin-bottom:16px;">Open-hearted, witty, and genuinely connected</p>
+                    <span style="background:#ec4899;color:white;padding:4px 12px;border-radius:100px;font-size:12px;font-family:Grotesk-Bold,sans-serif;">BLISS</span>
+                </div>
+                <div style="background:linear-gradient(135deg,#e0e7ff,#ede9fe);border-radius:16px;padding:32px;text-align:center;">
+                    <div style="font-size:40px;margin-bottom:12px;">&#128164;</div>
+                    <h4 style="font-family:Grotesk-Bold,sans-serif;font-size:16px;margin-bottom:8px;">Recovery & Sleep</h4>
+                    <p style="color:#71767f;font-size:14px;margin-bottom:16px;">Deep, restorative sleep. Wake up feeling refreshed.</p>
+                    <span style="background:#8b5cf6;color:white;padding:4px 12px;border-radius:100px;font-size:12px;font-family:Grotesk-Bold,sans-serif;">DREAM</span>
+                </div>
+                <div style="background:linear-gradient(135deg,#fecdd3,#ffe4e6);border-radius:16px;padding:32px;text-align:center;">
+                    <div style="font-size:40px;margin-bottom:12px;">&#128150;</div>
+                    <h4 style="font-family:Grotesk-Bold,sans-serif;font-size:16px;margin-bottom:8px;">Intimate Connection</h4>
+                    <p style="color:#71767f;font-size:14px;margin-bottom:16px;">Enhanced presence, blood flow, and deeper connection</p>
+                    <span style="background:#f43f5e;color:white;padding:4px 12px;border-radius:100px;font-size:12px;font-family:Grotesk-Bold,sans-serif;">GAZM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="mv-container">
+            <div class="section-header">
+                <h2 class="mv-type--headline2">What High Performers Say</h2>
+                <p>Real results from real customers</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"FOCUS gave me 4 uninterrupted hours of deep work every morning. As a founder managing 3 companies, this is now non-negotiable."</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-06-13_at_9.41.46_PM.png?v=1749822122&width=96" alt="Jimmy"></div>
+                        <div>
+                            <div class="testimonial-name">Jimmy Naraine <span class="verified-badge">✓</span></div>
+                            <div class="testimonial-title">Bestselling Author & Entrepreneur</div>
+                            <div class="testimonial-product">Reviewed FOCUS</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"ZEN is the way to go if you have chronic stress. This works immediately - as soon as I take it I feel more chill and calm."</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-09-08_at_10.32.21_PM.png?v=1757342086&width=96" alt="Roxana"></div>
+                        <div>
+                            <div class="testimonial-name">Roxana <span class="verified-badge">✓</span></div>
+                            <div class="testimonial-title">2-Year Customer</div>
+                            <div class="testimonial-product">Reviewed ZEN</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"I'm an herbalist and the formula is really well put together. Felt open-hearted, social, lots of energy even late at night. I loved it."</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-06-13_at_10.03.52_PM.png?v=1749823448&width=96" alt="Lee"></div>
+                        <div>
+                            <div class="testimonial-name">Lee Holden <span class="verified-badge">✓</span></div>
+                            <div class="testimonial-title">Qi Gong Master</div>
+                            <div class="testimonial-product">Reviewed BLISS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creators -->
+    <section class="creators">
+        <div class="mv-container">
+            <div class="section-header">
+                <h2 class="mv-type--headline2">Created By Two Visionaries</h2>
+                <p>World-class formulation meets transformational vision</p>
+            </div>
+            <div class="creator-grid">
+                <div class="creator-card">
+                    <div class="creator-image"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.50.13_PM.png?v=1761033028&width=200" alt="Shawn Wells"></div>
+                    <div>
+                        <div class="creator-role">Formulated By</div>
+                        <div class="creator-name">Shawn Wells</div>
+                        <div class="creator-bio">The world's leading nutritional biochemist. After battling illness and depression, Shawn emerged with a mission to help others achieve vitality through science-backed supplementation.</div>
+                        <div class="creator-creds">
+                            <span class="creator-cred">1,000+ Formulas</span>
+                            <span class="creator-cred">40+ Patents</span>
+                            <span class="creator-cred">MPH, RD, CISSN</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="creator-card">
+                    <div class="creator-image"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.49.01_PM.png?v=1761032958&width=200" alt="Vishen"></div>
+                    <div>
+                        <div class="creator-role">Co-Created By</div>
+                        <div class="creator-name">Vishen Lakhiani</div>
+                        <div class="creator-bio">Founder of Mindvalley and one of the world's leading voices in transformational learning. Now bringing that vision to conscious biohacking.</div>
+                        <div class="creator-creds">
+                            <span class="creator-cred">Mindvalley Founder</span>
+                            <span class="creator-cred">20M+ Community</span>
+                            <span class="creator-cred">NYT Bestseller</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="mv-container">
+            <div class="section-header">
+                <h2 class="mv-type--headline2">Frequently Asked Questions</h2>
+                <p style="color:#71767f;margin-top:8px;">Everything you need to know about Mindvalley States</p>
+            </div>
+
+            <!-- FAQ Category: Getting Started -->
+            <h3 style="font-family:Grotesk-Bold,sans-serif;font-size:18px;margin-bottom:16px;margin-top:32px;color:#7a12d4;">Getting Started</h3>
+            <div class="faq-list" style="margin-bottom:32px;">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">How quickly will I feel the effects?</div>
+                    <div class="faq-answer">Most people notice effects within 20-30 minutes. FOCUS and ZEN tend to kick in fastest (20-30 min), BLISS works within 30-45 minutes, GAZM within 30-60 minutes, and DREAM should be taken 30-60 minutes before bed. The activation time can vary based on individual biochemistry, whether you've eaten, and your current state.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Which State should I start with?</div>
+                    <div class="faq-answer">Take our 10-question State Assessment Quiz to get a personalized recommendation. Generally: Start with FOCUS if productivity is your goal, ZEN if you deal with stress, BLISS for mood support, DREAM for sleep issues, or GAZM for intimate connection. The Box Set lets you try all 5 and discover which works best for your lifestyle.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">What's the best time of day to take each State?</div>
+                    <div class="faq-answer"><strong>FOCUS:</strong> Morning or before deep work sessions. <strong>ZEN:</strong> Afternoon, before stressful situations, or anytime you need to de-stress. <strong>BLISS:</strong> Afternoon or before social events. <strong>GAZM:</strong> 30-60 minutes before intimate moments. <strong>DREAM:</strong> 30-60 minutes before bed. You can also stack States - like FOCUS + ZEN for calm, focused presentations.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Do I need to take them every day?</div>
+                    <div class="faq-answer">No. States are designed for on-demand use - take them when you need a specific outcome. However, some ingredients like Synapsa Bacopa in BLISS build up over 2-4 weeks for maximum cognitive benefits. Many users have a daily routine (FOCUS for work, DREAM for sleep) while using others situationally.</div>
+                </div>
+            </div>
+
+            <!-- FAQ Category: Ingredients & Safety -->
+            <h3 style="font-family:Grotesk-Bold,sans-serif;font-size:18px;margin-bottom:16px;color:#7a12d4;">Ingredients & Safety</h3>
+            <div class="faq-list" style="margin-bottom:32px;">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Will these cause dependency or addiction?</div>
+                    <div class="faq-answer">No. The ingredients in our formulas are not addictive or habit-forming. Unlike caffeine which creates tolerance and withdrawal, compounds like paraxanthine work without causing habituation. You can start or stop anytime without adverse effects.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">What is paraxanthine and how is it different from caffeine?</div>
+                    <div class="faq-answer">Paraxanthine (enfinity®) is what caffeine becomes after your liver processes it - it's the "clean" metabolite responsible for caffeine's benefits without the jitters, anxiety, or sleep disruption. We call it "Coffee 2.0" because you get sustained energy and focus without the crash, tolerance buildup, or withdrawal symptoms. It's found in FOCUS (300mg) and BLISS (100mg).</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Are States safe to take with medications?</div>
+                    <div class="faq-answer">While our ingredients are generally well-tolerated, we recommend consulting your healthcare provider before starting any supplement if you're on medications - especially MAOIs, SSRIs, blood thinners, or blood pressure medications. Pregnant or nursing women should also consult a doctor first.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Can I take multiple States together?</div>
+                    <div class="faq-answer">Yes! States are designed to complement each other. Popular combinations include: <strong>FOCUS + ZEN</strong> (the Presentation Stack for calm focus), <strong>BLISS + GAZM</strong> (the Connection Stack for social/intimate settings), and <strong>ZEN + DREAM</strong> (the Recovery Stack for stress relief and sleep). Just avoid taking FOCUS or BLISS too close to bedtime.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">What does "clinical dosage" mean?</div>
+                    <div class="faq-answer">A clinical dosage is the exact amount proven effective in peer-reviewed human studies. Many supplements use tiny "fairy dust" amounts just to list the ingredient. We use the amounts that actually work - for example, 300mg of paraxanthine (the dose shown to improve cognitive performance by 23% in studies), not a 50mg token amount.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Why do you use patented ingredients?</div>
+                    <div class="faq-answer">Patented ingredients (like enfinity®, Nitrosigine®, Synapsa®, Zembrin®) have been researched, tested, and proven effective in clinical trials. Generic versions often don't meet the same quality standards. Yes, they cost more - but they actually work, and we believe you deserve ingredients with real science behind them.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Are States vegan and allergen-free?</div>
+                    <div class="faq-answer">Yes! All States are 100% vegan with plant-based capsules. They're also non-GMO, gluten-free, and third-party tested for purity. We don't use artificial colors, flavors, or preservatives.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Why is the melatonin dose in DREAM so low (0.5mg)?</div>
+                    <div class="faq-answer">Research shows 0.3-0.5mg of melatonin is often MORE effective than higher doses (3-10mg). Higher doses can cause next-day grogginess and actually disrupt your body's natural melatonin production over time. The micro-dose approach signals sleep without overwhelming your system.</div>
+                </div>
+            </div>
+
+            <!-- FAQ Category: Specific Products -->
+            <h3 style="font-family:Grotesk-Bold,sans-serif;font-size:18px;margin-bottom:16px;color:#7a12d4;">Product-Specific Questions</h3>
+            <div class="faq-list" style="margin-bottom:32px;">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Will FOCUS make me jittery like coffee?</div>
+                    <div class="faq-answer">No. FOCUS uses paraxanthine instead of caffeine, which provides clean energy without the jitters, anxiety, or crash. The L-Theanine also promotes calm focus. Users describe it as "smooth, sustained energy" - alert and productive without feeling wired.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Will ZEN make me drowsy or sedated?</div>
+                    <div class="faq-answer">No. ZEN promotes calm without sedation - it's designed for daytime use. The ingredients (L-Theanine, Rhodiola, Lemon Balm) support your GABA system for relaxation while keeping you mentally sharp. It's perfect before stressful meetings or presentations.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">How is BLISS different from antidepressants?</div>
+                    <div class="faq-answer">BLISS is not a medication and doesn't work like SSRIs. It uses natural compounds (Synapsa, Zembrin, Affron saffron) to support healthy serotonin function and reduce the brain's stress response. It elevates baseline mood and social openness without the side effects or dependency of pharmaceuticals. It's not a replacement for prescribed medications.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Does GAZM work for both men and women?</div>
+                    <div class="faq-answer">Yes! GAZM is formulated for all genders. The nitric oxide boosters (Nitrosigine, Beet Root) enhance blood flow universally. The adaptogens (Tongkat Ali, Ashwagandha) support healthy hormone balance in both men and women, promoting presence, connection, and physical response.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Will DREAM give me vivid or weird dreams?</div>
+                    <div class="faq-answer">DREAM contains Mugwort, traditionally used for enhancing dream vividness and recall. Many users report more memorable, vivid dreams - which can be valuable for creativity and subconscious processing. If you prefer dreamless sleep, you can take DREAM without the mugwort effect by taking it earlier (2 hours before bed).</div>
+                </div>
+            </div>
+
+            <!-- FAQ Category: Orders & Shipping -->
+            <h3 style="font-family:Grotesk-Bold,sans-serif;font-size:18px;margin-bottom:16px;color:#7a12d4;">Orders & Shipping</h3>
+            <div class="faq-list" style="margin-bottom:32px;">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Where do you ship?</div>
+                    <div class="faq-answer">We ship to USA, Canada, UK, Australia, and most of Europe. US orders typically arrive in 3-8 business days. International orders take 14-21 days. Free shipping on US orders over $99.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">What's your return policy?</div>
+                    <div class="faq-answer">We offer a 60-day money-back guarantee. If you don't notice a measurable shift in your performance, focus, or well-being, contact us for a full refund - even if you've used the product. We want you to feel confident trying States risk-free.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Is there a subscription option?</div>
+                    <div class="faq-answer">Currently, States are available as one-time purchases. We're working on a subscription option with additional savings - sign up for our email list to be notified when it launches.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">How long does one bottle last?</div>
+                    <div class="faq-answer">Each bottle contains 30 servings - a one-month supply if used daily. If you use States on-demand rather than daily, a bottle can last 2-3 months depending on frequency.</div>
+                </div>
+            </div>
+
+            <!-- FAQ Category: Box Set -->
+            <h3 style="font-family:Grotesk-Bold,sans-serif;font-size:18px;margin-bottom:16px;color:#7a12d4;">About the Box Set</h3>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">What's included in the Box Set?</div>
+                    <div class="faq-answer">The States Box Set includes all 5 products (FOCUS, ZEN, BLISS, DREAM, GAZM) - that's 150 servings total. You also get access to the State Optimization Guide and our 60-day money-back guarantee. It's the best way to discover which States work best for your unique lifestyle.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Is the Box Set better value than buying individually?</div>
+                    <div class="faq-answer">Yes! Individual States are $79 each ($395 total for all 5). The Box Set is $299 - that's 40% off and includes the State Optimization Guide. If you're interested in trying multiple States, the Box Set is the clear choice.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">I only want to try one or two States. Should I get the Box Set?</div>
+                    <div class="faq-answer">If you're certain you only want one State, buy it individually. But many customers discover they love States they didn't expect - someone buying FOCUS often finds ZEN invaluable, or someone getting BLISS discovers DREAM transforms their sleep. The Box Set lets you experiment and find your perfect combination.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="mv-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">Mindvalley<span>States</span></a>
+                    <p style="margin-top:16px">Premium nootropics designed to help you shift your mental and emotional state on demand. Neuroscience meets nature.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <a href="#products">Box Set</a>
+                    <a href="focus.html">FOCUS</a>
+                    <a href="zen.html">ZEN</a>
+                    <a href="bliss.html">BLISS</a>
+                    <a href="dream.html">DREAM</a>
+                    <a href="gazm.html">GAZM</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <a href="#">FAQ</a>
+                    <a href="#">Shipping</a>
+                    <a href="#">Returns</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="science.html">Science</a>
+                    <a href="testimonials.html">Reviews</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Privacy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Mindvalley States. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky CTA -->
+    <div class="mobile-cta">
+        <div class="mobile-cta-info">
+            <div class="mobile-cta-name">States Box Set</div>
+            <div class="mobile-cta-price">$99 (All 5 States)</div>
+        </div>
+        <button class="mobile-cta-btn" onclick="addToCart('box-set', 'States Box Set', 99)">Add to Cart</button>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close" onclick="closeCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cart-total">$0</span>
+            </div>
+            <button class="cart-checkout">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        // Cart State - Load from localStorage
+        let cart = JSON.parse(localStorage.getItem('mindvalleyStatesCart') || '[]');
+
+        // 10-Question Quiz State
+        let quiz10Answers = {};
+        let currentQuestion = 0;
+        const totalQuestions = 10;
+
+        const productData10 = {
+            focus: {
+                name: 'FOCUS',
+                desc: 'Caffeine-free energy for peak focus. 4-6 hours of deep work without jitters or crash.',
+                img: 'https://www.mindvalleystates.com/cdn/shop/files/Focus_4K_1.png?v=1760015485&width=400',
+                price: 79,
+                timeIcon: '&#127749;',
+                timeText: 'Best taken in the morning before deep work sessions'
+            },
+            zen: {
+                name: 'ZEN',
+                desc: 'De-stress and reset in minutes. Calm resilience under pressure without drowsiness.',
+                img: 'https://www.mindvalleystates.com/cdn/shop/files/Zen_4K_1.png?v=1760015438&width=400',
+                price: 79,
+                timeIcon: '&#9728;&#65039;',
+                timeText: 'Take before stressful situations or to calm racing thoughts'
+            },
+            bliss: {
+                name: 'BLISS',
+                desc: 'Happiness powered by science. Elevated mood and social openness.',
+                img: 'https://www.mindvalleystates.com/cdn/shop/files/Bliss_4K_1.png?v=1760015460&width=400',
+                price: 79,
+                timeIcon: '&#127773;',
+                timeText: 'Afternoon or 30-45 min before social events'
+            },
+            dream: {
+                name: 'DREAM',
+                desc: 'Drift into restful, restorative sleep. Wake refreshed with vivid dreams.',
+                img: 'https://www.mindvalleystates.com/cdn/shop/files/Dream_4K_1.png?v=1760015386&width=400',
+                price: 79,
+                timeIcon: '&#127775;',
+                timeText: 'Take 30-60 minutes before bed'
+            },
+            gazm: {
+                name: 'GAZM',
+                desc: 'Ignite connection and deepen presence. Enhanced blood flow and hormone balance.',
+                img: 'https://www.mindvalleystates.com/cdn/shop/files/Gazm_4K_1.png?v=1760015415&width=400',
+                price: 79,
+                timeIcon: '&#127769;',
+                timeText: 'Take 30-60 minutes before intimate moments'
+            }
+        };
+
+        // Quiz Functions
+        function openQuiz() {
+            document.getElementById('quiz-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeQuiz(e) {
+            if (e.target === document.getElementById('quiz-overlay')) {
+                closeQuizDirect();
+            }
+        }
+
+        function closeQuizDirect() {
+            document.getElementById('quiz-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+            resetQuiz10();
+        }
+
+        function startQuiz10() {
+            document.getElementById('quiz-intro-screen').style.display = 'none';
+            document.getElementById('quiz-q1').style.display = 'block';
+            currentQuestion = 1;
+            updateProgress10();
+        }
+
+        function resetQuiz10() {
+            quiz10Answers = {};
+            currentQuestion = 0;
+            // Hide all questions and results
+            for (let i = 1; i <= 10; i++) {
+                document.getElementById('quiz-q' + i).style.display = 'none';
+            }
+            document.getElementById('quiz-result').classList.remove('active');
+            document.getElementById('quiz-intro-screen').style.display = 'block';
+            // Clear selections
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+            // Reset progress
+            document.getElementById('quiz-progress-bar').style.width = '0%';
+            document.getElementById('quiz-progress-text').textContent = '0/10';
+            // Reset Q10 button
+            const btn = document.getElementById('show-results-btn');
+            btn.style.opacity = '0.5';
+            btn.style.pointerEvents = 'none';
+        }
+
+        function updateProgress10() {
+            const percent = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('quiz-progress-bar').style.width = percent + '%';
+            document.getElementById('quiz-progress-text').textContent = currentQuestion + '/10';
+        }
+
+        function selectAnswer10(q, el) {
+            // Deselect others in this question
+            el.parentElement.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            quiz10Answers[q] = el.dataset.value;
+
+            // Auto-advance after short delay
+            setTimeout(() => {
+                if (q < 10) {
+                    document.getElementById('quiz-q' + q).style.display = 'none';
+                    document.getElementById('quiz-q' + (q + 1)).style.display = 'block';
+                    currentQuestion = q + 1;
+                    updateProgress10();
+                }
+            }, 300);
+        }
+
+        function toggleMulti10(el) {
+            el.classList.toggle('selected');
+            // Update Q10 answers
+            const selected = document.querySelectorAll('#q10-options .quiz-option.selected');
+            quiz10Answers[10] = Array.from(selected).map(opt => opt.dataset.value);
+            // Enable/disable button
+            const btn = document.getElementById('show-results-btn');
+            if (selected.length > 0) {
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+            } else {
+                btn.style.opacity = '0.5';
+                btn.style.pointerEvents = 'none';
+            }
+        }
+
+        function calculateResults10() {
+            let scores = { focus: 0, zen: 0, bliss: 0, dream: 0, gazm: 0 };
+
+            // Q1: Daily challenge
+            if (quiz10Answers[1] === 'focus' || quiz10Answers[1] === 'energy') scores.focus += 3;
+            if (quiz10Answers[1] === 'stress') scores.zen += 3;
+            if (quiz10Answers[1] === 'mood') scores.bliss += 3;
+            if (quiz10Answers[1] === 'sleep') scores.dream += 3;
+
+            // Q2: Time of day
+            if (quiz10Answers[2] === 'morning') scores.focus += 2;
+            if (quiz10Answers[2] === 'afternoon') { scores.zen += 1; scores.bliss += 1; }
+            if (quiz10Answers[2] === 'evening') { scores.bliss += 1; scores.gazm += 1; }
+            if (quiz10Answers[2] === 'night') scores.dream += 2;
+
+            // Q3: Caffeine relationship
+            if (quiz10Answers[3] === 'heavy' || quiz10Answers[3] === 'moderate') scores.focus += 2;
+            if (quiz10Answers[3] === 'sensitive' || quiz10Answers[3] === 'none') { scores.zen += 1; scores.bliss += 1; }
+
+            // Q4: Work type
+            if (quiz10Answers[4] === 'knowledge') scores.focus += 2;
+            if (quiz10Answers[4] === 'leadership' || quiz10Answers[4] === 'entrepreneur') { scores.focus += 1; scores.zen += 1; }
+
+            // Q5: Stress level
+            if (quiz10Answers[5] === 'high') scores.zen += 3;
+            if (quiz10Answers[5] === 'moderate') scores.zen += 1;
+            if (quiz10Answers[5] === 'situational') scores.zen += 2;
+
+            // Q6: Sleep quality
+            if (quiz10Answers[6] === 'poor') scores.dream += 3;
+            if (quiz10Answers[6] === 'inconsistent') scores.dream += 2;
+            if (quiz10Answers[6] === 'okay') scores.dream += 1;
+
+            // Q7: Presentations
+            if (quiz10Answers[7] === 'frequent' || quiz10Answers[7] === 'sometimes') { scores.focus += 1; scores.zen += 2; }
+
+            // Q8: Intimacy
+            if (quiz10Answers[8] === 'priority') scores.gazm += 3;
+            if (quiz10Answers[8] === 'interested') scores.gazm += 2;
+
+            // Q10: Multi-select goals
+            if (quiz10Answers[10] && quiz10Answers[10].length > 0) {
+                quiz10Answers[10].forEach(val => {
+                    if (val === 'productivity') scores.focus += 2;
+                    if (val === 'calm') scores.zen += 2;
+                    if (val === 'happiness') scores.bliss += 2;
+                    if (val === 'rest') scores.dream += 2;
+                    if (val === 'connection') scores.gazm += 2;
+                });
+            }
+
+            // Sort by score
+            return Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        }
+
+        function showQuizResults10() {
+            const sorted = calculateResults10();
+            const primaryKey = sorted[0][0];
+            const primary = productData10[primaryKey];
+            const secondary = sorted.slice(1, 3).map(s => productData10[s[0]]);
+
+            // Update primary recommendation
+            document.getElementById('result-img').src = primary.img;
+            document.getElementById('result-name').textContent = primary.name;
+            document.getElementById('result-desc').textContent = primary.desc;
+            document.getElementById('result-price').textContent = primary.price;
+            document.getElementById('timing-icon').innerHTML = primary.timeIcon;
+            document.getElementById('timing-text').textContent = primary.timeText;
+
+            // Secondary recommendations
+            const secHtml = secondary.map(p => `
+                <div style="display:flex;gap:12px;align-items:center;background:#f9fafb;padding:12px;border-radius:8px;margin-bottom:8px;">
+                    <img src="${p.img}" style="width:50px;height:50px;object-fit:contain;">
+                    <div style="flex:1;">
+                        <strong style="font-size:14px;">${p.name}</strong>
+                        <span style="display:block;font-size:12px;color:#71767f;">${p.timeText}</span>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('secondary-recs').innerHTML = '<p style="font-size:13px;color:#71767f;margin-bottom:8px;">Also recommended:</p>' + secHtml;
+
+            // Stack recommendation
+            let stackTitle = 'Your Power Stack';
+            let stackProducts = [sorted[0][0], sorted[1][0]];
+            let stackProtocol = '';
+
+            if (primaryKey === 'focus' && (quiz10Answers[5] === 'high' || quiz10Answers[5] === 'situational' || quiz10Answers[7] === 'frequent')) {
+                stackProducts = ['focus', 'zen'];
+                stackTitle = 'The Presentation Stack';
+                stackProtocol = 'Take FOCUS in the morning. Add ZEN 30 min before high-stakes meetings for calm confidence.';
+            } else if (primaryKey === 'bliss' && quiz10Answers[8] !== 'not-now') {
+                stackProducts = ['bliss', 'gazm'];
+                stackTitle = 'The Connection Stack';
+                stackProtocol = 'Take BLISS in the afternoon. Add GAZM 30-60 min before intimate time.';
+            } else if (quiz10Answers[6] === 'poor' || quiz10Answers[6] === 'inconsistent') {
+                stackProducts = ['zen', 'dream'];
+                stackTitle = 'The Recovery Stack';
+                stackProtocol = 'Take ZEN in the evening to wind down. Take DREAM 30-60 min before bed.';
+            } else {
+                stackProtocol = `Use ${productData10[stackProducts[0]].name} as your primary, add ${productData10[stackProducts[1]].name} for complementary benefits.`;
+            }
+
+            document.getElementById('stack-title').textContent = stackTitle;
+            document.getElementById('stack-products').innerHTML = `
+                <img src="${productData10[stackProducts[0]].img}" style="width:60px;height:60px;object-fit:contain;">
+                <span style="font-size:20px;opacity:0.5;">+</span>
+                <img src="${productData10[stackProducts[1]].img}" style="width:60px;height:60px;object-fit:contain;">
+            `;
+            document.getElementById('stack-protocol').textContent = stackProtocol;
+
+            // Show results
+            document.getElementById('quiz-q10').style.display = 'none';
+            document.getElementById('quiz-result').classList.add('active');
+            document.getElementById('quiz-progress-bar').style.width = '100%';
+            document.getElementById('quiz-progress-text').textContent = 'Complete';
+        }
+
+        function addToCartFromQuiz() {
+            const sorted = calculateResults10();
+            const primaryKey = sorted[0][0];
+            const product = productData10[primaryKey];
+            addToCart(primaryKey, product.name, product.price);
+            closeQuizDirect();
+        }
+
+        // Cart Functions
+        function addToCart(id, name, price) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ id, name, price, qty: 1 });
+            }
+            updateCart();
+            openCart();
+        }
+
+        function updateCart() {
+            // Save to localStorage
+            localStorage.setItem('mindvalleyStatesCart', JSON.stringify(cart));
+
+            const count = cart.reduce((sum, item) => sum + item.qty, 0);
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            document.getElementById('cart-count').textContent = count;
+            document.getElementById('cart-total').textContent = '$' + total;
+
+            const itemsEl = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                itemsEl.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+            } else {
+                itemsEl.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-img"></div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">$${item.price}</div>
+                            <div class="cart-item-qty">
+                                <button onclick="updateQty('${item.id}', -1)">-</button>
+                                <span>${item.qty}</span>
+                                <button onclick="updateQty('${item.id}', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+                updateCart();
+            }
+        }
+
+        function openCart() {
+            document.getElementById('cart-sidebar').classList.add('open');
+            document.getElementById('cart-overlay').classList.add('open');
+        }
+
+        function closeCart() {
+            document.getElementById('cart-sidebar').classList.remove('open');
+            document.getElementById('cart-overlay').classList.remove('open');
+        }
+
+        // FAQ Toggle
+        function toggleFaq(el) {
+            el.parentElement.classList.toggle('open');
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Initialize cart display on page load
+        updateCart();
+    </script>
+</body>
+</html>

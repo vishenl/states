@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOCUS - Your Daily Brain Health Supplement | Mindvalley States</title>
+    <link rel="stylesheet" href="./mv-selfreset-base.css">
+    <style>
+        :root {
+            --purple: #7a12d4;
+            --purple-dark: #6a0dad;
+            --purple-light: #c4b5fd;
+            --focus-color: #3b82f6;
+            --focus-light: #dbeafe;
+            --green: #10b981;
+            --orange: #f59e0b;
+            --red: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; color: var(--gray-800); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background: white; border-bottom: 1px solid var(--gray-200); position: fixed; width: 100%; top: 0; z-index: 100; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; max-width: 1200px; margin: 0 auto; }
+        .logo { font-weight: 700; font-size: 20px; color: var(--gray-900); text-decoration: none; }
+        .logo span { color: var(--purple); }
+        nav { display: flex; gap: 32px; align-items: center; }
+        nav a { color: var(--gray-600); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+        nav a:hover { color: var(--purple); }
+        .nav-products { position: relative; }
+        .nav-dropdown { position: absolute; top: 100%; left: -20px; background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); padding: 12px 0; min-width: 200px; opacity: 0; visibility: hidden; transition: all 0.2s; z-index: 101; }
+        .nav-products:hover .nav-dropdown { opacity: 1; visibility: visible; }
+        .nav-dropdown a { display: flex; align-items: center; gap: 12px; padding: 10px 20px; color: var(--gray-700); font-size: 14px; text-decoration: none; }
+        .nav-dropdown a:hover { background: var(--gray-50); color: var(--purple); }
+        .nav-dropdown a.active { color: var(--focus-color); font-weight: 600; }
+        .nav-dropdown-dot { width: 8px; height: 8px; border-radius: 50%; }
+        .cart-btn { background: var(--gray-900); color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
+        .cart-count { background: var(--purple); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+
+        /* Breadcrumb */
+        .breadcrumb { padding: 100px 20px 20px; background: var(--gray-50); }
+        .breadcrumb-inner { max-width: 1200px; margin: 0 auto; font-size: 14px; color: var(--gray-500); }
+        .breadcrumb a { color: var(--gray-500); text-decoration: none; }
+        .breadcrumb a:hover { color: var(--purple); }
+
+        /* Product Hero */
+        .product-hero { background: var(--gray-50); padding: 0 20px 60px; }
+        .product-hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+        @media (max-width: 900px) { .product-hero-inner { grid-template-columns: 1fr; } }
+
+        /* Product Gallery */
+        .product-gallery { position: sticky; top: 100px; }
+        .main-image { background: white; border-radius: 20px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; overflow: hidden; }
+        .main-image img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .thumbnail-row { display: flex; gap: 12px; }
+        .thumbnail { width: 80px; height: 80px; background: white; border-radius: 12px; cursor: pointer; border: 2px solid transparent; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+        .thumbnail:hover, .thumbnail.active { border-color: var(--focus-color); }
+        .thumbnail img { max-width: 90%; max-height: 90%; object-fit: contain; }
+
+        /* Product Info */
+        .product-info { padding-top: 20px; }
+        .product-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--focus-light); color: var(--focus-color); padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; margin-bottom: 16px; }
+        .product-title { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 42px; font-weight: 700; margin-bottom: 8px; color: var(--gray-900); }
+        .product-tagline { font-size: 18px; color: var(--gray-600); margin-bottom: 20px; }
+        .product-rating { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+        .stars { color: var(--orange); font-size: 16px; letter-spacing: 2px; }
+        .rating-text { font-size: 14px; color: var(--gray-600); }
+        .rating-text a { color: var(--focus-color); text-decoration: none; }
+
+        /* Daily Use Callout - NEW */
+        .daily-callout { background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%); border-radius: 16px; padding: 20px; margin-bottom: 24px; border: 2px solid var(--focus-color); }
+        .daily-callout h4 { font-size: 14px; font-weight: 700; color: var(--focus-color); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .daily-callout p { font-size: 13px; color: var(--gray-700); line-height: 1.6; }
+
+        /* Clinical Highlights */
+        .clinical-highlights { background: white; border-radius: 16px; padding: 20px; margin-bottom: 24px; border: 1px solid var(--gray-200); }
+        .clinical-highlights h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-500); margin-bottom: 16px; }
+        .clinical-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .clinical-stat { text-align: center; }
+        .clinical-stat-value { font-size: 24px; font-weight: 800; color: var(--focus-color); }
+        .clinical-stat-label { font-size: 11px; color: var(--gray-600); margin-top: 4px; }
+
+        /* Pricing */
+        .pricing-section { background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; border: 1px solid var(--gray-200); }
+        .pricing-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .pricing-option { display: flex; align-items: center; gap: 12px; padding: 16px; border: 2px solid var(--gray-200); border-radius: 12px; cursor: pointer; transition: all 0.2s; }
+        .pricing-option:hover { border-color: var(--focus-color); }
+        .pricing-option.selected { border-color: var(--focus-color); background: var(--focus-light); }
+        .pricing-radio { width: 20px; height: 20px; border: 2px solid var(--gray-300); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .pricing-option.selected .pricing-radio { border-color: var(--focus-color); }
+        .pricing-option.selected .pricing-radio::after { content: ''; width: 10px; height: 10px; background: var(--focus-color); border-radius: 50%; }
+        .pricing-details { flex: 1; }
+        .pricing-label { font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+        .pricing-label .save-badge { background: var(--green); color: white; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+        .pricing-desc { font-size: 13px; color: var(--gray-500); margin-top: 2px; }
+        .pricing-amount { font-size: 20px; font-weight: 700; }
+        .pricing-amount span { font-size: 13px; color: var(--gray-500); font-weight: 400; }
+
+        /* Quantity & Add to Cart */
+        .purchase-row { display: flex; gap: 12px; margin-bottom: 16px; }
+        .qty-selector { display: flex; align-items: center; border: 1px solid var(--gray-300); border-radius: 10px; overflow: hidden; }
+        .qty-btn { width: 44px; height: 52px; border: none; background: var(--gray-50); cursor: pointer; font-size: 18px; transition: background 0.2s; }
+        .qty-btn:hover { background: var(--gray-200); }
+        .qty-value { width: 50px; text-align: center; font-weight: 600; font-size: 16px; border: none; background: white; }
+        .add-to-cart { flex: 1; background: var(--focus-color); color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .add-to-cart:hover { background: #2563eb; transform: translateY(-1px); }
+
+        /* Trust Badges */
+        .trust-badges { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .trust-badge { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--gray-600); }
+        .trust-badge svg { color: var(--green); flex-shrink: 0; }
+
+        /* Flow State Section - NEW */
+        .flow-state { padding: 80px 20px; background: linear-gradient(180deg, white 0%, var(--focus-light) 100%); }
+        .flow-state .container { max-width: 900px; }
+        .flow-state-header { text-align: center; margin-bottom: 48px; }
+        .flow-state-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 16px; }
+        .flow-state-header p { font-size: 18px; color: var(--gray-600); max-width: 700px; margin: 0 auto; }
+        .flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        @media (max-width: 768px) { .flow-grid { grid-template-columns: 1fr; } }
+        .flow-card { background: white; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .flow-card.wrong { border-top: 4px solid var(--red); }
+        .flow-card.right { border-top: 4px solid var(--green); }
+        .flow-card h3 { font-size: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .flow-card.wrong h3 { color: var(--red); }
+        .flow-card.right h3 { color: var(--green); }
+        .flow-card ul { list-style: none; }
+        .flow-card li { padding: 8px 0; font-size: 14px; color: var(--gray-600); display: flex; align-items: flex-start; gap: 10px; }
+        .flow-card li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+        .flow-card.wrong li::before { background: var(--red); }
+        .flow-card.right li::before { background: var(--green); }
+
+        /* Caffeine Comparison - NEW */
+        .caffeine-compare { padding: 80px 20px; background: white; }
+        .caffeine-compare .section-header { text-align: center; margin-bottom: 48px; }
+        .caffeine-compare .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 12px; }
+        .caffeine-compare .section-header p { color: var(--gray-600); font-size: 16px; }
+        .compare-table { max-width: 800px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 1px solid var(--gray-200); }
+        .compare-row { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+        .compare-row.header { background: var(--gray-900); color: white; font-weight: 600; }
+        .compare-row:not(.header):nth-child(even) { background: var(--gray-50); }
+        .compare-cell { padding: 16px 20px; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .compare-cell.feature { font-weight: 500; color: var(--gray-700); }
+        .compare-cell.bad { color: var(--red); }
+        .compare-cell.good { color: var(--green); }
+        .stat-callout { background: var(--focus-light); border-radius: 16px; padding: 32px; margin-top: 32px; max-width: 800px; margin-left: auto; margin-right: auto; text-align: center; }
+        .stat-callout .big-stat { font-size: 48px; font-weight: 800; color: var(--focus-color); }
+        .stat-callout p { color: var(--gray-600); margin-top: 8px; }
+
+        /* Clinical Research - NEW */
+        .clinical-research { padding: 80px 20px; background: var(--gray-50); }
+        .clinical-research .section-header { text-align: center; margin-bottom: 48px; }
+        .clinical-research .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 12px; }
+        .clinical-research .section-header p { color: var(--gray-600); }
+        .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        @media (max-width: 900px) { .research-grid { grid-template-columns: 1fr; } }
+        .research-card { background: white; border-radius: 16px; padding: 28px; border: 1px solid var(--gray-200); }
+        .research-card .study-type { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--focus-color); font-weight: 600; margin-bottom: 12px; }
+        .research-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+        .research-card p { font-size: 14px; color: var(--gray-600); line-height: 1.7; margin-bottom: 16px; }
+        .research-result { background: var(--focus-light); padding: 12px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--focus-color); }
+        .author-badge { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--gray-100); font-size: 12px; color: var(--gray-500); display: flex; align-items: center; gap: 8px; }
+        .author-badge strong { color: var(--gray-700); }
+
+        /* Benefits Section */
+        .benefits { padding: 80px 20px; background: white; }
+        .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        @media (max-width: 768px) { .benefits-grid { grid-template-columns: 1fr; } }
+        .benefits-image { border-radius: 20px; overflow: hidden; }
+        .benefits-image img { width: 100%; display: block; }
+        .benefits-content h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 24px; }
+        .benefit-list { list-style: none; }
+        .benefit-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-100); }
+        .benefit-item:last-child { border-bottom: none; }
+        .benefit-icon { width: 48px; height: 48px; background: var(--focus-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+        .benefit-text h4 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .benefit-text p { font-size: 14px; color: var(--gray-600); }
+
+        /* Neurotransmitter Section - NEW */
+        .neurotransmitters { padding: 80px 20px; background: linear-gradient(135deg, var(--gray-900) 0%, #1e3a5f 100%); color: white; }
+        .neurotransmitters .section-header { text-align: center; margin-bottom: 48px; }
+        .neurotransmitters .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 12px; }
+        .neurotransmitters .section-header p { color: var(--gray-400); }
+        .neuro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 900px; margin: 0 auto; }
+        @media (max-width: 768px) { .neuro-grid { grid-template-columns: 1fr; } }
+        .neuro-card { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 32px; border: 1px solid rgba(255,255,255,0.1); }
+        .neuro-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: var(--focus-color); }
+        .neuro-card .subtitle { font-size: 14px; color: var(--gray-400); margin-bottom: 16px; }
+        .neuro-card p { font-size: 14px; color: var(--gray-300); line-height: 1.7; margin-bottom: 16px; }
+        .neuro-source { background: rgba(255,255,255,0.1); padding: 12px 16px; border-radius: 10px; font-size: 13px; }
+        .neuro-source strong { color: var(--focus-color); }
+
+        /* Ingredients Section */
+        .ingredients { padding: 80px 20px; background: var(--gray-900); color: white; }
+        .ingredients .section-header { text-align: center; margin-bottom: 48px; }
+        .ingredients .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 12px; }
+        .ingredients .section-header p { color: var(--gray-400); }
+        .hero-ingredient { background: linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(139,92,246,0.2) 100%); border-radius: 20px; padding: 40px; margin-bottom: 32px; border: 2px solid var(--focus-color); }
+        .hero-ingredient .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--focus-color); color: white; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; margin-bottom: 16px; }
+        .hero-ingredient h3 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+        .hero-ingredient .hero-subtitle { font-size: 16px; color: var(--gray-400); margin-bottom: 20px; }
+        .hero-ingredient p { font-size: 16px; color: var(--gray-300); line-height: 1.8; margin-bottom: 24px; }
+        .hero-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        @media (max-width: 768px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
+        .hero-stat { background: rgba(255,255,255,0.1); padding: 16px; border-radius: 12px; text-align: center; }
+        .hero-stat-value { font-size: 24px; font-weight: 800; color: var(--focus-color); }
+        .hero-stat-label { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+        .ingredient-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .ingredient-card { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 28px; border: 1px solid rgba(255,255,255,0.1); }
+        .ingredient-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+        .ingredient-name { font-size: 18px; font-weight: 700; }
+        .ingredient-name span { display: block; font-size: 13px; color: var(--gray-400); font-weight: 400; margin-top: 4px; }
+        .ingredient-dose { background: var(--focus-color); padding: 6px 12px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+        .ingredient-desc { font-size: 14px; color: var(--gray-300); line-height: 1.7; margin-bottom: 16px; }
+        .ingredient-stats { display: flex; gap: 12px; flex-wrap: wrap; }
+        .ingredient-stat { background: rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 8px; font-size: 12px; }
+        .ingredient-stat strong { color: var(--focus-color); }
+
+        /* Use Cases - NEW */
+        .use-cases { padding: 80px 20px; background: var(--gray-50); }
+        .use-cases .section-header { text-align: center; margin-bottom: 48px; }
+        .use-cases .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 12px; }
+        .use-cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        @media (max-width: 900px) { .use-cases-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .use-cases-grid { grid-template-columns: 1fr; } }
+        .use-case-card { background: white; border-radius: 16px; padding: 24px; text-align: center; border: 1px solid var(--gray-200); transition: all 0.2s; }
+        .use-case-card:hover { border-color: var(--focus-color); box-shadow: 0 4px 20px rgba(59,130,246,0.15); }
+        .use-case-icon { font-size: 36px; margin-bottom: 12px; }
+        .use-case-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+        .use-case-card p { font-size: 13px; color: var(--gray-600); }
+
+        /* Video Section */
+        .video-section { padding: 80px 20px; background: white; }
+        .video-container { max-width: 900px; margin: 0 auto; }
+        .video-wrapper { position: relative; background: var(--gray-900); border-radius: 20px; overflow: hidden; aspect-ratio: 16/9; cursor: pointer; }
+        .video-wrapper img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .play-button svg { margin-left: 4px; }
+        .video-caption { text-align: center; margin-top: 24px; }
+        .video-caption h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .video-caption p { color: var(--gray-600); }
+
+        /* Testimonials */
+        .testimonials { padding: 80px 20px; background: var(--gray-50); }
+        .testimonials .section-header { text-align: center; margin-bottom: 48px; }
+        .testimonials .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 12px; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; }
+        .testimonial-card { background: white; border-radius: 16px; padding: 32px; }
+        .testimonial-quote { font-size: 16px; color: var(--gray-700); margin-bottom: 24px; line-height: 1.7; font-style: italic; }
+        .testimonial-author { display: flex; align-items: center; gap: 16px; }
+        .testimonial-avatar { width: 56px; height: 56px; border-radius: 50%; overflow: hidden; }
+        .testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .testimonial-name { font-weight: 600; }
+        .testimonial-title { font-size: 13px; color: var(--gray-500); }
+        .verified { display: inline-flex; align-items: center; gap: 4px; color: var(--green); font-size: 12px; margin-top: 4px; }
+
+        /* Creators */
+        .creators { padding: 80px 20px; background: white; }
+        .creators .section-header { text-align: center; margin-bottom: 48px; }
+        .creators .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; }
+        .creator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        @media (max-width: 768px) { .creator-grid { grid-template-columns: 1fr; } }
+        .creator-card { background: var(--gray-50); border-radius: 20px; padding: 32px; display: flex; gap: 24px; }
+        .creator-card.featured { background: linear-gradient(135deg, var(--focus-light) 0%, #ede9fe 100%); border: 2px solid var(--focus-color); }
+        .creator-image { width: 100px; height: 100px; border-radius: 16px; overflow: hidden; flex-shrink: 0; }
+        .creator-image img { width: 100%; height: 100%; object-fit: cover; }
+        .creator-role { font-size: 11px; color: var(--purple); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .creator-name { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .creator-bio { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+        .creator-creds { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+        .creator-cred { background: white; padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 500; }
+        .creator-card.featured .creator-cred { background: white; }
+
+        /* Cross-sell */
+        .cross-sell { padding: 80px 20px; background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%); color: white; text-align: center; }
+        .cross-sell h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; margin-bottom: 16px; }
+        .cross-sell p { opacity: 0.9; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .cross-sell-card { background: white; border-radius: 20px; padding: 32px; max-width: 500px; margin: 0 auto; color: var(--gray-800); }
+        .cross-sell-card img { width: 200px; margin-bottom: 16px; }
+        .cross-sell-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .cross-sell-card .price { font-size: 28px; font-weight: 700; color: var(--purple); margin: 16px 0; }
+        .cross-sell-card .price span { font-size: 14px; color: var(--gray-500); font-weight: 400; }
+        .cross-sell-btn { background: var(--purple); color: white; border: none; padding: 14px 32px; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer; width: 100%; }
+
+        /* FAQ */
+        .faq { padding: 80px 20px; background: var(--gray-50); }
+        .faq .section-header { text-align: center; margin-bottom: 48px; }
+        .faq .section-header h2 { font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif; font-size: 36px; }
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--gray-200); background: white; margin-bottom: 8px; border-radius: 12px; overflow: hidden; }
+        .faq-question { padding: 20px 24px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question::after { content: '+'; font-size: 24px; color: var(--gray-400); transition: transform 0.3s; }
+        .faq-item.open .faq-question::after { transform: rotate(45deg); }
+        .faq-answer { padding: 0 24px 20px; color: var(--gray-600); font-size: 15px; line-height: 1.7; display: none; }
+        .faq-item.open .faq-answer { display: block; }
+
+        /* Footer */
+        footer { background: var(--gray-900); color: white; padding: 60px 20px 24px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; max-width: 1200px; margin: 0 auto; }
+        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        .footer-brand { font-size: 14px; color: var(--gray-400); line-height: 1.7; }
+        .footer-brand .logo { display: block; margin-bottom: 16px; color: white; }
+        .footer-col h4 { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+        .footer-col a { display: block; color: var(--gray-400); text-decoration: none; font-size: 14px; padding: 6px 0; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 48px; padding-top: 24px; text-align: center; color: var(--gray-500); font-size: 13px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+
+        /* Mobile Sticky */
+        .mobile-sticky { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid var(--gray-200); padding: 12px 20px; display: none; z-index: 90; gap: 12px; align-items: center; }
+        @media (max-width: 768px) { .mobile-sticky { display: flex; } body { padding-bottom: 80px; } nav { display: none; } }
+        .mobile-sticky-info { flex: 1; }
+        .mobile-sticky-name { font-weight: 600; font-size: 14px; }
+        .mobile-sticky-price { font-size: 13px; color: var(--gray-500); }
+        .mobile-sticky-btn { background: var(--focus-color); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; border: none; cursor: pointer; }
+
+        /* Cart Sidebar */
+        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; }
+        .cart-overlay.open { display: block; }
+        .cart-sidebar { position: fixed; top: 0; right: -400px; width: 400px; max-width: 100%; height: 100vh; background: white; z-index: 300; transition: right 0.3s; display: flex; flex-direction: column; }
+        .cart-sidebar.open { right: 0; }
+        .cart-header { padding: 20px; border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; align-items: center; }
+        .cart-header h3 { font-size: 18px; font-weight: 700; }
+        .cart-close { background: none; border: none; font-size: 28px; cursor: pointer; color: var(--gray-500); line-height: 1; }
+        .cart-items { padding: 20px; flex: 1; overflow-y: auto; }
+        .cart-item { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-100); }
+        .cart-item-img { width: 64px; height: 64px; background: var(--gray-100); border-radius: 8px; overflow: hidden; }
+        .cart-item-img img { width: 100%; height: 100%; object-fit: contain; }
+        .cart-item-info { flex: 1; }
+        .cart-item-name { font-weight: 600; font-size: 14px; }
+        .cart-item-price { font-size: 14px; color: var(--gray-600); margin-top: 4px; }
+        .cart-item-qty { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+        .cart-item-qty button { width: 28px; height: 28px; border: 1px solid var(--gray-300); background: white; border-radius: 6px; cursor: pointer; font-size: 16px; }
+        .cart-footer { padding: 20px; border-top: 1px solid var(--gray-200); }
+        .cart-total { display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+        .cart-checkout { width: 100%; padding: 16px; background: var(--purple); color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 16px; cursor: pointer; }
+        .cart-empty { text-align: center; padding: 60px 20px; color: var(--gray-500); }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="mockup.html" class="logo">Mindvalley<span>States</span></a>
+            <nav>
+                <div class="nav-products">
+                    <a href="mockup.html#products">Products ▾</a>
+                    <div class="nav-dropdown">
+                        <a href="mockup.html#products"><span class="nav-dropdown-dot" style="background: var(--purple);"></span> Box Set</a>
+                        <a href="focus.html" class="active"><span class="nav-dropdown-dot" style="background: #3b82f6;"></span> FOCUS</a>
+                        <a href="zen.html"><span class="nav-dropdown-dot" style="background: #10b981;"></span> ZEN</a>
+                        <a href="bliss.html"><span class="nav-dropdown-dot" style="background: #f59e0b;"></span> BLISS</a>
+                        <a href="dream.html"><span class="nav-dropdown-dot" style="background: #6366f1;"></span> DREAM</a>
+                        <a href="gazm.html"><span class="nav-dropdown-dot" style="background: #e11d48;"></span> GAZM</a>
+                    </div>
+                </div>
+                <a href="#ingredients">Ingredients</a>
+                <a href="science.html">Science</a>
+                <a href="testimonials.html">Reviews</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <button class="cart-btn" onclick="openCart()">
+                Cart <span class="cart-count" id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-inner">
+            <a href="mockup.html">Home</a> / <a href="mockup.html#products">Products</a> / <strong>FOCUS</strong>
+        </div>
+    </div>
+
+    <!-- Product Hero -->
+    <section class="product-hero">
+        <div class="product-hero-inner">
+            <!-- Gallery -->
+            <div class="product-gallery">
+                <div class="main-image" id="main-image">
+                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Focus_Image_1.jpg?v=1753155989&width=800" alt="FOCUS">
+                </div>
+                <div class="thumbnail-row">
+                    <div class="thumbnail active" onclick="changeImage(this, 'https://www.mindvalleystates.com/cdn/shop/files/Focus_Image_1.jpg?v=1753155989&width=800')">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Focus_Image_1.jpg?v=1753155989&width=150" alt="FOCUS">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage(this, 'https://www.mindvalleystates.com/cdn/shop/files/Focus_Image_2.jpg?v=1753155989&width=800')">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Focus_Image_2.jpg?v=1753155989&width=150" alt="FOCUS">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage(this, 'https://www.mindvalleystates.com/cdn/shop/files/Focus_Image_3.jpg?v=1760015485&width=800')">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Focus_Image_3.jpg?v=1760015485&width=150" alt="FOCUS">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage(this, 'https://www.mindvalleystates.com/cdn/shop/files/Focus_Image_4.jpg?v=1760015485&width=800')">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Focus_Image_4.jpg?v=1760015485&width=150" alt="FOCUS">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <div class="product-badge">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    Daily Brain Health
+                </div>
+                <h1 class="product-title">FOCUS</h1>
+                <p class="product-tagline">Enter the flow state. Peak performance that feels effortless.</p>
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">4.9/5 based on <a href="#testimonials">127 reviews</a></span>
+                </div>
+
+                <!-- Daily Use Callout - NEW -->
+                <div class="daily-callout">
+                    <h4>
+                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                        Take Daily for Best Results
+                    </h4>
+                    <p>Unlike caffeine which builds tolerance, FOCUS shows <strong>positive adaptation effects</strong> — your brain actually gets healthier with daily use. No habituation, no diminishing returns.</p>
+                </div>
+
+                <!-- Clinical Highlights -->
+                <div class="clinical-highlights">
+                    <h4>Clinically Validated Results</h4>
+                    <div class="clinical-stats">
+                        <div class="clinical-stat">
+                            <div class="clinical-stat-value">32%</div>
+                            <div class="clinical-stat-label">Fewer mental errors</div>
+                        </div>
+                        <div class="clinical-stat">
+                            <div class="clinical-stat-value">108%</div>
+                            <div class="clinical-stat-label">Doubled focus</div>
+                        </div>
+                        <div class="clinical-stat">
+                            <div class="clinical-stat-value">3x</div>
+                            <div class="clinical-stat-label">Faster cognition</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing -->
+                <div class="pricing-section">
+                    <div class="pricing-options">
+                        <div class="pricing-option selected" onclick="selectPricing(this, 'subscribe')">
+                            <div class="pricing-radio"></div>
+                            <div class="pricing-details">
+                                <div class="pricing-label">Subscribe & Save <span class="save-badge">SAVE 20%</span></div>
+                                <div class="pricing-desc">Daily brain health. Delivered monthly.</div>
+                            </div>
+                            <div class="pricing-amount">$39<span>/mo</span></div>
+                        </div>
+                        <div class="pricing-option" onclick="selectPricing(this, 'onetime')">
+                            <div class="pricing-radio"></div>
+                            <div class="pricing-details">
+                                <div class="pricing-label">One-Time Purchase</div>
+                                <div class="pricing-desc">30-day supply (30 servings)</div>
+                            </div>
+                            <div class="pricing-amount">$49</div>
+                        </div>
+                    </div>
+
+                    <div class="purchase-row">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="updateQty(-1)">−</button>
+                            <input type="text" class="qty-value" id="qty-value" value="1" readonly>
+                            <button class="qty-btn" onclick="updateQty(1)">+</button>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart()">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            Add to Cart — $39
+                        </button>
+                    </div>
+
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                            60-Day Money Back
+                        </div>
+                        <div class="trust-badge">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                            100% Vegan
+                        </div>
+                        <div class="trust-badge">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                            Third-Party Tested
+                        </div>
+                        <div class="trust-badge">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                            Free US Shipping
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flow State Section - NEW -->
+    <section class="flow-state">
+        <div class="container">
+            <div class="flow-state-header">
+                <h2>Focus Is Not About Being Wired</h2>
+                <p>Most people confuse stimulation with focus. They think jittery energy equals productivity. It doesn't. True focus is a <strong>flow state</strong> — where you're energized yet calm, productive yet relaxed.</p>
+            </div>
+            <div class="flow-grid">
+                <div class="flow-card wrong">
+                    <h3>
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"/></svg>
+                        Stimulation (Caffeine/Adderall)
+                    </h3>
+                    <ul>
+                        <li>Jitters, anxiety, racing thoughts</li>
+                        <li>More mental errors under stress</li>
+                        <li>Crashes that tank productivity</li>
+                        <li>Disrupts sleep architecture</li>
+                        <li>Builds tolerance — diminishing returns</li>
+                        <li>60% experience more side effects than benefits</li>
+                    </ul>
+                </div>
+                <div class="flow-card right">
+                    <h3>
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                        Flow State (FOCUS)
+                    </h3>
+                    <ul>
+                        <li>Calm, sustained energy</li>
+                        <li>32% fewer mental errors in studies</li>
+                        <li>4-6 hours of smooth focus</li>
+                        <li>Actually improves sleep quality</li>
+                        <li>Gets MORE effective over time</li>
+                        <li>Works for everyone — no genetic lottery</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Caffeine Comparison - NEW -->
+    <section class="caffeine-compare">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why 82% of Caffeine Users Want to Quit</h2>
+                <p>You know caffeine isn't great for you. That's why you want to consume less. Now you can.</p>
+            </div>
+            <div class="compare-table">
+                <div class="compare-row header">
+                    <div class="compare-cell"></div>
+                    <div class="compare-cell">Caffeine</div>
+                    <div class="compare-cell">FOCUS (Paraxanthine)</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature">Energy Type</div>
+                    <div class="compare-cell bad">Jittery, anxious</div>
+                    <div class="compare-cell good">Calm, sustained</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature">Crash</div>
+                    <div class="compare-cell bad">Yes, severe</div>
+                    <div class="compare-cell good">None</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature">Sleep Impact</div>
+                    <div class="compare-cell bad">Disrupts REM</div>
+                    <div class="compare-cell good">Improves sleep</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature">Tolerance</div>
+                    <div class="compare-cell bad">Builds quickly</div>
+                    <div class="compare-cell good">No habituation</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature">Works For</div>
+                    <div class="compare-cell bad">~40% of people</div>
+                    <div class="compare-cell good">Everyone</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature">Mental Errors</div>
+                    <div class="compare-cell bad">Increase under stress</div>
+                    <div class="compare-cell good">32% fewer errors</div>
+                </div>
+            </div>
+            <div class="stat-callout">
+                <div class="big-stat">60%</div>
+                <p>of people are slow metabolizers of caffeine — experiencing more side effects than benefits. There's a 7 to 60-fold difference in how people metabolize caffeine. With FOCUS, everyone wins.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clinical Research - NEW -->
+    <section class="clinical-research">
+        <div class="container">
+            <div class="section-header">
+                <h2>Backed By Real Science</h2>
+                <p>Not marketing claims. Actual human clinical trials led by our formulator.</p>
+            </div>
+            <div class="research-grid">
+                <div class="research-card">
+                    <div class="study-type">Human Study</div>
+                    <h3>10K Race Performance</h3>
+                    <p>Athletes given paraxanthine vs caffeine before a 10K race were tested on cognitive performance before and after.</p>
+                    <div class="research-result">32% fewer mental errors vs caffeine</div>
+                    <div class="author-badge">
+                        <svg width="16" height="16" fill="var(--focus-color)" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                        <strong>Shawn Wells is lead author</strong>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <div class="study-type">Cognitive Study</div>
+                    <h3>Aged Rat Maze Test</h3>
+                    <p>Aged rats were placed in a water maze to find an escape ledge. The paraxanthine group found it 3x faster.</p>
+                    <div class="research-result">20 seconds vs 60 seconds (3x faster)</div>
+                    <div class="author-badge">
+                        <svg width="16" height="16" fill="var(--focus-color)" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                        <strong>Due to increased neuroplasticity</strong>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <div class="study-type">E-Sports Study</div>
+                    <h3>Gaming Performance</h3>
+                    <p>E-gaming athletes on paraxanthine improved performance over 2 hours. Caffeine group declined hour to hour.</p>
+                    <div class="research-result">Positive adaptation vs negative decline</div>
+                    <div class="author-badge">
+                        <svg width="16" height="16" fill="var(--focus-color)" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                        <strong>Performance improved over time</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Neurotransmitters - NEW -->
+    <section class="neurotransmitters">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Two-Pronged Attack on Focus</h2>
+                <p>FOCUS boosts both of your brain's productivity systems simultaneously</p>
+            </div>
+            <div class="neuro-grid">
+                <div class="neuro-card">
+                    <h3>Dopamine</h3>
+                    <div class="subtitle">"The Get Stuff Done Neurotransmitter"</div>
+                    <p>Dopamine drives motivation, mental stamina, and your ability to push through resistance. Without it, you procrastinate. With it, you're unstoppable.</p>
+                    <div class="neuro-source">
+                        <strong>Boosted by:</strong> TyroPure L-Tyrosine (500mg) — the same amino acid used in Navy SEAL performance protocols
+                    </div>
+                </div>
+                <div class="neuro-card">
+                    <h3>Acetylcholine</h3>
+                    <div class="subtitle">"The Deep Work Neurotransmitter"</div>
+                    <p>Acetylcholine powers learning, memory consolidation, and sustained attention. It's why you can hold complex ideas in your head and make connections.</p>
+                    <div class="neuro-source">
+                        <strong>Boosted by:</strong> GeniusPure Alpha GPC (300mg) — shown to double focus in clinical trials (108% improvement)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-grid">
+                <div class="benefits-image">
+                    <img src="https://www.mindvalleystates.com/cdn/shop/files/img_focus_1.jpg?v=1717660120&width=800" alt="FOCUS Benefits">
+                </div>
+                <div class="benefits-content">
+                    <h2>Not Just Focus — Brain Health</h2>
+                    <ul class="benefit-list">
+                        <li class="benefit-item">
+                            <div class="benefit-icon">🧠</div>
+                            <div class="benefit-text">
+                                <h4>Increases BDNF</h4>
+                                <p>BDNF is the "fountain of youth" for your brain — it creates new brain cells and protects existing ones. Paraxanthine dramatically increases it.</p>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon">🔄</div>
+                            <div class="benefit-text">
+                                <h4>Boosts Neuroplasticity</h4>
+                                <p>Your brain's ability to learn and adapt. This is why cognitive performance improves 3x in studies — your brain literally learns faster.</p>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon">🩸</div>
+                            <div class="benefit-text">
+                                <h4>Increases Nitric Oxide</h4>
+                                <p>Better blood flow means more oxygen and nutrients to your brain. Caffeine constricts blood vessels. Paraxanthine opens them.</p>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon">🛡️</div>
+                            <div class="benefit-text">
+                                <h4>Master Antioxidant Support</h4>
+                                <p>Paraxanthine increases glutathione (the master antioxidant) and catalase — protecting your brain from oxidative stress.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ingredients -->
+    <section class="ingredients" id="ingredients">
+        <div class="container">
+            <div class="section-header">
+                <h2>The FOCUS Formula</h2>
+                <p>5 clinically-dosed ingredients working synergistically</p>
+            </div>
+
+            <!-- Hero Ingredient -->
+            <div class="hero-ingredient">
+                <div class="hero-badge">HERO INGREDIENT</div>
+                <h3>enfinity® Paraxanthine — 300mg</h3>
+                <div class="hero-subtitle">The Clean Part of Caffeine, Without the Junk</div>
+                <p>When you drink coffee, your liver converts caffeine into paraxanthine — removing the compounds that cause jitters, anxiety, and sleep disruption. We've isolated just that clean metabolite. All the benefits, none of the cost. This is the game-changer that's replacing caffeine for elite performers worldwide — including celebrities like Kim Kardashian who drinks a paraxanthine beverage formulated by Shawn Wells.</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">32%</div>
+                        <div class="hero-stat-label">Fewer errors</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">↑ BDNF</div>
+                        <div class="hero-stat-label">Brain health</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">↑ NO</div>
+                        <div class="hero-stat-label">Blood flow</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">0</div>
+                        <div class="hero-stat-label">Habituation</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ingredient-cards">
+                <div class="ingredient-card">
+                    <div class="ingredient-header">
+                        <div class="ingredient-name">TyroPure® L-Tyrosine<span>Dopamine Precursor</span></div>
+                        <div class="ingredient-dose">500mg</div>
+                    </div>
+                    <div class="ingredient-desc">Builds your catecholamine levels — dopamine, norepinephrine, and adrenaline. The "Navy SEAL cocktail" for getting things done under pressure. Fermented, vegan, ultra-clean.</div>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>Sustained</strong> dopamine</div>
+                        <div class="ingredient-stat"><strong>No</strong> crash</div>
+                    </div>
+                </div>
+                <div class="ingredient-card">
+                    <div class="ingredient-header">
+                        <div class="ingredient-name">GeniusPure™ Alpha GPC<span>70% Concentration</span></div>
+                        <div class="ingredient-dose">300mg</div>
+                    </div>
+                    <div class="ingredient-desc">The most concentrated form of Alpha GPC on the market. Builds acetylcholine — the "deep work" neurotransmitter. In studies at this exact dose, it doubled focus in a single session.</div>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>108%</strong> focus boost</div>
+                        <div class="ingredient-stat"><strong>1 dose</strong> to work</div>
+                    </div>
+                </div>
+                <div class="ingredient-card">
+                    <div class="ingredient-header">
+                        <div class="ingredient-name">PEAK ATP®<span>Cellular Energy Currency</span></div>
+                        <div class="ingredient-dose">400mg</div>
+                    </div>
+                    <div class="ingredient-desc">ATP is what your mitochondria produce to fuel every cell. PEAK ATP delivers bioidentical ATP directly — fueling neurons and muscles for both cognitive and physical performance.</div>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>↑</strong> Brain fuel</div>
+                        <div class="ingredient-stat"><strong>↑</strong> Oxygen delivery</div>
+                    </div>
+                </div>
+                <div class="ingredient-card">
+                    <div class="ingredient-header">
+                        <div class="ingredient-name">Suntheanine® L-Theanine<span>The Flow State Amino</span></div>
+                        <div class="ingredient-dose">100mg</div>
+                    </div>
+                    <div class="ingredient-desc">Found in green tea, L-Theanine boosts alpha brain waves — the state linked with creativity, flow, and calm alertness. This is why you feel calm yet focused, not wired.</div>
+                    <div class="ingredient-stats">
+                        <div class="ingredient-stat"><strong>Alpha</strong> waves</div>
+                        <div class="ingredient-stat"><strong>Flow</strong> state</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases - NEW -->
+    <section class="use-cases">
+        <div class="container">
+            <div class="section-header">
+                <h2>When to Take FOCUS</h2>
+            </div>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-icon">☀️</div>
+                    <h4>Morning Ritual</h4>
+                    <p>Daily brain health. Start every day optimized.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">💼</div>
+                    <h4>Big Presentations</h4>
+                    <p>Peak performance when the stakes are high.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">💻</div>
+                    <h4>Deep Work Sessions</h4>
+                    <p>Coding, writing, or creative projects.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">🏋️</div>
+                    <h4>Pre-Workout</h4>
+                    <p>Mental and physical performance combined.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">✈️</div>
+                    <h4>Travel Days</h4>
+                    <p>Stay sharp on long flights or jet lag.</p>
+                </div>
+                <div class="use-case-card">
+                    <div class="use-case-icon">📚</div>
+                    <h4>Study Sessions</h4>
+                    <p>Better learning and memory consolidation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="video-container">
+            <div class="section-header" style="text-align:center;margin-bottom:32px;">
+                <h2>Hear It From the Formulator</h2>
+                <p style="color:var(--gray-600);">Shawn Wells explains why he created FOCUS and the science behind it</p>
+            </div>
+            <div class="video-wrapper">
+                <img src="https://www.mindvalleystates.com/cdn/shop/files/1_3531526e-fc2f-4e39-b65e-b3b5e00d65a0.jpg?v=1757331843&width=800" alt="Video thumbnail">
+                <div class="play-button">
+                    <svg width="32" height="32" fill="var(--focus-color)" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What FOCUS Users Say</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"I've been testing FOCUS for several weeks, and every time I take it before my writing sessions, I notice a significant improvement in my concentration. As a full-time nomad, it's especially useful during long flights."</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-06-13_at_9.41.46_PM.png?v=1749822122&width=96" alt="Jimmy"></div>
+                        <div>
+                            <div class="testimonial-name">Jimmy Naraine</div>
+                            <div class="testimonial-title">Bestselling Author & Entrepreneur</div>
+                            <div class="verified"><svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg> Verified Purchase</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"It gave me a good solid 3-4 hours of alertness and clarity, kept me on task. I could see myself replacing coffee with FOCUS — no jittery feelings, no crash."</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-08-12_at_1.22.00_PM.png?v=1754976303&width=96" alt="Hans"></div>
+                        <div>
+                            <div class="testimonial-name">Hans</div>
+                            <div class="testimonial-title">Marketing Specialist</div>
+                            <div class="verified"><svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg> Verified Purchase</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"I was so productive — reading emails, having meetings, I felt super connected with everything I wanted to do. I canceled dinner with friends because I got into such a flow!"</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-06-13_at_9.40.45_PM.png?v=1749822058&width=96" alt="Bianca"></div>
+                        <div>
+                            <div class="testimonial-name">Bianca Ioana</div>
+                            <div class="testimonial-title">11X World Karate Champion</div>
+                            <div class="verified"><svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg> Verified Purchase</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Creators -->
+    <section class="creators">
+        <div class="container">
+            <div class="section-header">
+                <h2>Created By World-Class Experts</h2>
+            </div>
+            <div class="creator-grid">
+                <div class="creator-card featured">
+                    <div class="creator-image"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.50.13_PM.png?v=1761033028&width=200" alt="Shawn Wells"></div>
+                    <div>
+                        <div class="creator-role">Formulated By</div>
+                        <div class="creator-name">Shawn Wells, MPH, RD</div>
+                        <div class="creator-bio">The world's leading nutritional biochemist known as "The Ingredientologist." Lead author on paraxanthine clinical studies. 1,000+ product formulations, 40+ patents. Creator of the paraxanthine compound used by Kim Kardashian.</div>
+                        <div class="creator-creds">
+                            <span class="creator-cred">40+ Patents</span>
+                            <span class="creator-cred">Study Author</span>
+                            <span class="creator-cred">1000+ Formulations</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="creator-card">
+                    <div class="creator-image"><img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.49.01_PM.png?v=1761032958&width=200" alt="Vishen"></div>
+                    <div>
+                        <div class="creator-role">Co-Created By</div>
+                        <div class="creator-name">Vishen Lakhiani</div>
+                        <div class="creator-bio">Founder of Mindvalley, NYT bestselling author, and transformational learning pioneer. Takes FOCUS daily to power through his demanding schedule.</div>
+                        <div class="creator-creds">
+                            <span class="creator-cred">Mindvalley Founder</span>
+                            <span class="creator-cred">20M+ Community</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cross-sell -->
+    <section class="cross-sell">
+        <div class="container">
+            <h2>Want to Try All 5 States?</h2>
+            <p>Get the complete States Box Set and discover which states work best for you throughout your day.</p>
+            <div class="cross-sell-card">
+                <img src="https://www.mindvalleystates.com/cdn/shop/files/bundle_pills.png?v=1726443185&width=400" alt="Box Set">
+                <h3>States Box Set</h3>
+                <p style="color:var(--gray-600);font-size:14px;">FOCUS + ZEN + BLISS + DREAM + GAZM</p>
+                <div class="price">$99 <span>$347 value</span></div>
+                <button class="cross-sell-btn" onclick="addBoxSet()">Add Box Set to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Should I take FOCUS every day?</div>
+                    <div class="faq-answer">Yes! Unlike caffeine which builds tolerance and has diminishing returns, FOCUS shows positive adaptation effects. Your brain actually gets healthier with daily use — better sleep, better HRV, better recovery. This is the opposite of a crutch. It's genuine brain optimization.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">How quickly will I feel it working?</div>
+                    <div class="faq-answer">Most people notice effects within 20-30 minutes. You'll experience sustained focus for 4-6 hours without the crash associated with caffeine. The flow state feeling — calm yet energized — is what you're looking for.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Is FOCUS really caffeine-free?</div>
+                    <div class="faq-answer">Yes. FOCUS uses paraxanthine (enfinity®), which is what caffeine becomes AFTER your liver metabolizes it and removes the junk. You get all the focus and energy benefits without the jitters, anxiety, or sleep disruption. It's the clean part of caffeine, isolated.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Will I build tolerance like with caffeine?</div>
+                    <div class="faq-answer">No — and this is the breakthrough. Studies show paraxanthine has NO habituation effect. In fact, we see the opposite: positive adaptation where your brain gets healthier over time. E-gaming athletes on paraxanthine improved week after week, while caffeine users declined.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">Can I take FOCUS with coffee?</div>
+                    <div class="faq-answer">We recommend starting with FOCUS alone to experience its full benefits. Many users find they can reduce or eliminate their coffee intake entirely. If you do combine them, start with a lower dose of both and see how you feel.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">What time should I take it?</div>
+                    <div class="faq-answer">Take FOCUS in the morning for daily brain health, or 20-30 minutes before you need peak concentration. Unlike caffeine, it won't wreck your sleep if taken in the morning — studies show it actually improves sleep quality. Avoid taking within 6 hours of bedtime.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="mockup.html" class="logo">Mindvalley<span>States</span></a>
+                <p style="margin-top:16px">Premium nootropics designed to help you shift your mental and emotional state on demand.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <a href="mockup.html#products">Box Set</a>
+                <a href="focus.html">FOCUS</a>
+                <a href="zen.html">ZEN</a>
+                <a href="bliss.html">BLISS</a>
+                <a href="dream.html">DREAM</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="#">FAQ</a>
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#">About</a>
+                <a href="#">Science</a>
+                <a href="testimonials.html">Reviews</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mindvalley States. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky -->
+    <div class="mobile-sticky">
+        <div class="mobile-sticky-info">
+            <div class="mobile-sticky-name">FOCUS</div>
+            <div class="mobile-sticky-price">$39/mo or $49</div>
+        </div>
+        <button class="mobile-sticky-btn" onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <!-- Cart -->
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close" onclick="closeCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cart-total">$0</span>
+            </div>
+            <button class="cart-checkout">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('mindvalleyStatesCart') || '[]');
+        let selectedPrice = 39;
+        let quantity = 1;
+
+        // Image Gallery
+        function changeImage(thumb, src) {
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+            document.querySelector('.main-image img').src = src;
+        }
+
+        // Pricing Selection
+        function selectPricing(el, type) {
+            document.querySelectorAll('.pricing-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedPrice = type === 'subscribe' ? 39 : 49;
+            updateAddButton();
+        }
+
+        // Quantity
+        function updateQty(delta) {
+            quantity = Math.max(1, quantity + delta);
+            document.getElementById('qty-value').value = quantity;
+            updateAddButton();
+        }
+
+        function updateAddButton() {
+            document.querySelector('.add-to-cart').innerHTML = `
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                Add to Cart — $${selectedPrice * quantity}
+            `;
+        }
+
+        // Cart
+        function addToCart() {
+            const existing = cart.find(i => i.id === 'focus');
+            if (existing) {
+                existing.qty += quantity;
+            } else {
+                cart.push({ id: 'focus', name: 'FOCUS', price: selectedPrice, qty: quantity, img: 'https://www.mindvalleystates.com/cdn/shop/files/Focus_4K_1.png?v=1760015485&width=200' });
+            }
+            renderCart();
+            openCart();
+        }
+
+        function addBoxSet() {
+            const existing = cart.find(i => i.id === 'box-set');
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ id: 'box-set', name: 'States Box Set', price: 99, qty: 1, img: 'https://www.mindvalleystates.com/cdn/shop/files/bundle_pills.png?v=1726443185&width=200' });
+            }
+            renderCart();
+            openCart();
+        }
+
+        function renderCart() {
+            // Save to localStorage
+            localStorage.setItem('mindvalleyStatesCart', JSON.stringify(cart));
+
+            const count = cart.reduce((s, i) => s + i.qty, 0);
+            const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+            document.getElementById('cart-count').textContent = count;
+            document.getElementById('cart-total').textContent = '$' + total;
+
+            const el = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                el.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+            } else {
+                el.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-img"><img src="${item.img}" alt="${item.name}"></div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">$${item.price}</div>
+                            <div class="cart-item-qty">
+                                <button onclick="changeCartQty('${item.id}', -1)">−</button>
+                                <span>${item.qty}</span>
+                                <button onclick="changeCartQty('${item.id}', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function changeCartQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+                renderCart();
+            }
+        }
+
+        function openCart() {
+            document.getElementById('cart-sidebar').classList.add('open');
+            document.getElementById('cart-overlay').classList.add('open');
+        }
+
+        function closeCart() {
+            document.getElementById('cart-sidebar').classList.remove('open');
+            document.getElementById('cart-overlay').classList.remove('open');
+        }
+
+        // FAQ
+        function toggleFaq(el) {
+            el.parentElement.classList.toggle('open');
+        }
+
+        // Initialize cart on page load
+        renderCart();
+    </script>
+</body>
+</html>

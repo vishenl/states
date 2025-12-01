@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Assessment Quiz - Mindvalley States</title>
+    <link rel="stylesheet" href="./mv-selfreset-base.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { line-height: 1.6; background: linear-gradient(180deg, #f5f0ff 0%, white 100%); min-height: 100vh; }
+
+        /* Header */
+        .quiz-header { background: white; border-bottom: 1px solid #e5e7eb; padding: 16px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+        .quiz-header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: Grotesk-Bold, sans-serif; font-size: 20px; color: #0f131a; text-decoration: none; }
+        .logo span { color: #7a12d4; }
+        .quiz-progress-bar { height: 4px; background: #e5e7eb; border-radius: 2px; flex: 1; max-width: 400px; margin-left: 32px; }
+        .quiz-progress-fill { height: 100%; background: #7a12d4; border-radius: 2px; transition: width 0.3s ease; }
+        .quiz-progress-text { font-size: 14px; color: #71767f; font-family: Grotesk-Medium, sans-serif; }
+
+        /* Main Container */
+        .quiz-container { max-width: 700px; margin: 0 auto; padding: 100px 20px 60px; }
+
+        /* Intro Screen */
+        .quiz-intro { text-align: center; padding: 40px 0; }
+        .quiz-intro-icon { font-size: 64px; margin-bottom: 24px; }
+        .quiz-intro h1 { font-family: Grotesk-Bold, sans-serif; font-size: 2rem; margin-bottom: 16px; }
+        .quiz-intro p { color: #71767f; font-size: 1.125rem; max-width: 500px; margin: 0 auto 32px; }
+        .quiz-intro-features { display: flex; justify-content: center; gap: 32px; margin-bottom: 40px; flex-wrap: wrap; }
+        .quiz-intro-feature { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #4b5563; }
+        .quiz-intro-feature svg { color: #10b981; width: 20px; height: 20px; }
+        .btn-start { display: inline-flex; align-items: center; gap: 8px; padding: 16px 40px; background: #7a12d4; color: white; font-family: Grotesk-Bold, sans-serif; font-size: 1rem; border-radius: 999px; border: none; cursor: pointer; transition: all 0.3s; }
+        .btn-start:hover { background: #6a0dad; transform: translateY(-2px); }
+
+        /* Question Screen */
+        .quiz-question-screen { display: none; }
+        .quiz-question-screen.active { display: block; }
+        .question-number { font-size: 14px; color: #7a12d4; font-family: Grotesk-Bold, sans-serif; margin-bottom: 8px; }
+        .question-text { font-family: Grotesk-Bold, sans-serif; font-size: 1.5rem; margin-bottom: 32px; color: #0f131a; }
+        .question-subtext { color: #71767f; font-size: 14px; margin-top: -24px; margin-bottom: 32px; }
+
+        /* Options */
+        .quiz-options { display: flex; flex-direction: column; gap: 12px; }
+        .quiz-option { display: flex; align-items: center; gap: 16px; padding: 20px 24px; background: white; border: 2px solid #e5e7eb; border-radius: 16px; cursor: pointer; transition: all 0.2s; }
+        .quiz-option:hover { border-color: #c4b5fd; background: #faf8ff; }
+        .quiz-option.selected { border-color: #7a12d4; background: #f5f0ff; }
+        .quiz-option-icon { font-size: 28px; flex-shrink: 0; }
+        .quiz-option-content { flex: 1; }
+        .quiz-option-title { font-family: Grotesk-Bold, sans-serif; font-size: 16px; margin-bottom: 2px; }
+        .quiz-option-desc { font-size: 13px; color: #71767f; }
+        .quiz-option-check { width: 24px; height: 24px; border: 2px solid #d1d5db; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .quiz-option.selected .quiz-option-check { border-color: #7a12d4; background: #7a12d4; }
+        .quiz-option.selected .quiz-option-check::after { content: ''; width: 8px; height: 8px; background: white; border-radius: 50%; }
+
+        /* Multi-select */
+        .multi-select .quiz-option-check { border-radius: 6px; }
+        .multi-select .quiz-option.selected .quiz-option-check::after { content: ''; width: 12px; height: 12px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") center/contain no-repeat; border-radius: 0; }
+
+        /* Navigation */
+        .quiz-nav { display: flex; justify-content: space-between; margin-top: 40px; }
+        .btn-back { display: flex; align-items: center; gap: 8px; padding: 12px 24px; background: white; color: #71767f; font-family: Grotesk-Medium, sans-serif; font-size: 14px; border-radius: 999px; border: 1px solid #e5e7eb; cursor: pointer; transition: all 0.2s; }
+        .btn-back:hover { border-color: #c4b5fd; color: #7a12d4; }
+        .btn-next { display: flex; align-items: center; gap: 8px; padding: 12px 32px; background: #7a12d4; color: white; font-family: Grotesk-Bold, sans-serif; font-size: 14px; border-radius: 999px; border: none; cursor: pointer; transition: all 0.2s; opacity: 0.5; pointer-events: none; }
+        .btn-next.enabled { opacity: 1; pointer-events: auto; }
+        .btn-next.enabled:hover { background: #6a0dad; }
+
+        /* Results Screen */
+        .quiz-results { display: none; }
+        .quiz-results.active { display: block; }
+        .results-header { text-align: center; margin-bottom: 48px; }
+        .results-header h2 { font-family: Grotesk-Bold, sans-serif; font-size: 2rem; margin-bottom: 12px; }
+        .results-header p { color: #71767f; font-size: 1rem; }
+
+        /* Primary Recommendation */
+        .primary-recommendation { background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; border: 2px solid #7a12d4; position: relative; overflow: hidden; }
+        .primary-badge { position: absolute; top: 24px; right: 24px; background: #7a12d4; color: white; padding: 6px 16px; border-radius: 100px; font-size: 12px; font-family: Grotesk-Bold, sans-serif; }
+        .primary-content { display: flex; gap: 32px; align-items: center; }
+        .primary-image { width: 160px; height: 160px; flex-shrink: 0; }
+        .primary-image img { width: 100%; height: 100%; object-fit: contain; }
+        .primary-info h3 { font-family: Grotesk-Bold, sans-serif; font-size: 1.75rem; color: #7a12d4; margin-bottom: 8px; }
+        .primary-tagline { font-size: 1rem; color: #71767f; margin-bottom: 16px; }
+        .primary-reason { background: #f5f0ff; padding: 16px; border-radius: 12px; margin-bottom: 20px; }
+        .primary-reason h4 { font-family: Grotesk-Bold, sans-serif; font-size: 13px; color: #7a12d4; margin-bottom: 4px; }
+        .primary-reason p { font-size: 14px; color: #4b5563; margin: 0; }
+        .primary-timing { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .timing-icon { font-size: 24px; }
+        .timing-text { font-size: 14px; }
+        .timing-text strong { display: block; font-family: Grotesk-Bold, sans-serif; }
+        .btn-add-cart { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 32px; background: #7a12d4; color: white; font-family: Grotesk-Bold, sans-serif; font-size: 15px; border-radius: 999px; border: none; cursor: pointer; transition: all 0.2s; }
+        .btn-add-cart:hover { background: #6a0dad; }
+
+        /* Secondary Recommendations */
+        .secondary-title { font-family: Grotesk-Bold, sans-serif; font-size: 1.25rem; margin-bottom: 20px; }
+        .secondary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 32px; }
+        .secondary-card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 24px; display: flex; gap: 16px; align-items: center; }
+        .secondary-image { width: 80px; height: 80px; flex-shrink: 0; }
+        .secondary-image img { width: 100%; height: 100%; object-fit: contain; }
+        .secondary-info h4 { font-family: Grotesk-Bold, sans-serif; font-size: 1rem; margin-bottom: 4px; }
+        .secondary-info p { font-size: 13px; color: #71767f; margin-bottom: 8px; }
+        .secondary-time { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #4b5563; }
+        .secondary-time span { font-size: 16px; }
+
+        /* Stack Recommendation */
+        .stack-recommendation { background: linear-gradient(135deg, #0f131a 0%, #1e1b4b 100%); border-radius: 24px; padding: 40px; color: white; margin-bottom: 32px; }
+        .stack-recommendation h3 { font-family: Grotesk-Bold, sans-serif; font-size: 1.5rem; margin-bottom: 8px; }
+        .stack-recommendation > p { opacity: 0.8; margin-bottom: 24px; }
+        .stack-items { display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+        .stack-item { text-align: center; }
+        .stack-item img { width: 80px; height: 80px; object-fit: contain; margin-bottom: 8px; }
+        .stack-item span { display: block; font-family: Grotesk-Bold, sans-serif; font-size: 14px; }
+        .stack-plus { font-size: 24px; opacity: 0.5; }
+        .stack-protocol { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; }
+        .stack-protocol h4 { font-family: Grotesk-Bold, sans-serif; font-size: 14px; margin-bottom: 8px; color: #c4b5fd; }
+        .stack-protocol p { font-size: 14px; margin: 0; opacity: 0.9; }
+
+        /* Daily Protocol */
+        .daily-protocol { background: white; border-radius: 24px; padding: 40px; margin-bottom: 32px; }
+        .daily-protocol h3 { font-family: Grotesk-Bold, sans-serif; font-size: 1.25rem; margin-bottom: 24px; text-align: center; }
+        .protocol-timeline { display: flex; flex-direction: column; gap: 16px; }
+        .protocol-item { display: flex; align-items: center; gap: 16px; padding: 16px; background: #f9fafb; border-radius: 12px; }
+        .protocol-time { width: 80px; font-family: Grotesk-Bold, sans-serif; font-size: 14px; color: #71767f; flex-shrink: 0; }
+        .protocol-icon { font-size: 24px; flex-shrink: 0; }
+        .protocol-content { flex: 1; }
+        .protocol-content strong { font-family: Grotesk-Bold, sans-serif; display: block; }
+        .protocol-content span { font-size: 13px; color: #71767f; }
+        .protocol-item.highlight { background: #f5f0ff; border: 1px solid #c4b5fd; }
+
+        /* Box Set CTA */
+        .boxset-cta { background: #f5f0ff; border-radius: 24px; padding: 40px; text-align: center; }
+        .boxset-cta h3 { font-family: Grotesk-Bold, sans-serif; font-size: 1.5rem; margin-bottom: 12px; }
+        .boxset-cta p { color: #71767f; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .boxset-price { margin-bottom: 24px; }
+        .boxset-price .price { font-family: Grotesk-Bold, sans-serif; font-size: 2.5rem; color: #7a12d4; }
+        .boxset-price .original { font-size: 1.25rem; color: #9ca3af; text-decoration: line-through; margin-left: 8px; }
+        .btn-boxset { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 40px; background: #0f131a; color: white; font-family: Grotesk-Bold, sans-serif; font-size: 16px; border-radius: 999px; border: none; cursor: pointer; transition: all 0.2s; }
+        .btn-boxset:hover { background: #7a12d4; }
+
+        /* Restart */
+        .restart-link { text-align: center; margin-top: 32px; }
+        .restart-link a { color: #7a12d4; font-size: 14px; text-decoration: none; }
+        .restart-link a:hover { text-decoration: underline; }
+
+        @media (max-width: 640px) {
+            .primary-content { flex-direction: column; text-align: center; }
+            .primary-image { margin: 0 auto; }
+            .quiz-intro-features { flex-direction: column; gap: 12px; }
+            .stack-items { flex-direction: column; }
+            .stack-plus { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="quiz-header">
+        <div class="mv-container">
+            <div class="quiz-header-inner">
+                <a href="mockup.html" class="logo">Mindvalley<span>States</span></a>
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                <span class="quiz-progress-text" id="progress-text">0 of 10</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="quiz-container">
+        <!-- Intro Screen -->
+        <div class="quiz-intro" id="quiz-intro">
+            <div class="quiz-intro-icon">&#129504;</div>
+            <h1>Find Your Optimal State</h1>
+            <p>Answer 10 quick questions to get a personalized recommendation for which States will work best for your lifestyle, goals, and daily schedule.</p>
+            <div class="quiz-intro-features">
+                <div class="quiz-intro-feature">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    Takes 2-3 minutes
+                </div>
+                <div class="quiz-intro-feature">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    Personalized results
+                </div>
+                <div class="quiz-intro-feature">
+                    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                    Time-of-day guidance
+                </div>
+            </div>
+            <button class="btn-start" onclick="startQuiz()">
+                Start Assessment
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+
+        <!-- Question Screens -->
+        <div class="quiz-question-screen" id="q1">
+            <div class="question-number">Question 1 of 10</div>
+            <div class="question-text">What's your biggest daily challenge?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" data-value="focus" onclick="selectAnswer(1, this)">
+                    <span class="quiz-option-icon">&#127919;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Staying focused and productive</div>
+                        <div class="quiz-option-desc">I get distracted easily and struggle to finish deep work</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="stress" onclick="selectAnswer(1, this)">
+                    <span class="quiz-option-icon">&#128552;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Managing stress and anxiety</div>
+                        <div class="quiz-option-desc">I often feel overwhelmed or on edge</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="mood" onclick="selectAnswer(1, this)">
+                    <span class="quiz-option-icon">&#128148;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Low mood or motivation</div>
+                        <div class="quiz-option-desc">I struggle to feel positive and energized</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="sleep" onclick="selectAnswer(1, this)">
+                    <span class="quiz-option-icon">&#128564;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Poor sleep quality</div>
+                        <div class="quiz-option-desc">I don't wake up feeling refreshed</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="energy" onclick="selectAnswer(1, this)">
+                    <span class="quiz-option-icon">&#9889;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Low energy throughout the day</div>
+                        <div class="quiz-option-desc">I rely on coffee but crash in the afternoon</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn-back" onclick="goBack(1)" style="visibility:hidden">Back</button>
+                <button class="btn-next" id="next-1" onclick="goNext(1)">Continue <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+
+        <div class="quiz-question-screen" id="q2">
+            <div class="question-number">Question 2 of 10</div>
+            <div class="question-text">When do you need the most support?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" data-value="morning" onclick="selectAnswer(2, this)">
+                    <span class="quiz-option-icon">&#127749;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Morning (6am - 12pm)</div>
+                        <div class="quiz-option-desc">I need help getting started and being productive</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="afternoon" onclick="selectAnswer(2, this)">
+                    <span class="quiz-option-icon">&#9728;&#65039;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Afternoon (12pm - 6pm)</div>
+                        <div class="quiz-option-desc">I hit a wall and lose steam mid-day</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="evening" onclick="selectAnswer(2, this)">
+                    <span class="quiz-option-icon">&#127769;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Evening (6pm - 10pm)</div>
+                        <div class="quiz-option-desc">I need help winding down and relaxing</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="night" onclick="selectAnswer(2, this)">
+                    <span class="quiz-option-icon">&#127775;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Night (10pm+)</div>
+                        <div class="quiz-option-desc">I struggle to fall asleep or stay asleep</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn-back" onclick="goBack(2)"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Back</button>
+                <button class="btn-next" id="next-2" onclick="goNext(2)">Continue <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+
+        <div class="quiz-question-screen" id="q3">
+            <div class="question-number">Question 3 of 10</div>
+            <div class="question-text">What's your relationship with caffeine?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" data-value="heavy" onclick="selectAnswer(3, this)">
+                    <span class="quiz-option-icon">&#9749;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Heavy coffee drinker (3+ cups/day)</div>
+                        <div class="quiz-option-desc">I depend on it but get jitters and crashes</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="moderate" onclick="selectAnswer(3, this)">
+                    <span class="quiz-option-icon">&#9749;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Moderate (1-2 cups/day)</div>
+                        <div class="quiz-option-desc">It works okay but I'd like a cleaner option</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="sensitive" onclick="selectAnswer(3, this)">
+                    <span class="quiz-option-icon">&#128542;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Sensitive to caffeine</div>
+                        <div class="quiz-option-desc">Even a little makes me anxious or disrupts sleep</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="none" onclick="selectAnswer(3, this)">
+                    <span class="quiz-option-icon">&#128581;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">I avoid caffeine</div>
+                        <div class="quiz-option-desc">I prefer caffeine-free energy solutions</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn-back" onclick="goBack(3)"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Back</button>
+                <button class="btn-next" id="next-3" onclick="goNext(3)">Continue <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+
+        <div class="quiz-question-screen" id="q4">
+            <div class="question-number">Question 4 of 10</div>
+            <div class="question-text">What type of work do you do?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" data-value="knowledge" onclick="selectAnswer(4, this)">
+                    <span class="quiz-option-icon">&#128187;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Knowledge work / Creative</div>
+                        <div class="quiz-option-desc">Writing, coding, design, analysis, strategy</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="leadership" onclick="selectAnswer(4, this)">
+                    <span class="quiz-option-icon">&#128188;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Leadership / Management</div>
+                        <div class="quiz-option-desc">Meetings, decisions, team coordination</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="entrepreneur" onclick="selectAnswer(4, this)">
+                    <span class="quiz-option-icon">&#128640;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Entrepreneur / Founder</div>
+                        <div class="quiz-option-desc">Wearing multiple hats, high stakes decisions</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="other" onclick="selectAnswer(4, this)">
+                    <span class="quiz-option-icon">&#127919;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Other / Varied</div>
+                        <div class="quiz-option-desc">Mix of different activities throughout the day</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn-back" onclick="goBack(4)"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Back</button>
+                <button class="btn-next" id="next-4" onclick="goNext(4)">Continue <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+
+        <div class="quiz-question-screen" id="q5">
+            <div class="question-number">Question 5 of 10</div>
+            <div class="question-text">How would you describe your stress level?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" data-value="high" onclick="selectAnswer(5, this)">
+                    <span class="quiz-option-icon">&#128293;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">High - constantly stressed</div>
+                        <div class="quiz-option-desc">I feel overwhelmed most of the time</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="moderate" onclick="selectAnswer(5, this)">
+                    <span class="quiz-option-icon">&#128260;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Moderate - manageable</div>
+                        <div class="quiz-option-desc">Some stressful periods but generally okay</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="situational" onclick="selectAnswer(5, this)">
+                    <span class="quiz-option-icon">&#128161;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Situational</div>
+                        <div class="quiz-option-desc">Only stressed before big events or deadlines</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="low" onclick="selectAnswer(5, this)">
+                    <span class="quiz-option-icon">&#128524;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Low - pretty calm</div>
+                        <div class="quiz-option-desc">I handle stress well most of the time</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn-back" onclick="goBack(5)"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Back</button>
+                <button class="btn-next" id="next-5" onclick="goNext(5)">Continue <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+
+        <div class="quiz-question-screen" id="q6">
+            <div class="question-number">Question 6 of 10</div>
+            <div class="question-text">How's your sleep quality?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" data-value="poor" onclick="selectAnswer(6, this)">
+                    <span class="quiz-option-icon">&#128555;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Poor - I rarely feel rested</div>
+                        <div class="quiz-option-desc">Trouble falling asleep, staying asleep, or both</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="inconsistent" onclick="selectAnswer(6, this)">
+                    <span class="quiz-option-icon">&#128260;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Inconsistent</div>
+                        <div class="quiz-option-desc">Some nights are good, others are terrible</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="okay" onclick="selectAnswer(6, this)">
+                    <span class="quiz-option-icon">&#128528;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Okay - could be better</div>
+                        <div class="quiz-option-desc">I sleep but don't feel fully refreshed</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="good" onclick="selectAnswer(6, this)">
+                    <span class="quiz-option-icon">&#128524;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Good - I sleep well</div>
+                        <div class="quiz-option-desc">No major sleep issues</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn-back" onclick="goBack(6)"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Back</button>
+                <button class="btn-next" id="next-6" onclick="goNext(6)">Continue <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+
+        <div class="quiz-question-screen" id="q7">
+            <div class="question-number">Question 7 of 10</div>
+            <div class="question-text">Do you have important presentations, meetings, or public speaking?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" data-value="frequent" onclick="selectAnswer(7, this)">
+                    <span class="quiz-option-icon">&#127908;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Yes, frequently</div>
+                        <div class="quiz-option-desc">Multiple times per week</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="sometimes" onclick="selectAnswer(7, this)">
+                    <span class="quiz-option-icon">&#128221;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Sometimes</div>
+                        <div class="quiz-option-desc">A few times per month</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="rarely" onclick="selectAnswer(7, this)">
+                    <span class="quiz-option-icon">&#128172;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Rarely</div>
+                        <div class="quiz-option-desc">Occasional big moments</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="never" onclick="selectAnswer(7, this)">
+                    <span class="quiz-option-icon">&#128187;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Never</div>
+                        <div class="quiz-option-desc">My work doesn't require presenting</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn-back" onclick="goBack(7)"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Back</button>
+                <button class="btn-next" id="next-7" onclick="goNext(7)">Continue <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+
+        <div class="quiz-question-screen" id="q8">
+            <div class="question-number">Question 8 of 10</div>
+            <div class="question-text">Is intimate connection and relationships important to you?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" data-value="priority" onclick="selectAnswer(8, this)">
+                    <span class="quiz-option-icon">&#10084;&#65039;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Yes, it's a priority</div>
+                        <div class="quiz-option-desc">I want to enhance connection and presence</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="interested" onclick="selectAnswer(8, this)">
+                    <span class="quiz-option-icon">&#128149;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">I'm interested</div>
+                        <div class="quiz-option-desc">I'd like to improve this area of life</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="not-now" onclick="selectAnswer(8, this)">
+                    <span class="quiz-option-icon">&#128167;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Not a focus right now</div>
+                        <div class="quiz-option-desc">Other priorities at the moment</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn-back" onclick="goBack(8)"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Back</button>
+                <button class="btn-next" id="next-8" onclick="goNext(8)">Continue <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+
+        <div class="quiz-question-screen" id="q9">
+            <div class="question-number">Question 9 of 10</div>
+            <div class="question-text">What's your experience with supplements or nootropics?</div>
+            <div class="quiz-options">
+                <div class="quiz-option" data-value="new" onclick="selectAnswer(9, this)">
+                    <span class="quiz-option-icon">&#127793;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">New to this</div>
+                        <div class="quiz-option-desc">Haven't tried nootropics before</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="some" onclick="selectAnswer(9, this)">
+                    <span class="quiz-option-icon">&#128218;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Some experience</div>
+                        <div class="quiz-option-desc">Tried basic supplements or a few nootropics</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="experienced" onclick="selectAnswer(9, this)">
+                    <span class="quiz-option-icon">&#128300;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Experienced</div>
+                        <div class="quiz-option-desc">I've experimented with various stacks</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="biohacker" onclick="selectAnswer(9, this)">
+                    <span class="quiz-option-icon">&#129516;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Serious biohacker</div>
+                        <div class="quiz-option-desc">Deep into optimization and self-experimentation</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn-back" onclick="goBack(9)"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Back</button>
+                <button class="btn-next" id="next-9" onclick="goNext(9)">Continue <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+
+        <div class="quiz-question-screen" id="q10">
+            <div class="question-number">Question 10 of 10</div>
+            <div class="question-text">What would make the biggest difference in your life right now?</div>
+            <div class="question-subtext">Select all that apply</div>
+            <div class="quiz-options multi-select">
+                <div class="quiz-option" data-value="productivity" onclick="toggleMultiAnswer(10, this)">
+                    <span class="quiz-option-icon">&#128640;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">More productivity and output</div>
+                        <div class="quiz-option-desc">Get more done in less time</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="calm" onclick="toggleMultiAnswer(10, this)">
+                    <span class="quiz-option-icon">&#128524;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">More calm and less anxiety</div>
+                        <div class="quiz-option-desc">Feel centered even under pressure</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="happiness" onclick="toggleMultiAnswer(10, this)">
+                    <span class="quiz-option-icon">&#127774;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">More happiness and positivity</div>
+                        <div class="quiz-option-desc">Feel genuinely good more often</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="rest" onclick="toggleMultiAnswer(10, this)">
+                    <span class="quiz-option-icon">&#128164;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Better sleep and recovery</div>
+                        <div class="quiz-option-desc">Wake up feeling refreshed</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+                <div class="quiz-option" data-value="connection" onclick="toggleMultiAnswer(10, this)">
+                    <span class="quiz-option-icon">&#128150;</span>
+                    <div class="quiz-option-content">
+                        <div class="quiz-option-title">Deeper connection and intimacy</div>
+                        <div class="quiz-option-desc">More presence in relationships</div>
+                    </div>
+                    <div class="quiz-option-check"></div>
+                </div>
+            </div>
+            <div class="quiz-nav">
+                <button class="btn-back" onclick="goBack(10)"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Back</button>
+                <button class="btn-next" id="next-10" onclick="showResults()">See My Results <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="quiz-results" id="results">
+            <div class="results-header">
+                <h2>Your Personalized State Protocol</h2>
+                <p>Based on your answers, here's your optimal State system</p>
+            </div>
+
+            <!-- Primary Recommendation (dynamically filled) -->
+            <div class="primary-recommendation" id="primary-rec">
+                <div class="primary-badge">TOP PICK</div>
+                <div class="primary-content">
+                    <div class="primary-image">
+                        <img id="primary-img" src="" alt="">
+                    </div>
+                    <div class="primary-info">
+                        <h3 id="primary-name">FOCUS</h3>
+                        <p class="primary-tagline" id="primary-tagline">Caffeine-free energy for peak focus</p>
+                        <div class="primary-reason">
+                            <h4>Why this is perfect for you:</h4>
+                            <p id="primary-reason-text">Loading...</p>
+                        </div>
+                        <div class="primary-timing">
+                            <span class="timing-icon" id="timing-icon">&#127749;</span>
+                            <div class="timing-text">
+                                <strong id="timing-label">Best Time</strong>
+                                <span id="timing-desc">Take in the morning for peak productivity</span>
+                            </div>
+                        </div>
+                        <button class="btn-add-cart" id="primary-add-btn" onclick="addPrimaryToCart()">Add to Cart - $<span id="primary-price">49</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secondary Recommendations -->
+            <h3 class="secondary-title">Also Recommended For You</h3>
+            <div class="secondary-grid" id="secondary-grid">
+                <!-- Dynamically filled -->
+            </div>
+
+            <!-- Stack Recommendation -->
+            <div class="stack-recommendation" id="stack-rec">
+                <h3 id="stack-title">Your Power Stack</h3>
+                <p id="stack-desc">For maximum results, combine these States:</p>
+                <div class="stack-items" id="stack-items">
+                    <!-- Dynamically filled -->
+                </div>
+                <div class="stack-protocol">
+                    <h4>Protocol</h4>
+                    <p id="stack-protocol-text">Loading...</p>
+                </div>
+            </div>
+
+            <!-- Daily Protocol -->
+            <div class="daily-protocol">
+                <h3>Your Personalized Daily Protocol</h3>
+                <div class="protocol-timeline" id="protocol-timeline">
+                    <!-- Dynamically filled -->
+                </div>
+            </div>
+
+            <!-- Box Set CTA -->
+            <div class="boxset-cta">
+                <h3>Get the Complete System</h3>
+                <p>Experience all 5 States and discover the full potential of on-demand mood optimization.</p>
+                <div class="boxset-price">
+                    <span class="price">$299</span>
+                    <span class="original">$495</span>
+                </div>
+                <button class="btn-boxset" onclick="addBoxSetToCart()">Get All 5 States</button>
+            </div>
+
+            <div class="restart-link">
+                <a href="#" onclick="restartQuiz(); return false;">Take the quiz again</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data
+        const answers = {};
+        let currentQuestion = 0;
+        const totalQuestions = 10;
+
+        // Product Data
+        const products = {
+            focus: {
+                name: 'FOCUS',
+                tagline: 'Caffeine-free energy for peak focus',
+                img: 'https://www.mindvalleystates.com/cdn/shop/files/Focus_4K_1.png?v=1760015485&width=400',
+                price: 79,
+                timeIcon: '&#127749;',
+                timeLabel: 'Morning',
+                timeDesc: 'Take 30 minutes before deep work sessions',
+                reasons: {
+                    focus: 'You mentioned focus is your biggest challenge. FOCUS provides 4-6 hours of clean, jitter-free energy using paraxanthine (Coffee 2.0) and PEAK ATP for cellular energy.',
+                    energy: 'You need sustained energy without the crash. FOCUS uses paraxanthine - caffeine\'s clean metabolite - plus PEAK ATP for hours of productive energy.',
+                    default: 'FOCUS is perfect for knowledge workers who need sustained mental clarity and productivity.'
+                }
+            },
+            zen: {
+                name: 'ZEN',
+                tagline: 'De-stress and reset in minutes',
+                img: 'https://www.mindvalleystates.com/cdn/shop/files/Zen_4K_1.png?v=1760015438&width=400',
+                price: 79,
+                timeIcon: '&#9728;&#65039;',
+                timeLabel: 'Afternoon / As needed',
+                timeDesc: 'Take before stressful situations or to calm racing thoughts',
+                reasons: {
+                    stress: 'You indicated high stress levels. ZEN combines Rhodioprime 6X, L-Theanine, and Apigenin to rapidly calm your nervous system while keeping you sharp.',
+                    situational: 'For your high-pressure presentations and meetings, ZEN provides calm confidence without sedation.',
+                    default: 'ZEN helps you stay composed under pressure with clinically-dosed calming compounds.'
+                }
+            },
+            bliss: {
+                name: 'BLISS',
+                tagline: 'Happiness, powered by science',
+                img: 'https://www.mindvalleystates.com/cdn/shop/files/Bliss_4K_1.png?v=1760015460&width=400',
+                price: 79,
+                timeIcon: '&#127773;',
+                timeLabel: 'Afternoon / Social events',
+                timeDesc: 'Take 30-45 minutes before social situations or for mood lift',
+                reasons: {
+                    mood: 'You mentioned mood is a challenge. BLISS uses Synapsa Bacopa, Zembrin, and Affron saffron to naturally elevate serotonin and reduce the brain\'s fear response.',
+                    happiness: 'For more positivity and joy, BLISS targets the serotonin system with clinically-proven mood enhancers.',
+                    default: 'BLISS helps you feel more open, social, and genuinely happy.'
+                }
+            },
+            dream: {
+                name: 'DREAM',
+                tagline: 'Drift into restful, restorative sleep',
+                img: 'https://www.mindvalleystates.com/cdn/shop/files/Dream_4K_1.png?v=1760015386&width=400',
+                price: 79,
+                timeIcon: '&#127775;',
+                timeLabel: 'Night',
+                timeDesc: 'Take 30-60 minutes before bed',
+                reasons: {
+                    sleep: 'You mentioned sleep quality is your main challenge. DREAM uses EZGABA (which crosses the blood-brain barrier), Mugwort for vivid dreams, and just 0.5mg melatonin.',
+                    poor: 'For poor sleep quality, DREAM\'s EZGABA and calming compounds help you fall asleep faster and wake more refreshed.',
+                    default: 'DREAM supports deep, restorative sleep without grogginess.'
+                }
+            },
+            gazm: {
+                name: 'GAZM',
+                tagline: 'Ignite connection and deepen pleasure',
+                img: 'https://www.mindvalleystates.com/cdn/shop/files/Gazm_4K_1.png?v=1760015415&width=400',
+                price: 79,
+                timeIcon: '&#127769;',
+                timeLabel: 'Evening',
+                timeDesc: 'Take 30-60 minutes before intimate moments',
+                reasons: {
+                    priority: 'You said intimacy is a priority. GAZM uses Nitrosigine for blood flow, Tongkat Ali for hormone optimization, and Ashwagandha for presence.',
+                    interested: 'GAZM enhances connection and pleasure through nitric oxide and adaptogenic compounds.',
+                    default: 'GAZM helps you be more present and connected during intimate moments.'
+                }
+            }
+        };
+
+        // Start Quiz
+        function startQuiz() {
+            document.getElementById('quiz-intro').style.display = 'none';
+            document.getElementById('q1').classList.add('active');
+            currentQuestion = 1;
+            updateProgress();
+        }
+
+        // Select Single Answer
+        function selectAnswer(q, el) {
+            const options = el.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            answers[q] = el.dataset.value;
+            document.getElementById(`next-${q}`).classList.add('enabled');
+        }
+
+        // Toggle Multi-Select Answer
+        function toggleMultiAnswer(q, el) {
+            el.classList.toggle('selected');
+            const selected = el.parentElement.querySelectorAll('.quiz-option.selected');
+            answers[q] = Array.from(selected).map(opt => opt.dataset.value);
+
+            if (selected.length > 0) {
+                document.getElementById(`next-${q}`).classList.add('enabled');
+            } else {
+                document.getElementById(`next-${q}`).classList.remove('enabled');
+            }
+        }
+
+        // Navigation
+        function goNext(q) {
+            if (!answers[q]) return;
+
+            document.getElementById(`q${q}`).classList.remove('active');
+            document.getElementById(`q${q + 1}`).classList.add('active');
+            currentQuestion = q + 1;
+            updateProgress();
+        }
+
+        function goBack(q) {
+            document.getElementById(`q${q}`).classList.remove('active');
+            document.getElementById(`q${q - 1}`).classList.add('active');
+            currentQuestion = q - 1;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const percent = ((currentQuestion - 1) / totalQuestions) * 100;
+            document.getElementById('progress-fill').style.width = `${percent}%`;
+            document.getElementById('progress-text').textContent = `${currentQuestion - 1} of ${totalQuestions}`;
+        }
+
+        // Calculate Results
+        function calculateResults() {
+            let scores = { focus: 0, zen: 0, bliss: 0, dream: 0, gazm: 0 };
+
+            // Q1: Daily challenge
+            if (answers[1] === 'focus' || answers[1] === 'energy') scores.focus += 3;
+            if (answers[1] === 'stress') scores.zen += 3;
+            if (answers[1] === 'mood') scores.bliss += 3;
+            if (answers[1] === 'sleep') scores.dream += 3;
+
+            // Q2: Time of day
+            if (answers[2] === 'morning') scores.focus += 2;
+            if (answers[2] === 'afternoon') { scores.zen += 1; scores.bliss += 1; }
+            if (answers[2] === 'evening') { scores.bliss += 1; scores.gazm += 1; }
+            if (answers[2] === 'night') scores.dream += 2;
+
+            // Q3: Caffeine relationship
+            if (answers[3] === 'heavy' || answers[3] === 'moderate') scores.focus += 2; // Coffee 2.0 appeal
+            if (answers[3] === 'sensitive' || answers[3] === 'none') { scores.zen += 1; scores.bliss += 1; }
+
+            // Q4: Work type
+            if (answers[4] === 'knowledge') scores.focus += 2;
+            if (answers[4] === 'leadership' || answers[4] === 'entrepreneur') { scores.focus += 1; scores.zen += 1; }
+
+            // Q5: Stress level
+            if (answers[5] === 'high') scores.zen += 3;
+            if (answers[5] === 'moderate') scores.zen += 1;
+            if (answers[5] === 'situational') scores.zen += 2;
+
+            // Q6: Sleep quality
+            if (answers[6] === 'poor') scores.dream += 3;
+            if (answers[6] === 'inconsistent') scores.dream += 2;
+            if (answers[6] === 'okay') scores.dream += 1;
+
+            // Q7: Presentations
+            if (answers[7] === 'frequent' || answers[7] === 'sometimes') { scores.focus += 1; scores.zen += 2; }
+
+            // Q8: Intimacy
+            if (answers[8] === 'priority') scores.gazm += 3;
+            if (answers[8] === 'interested') scores.gazm += 2;
+
+            // Q10: Multi-select priorities
+            if (answers[10] && answers[10].length > 0) {
+                answers[10].forEach(val => {
+                    if (val === 'productivity') scores.focus += 2;
+                    if (val === 'calm') scores.zen += 2;
+                    if (val === 'happiness') scores.bliss += 2;
+                    if (val === 'rest') scores.dream += 2;
+                    if (val === 'connection') scores.gazm += 2;
+                });
+            }
+
+            // Sort by score
+            const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            return sorted;
+        }
+
+        // Show Results
+        function showResults() {
+            if (!answers[10] || answers[10].length === 0) return;
+
+            document.getElementById('q10').classList.remove('active');
+            document.getElementById('results').classList.add('active');
+            document.getElementById('progress-fill').style.width = '100%';
+            document.getElementById('progress-text').textContent = 'Complete';
+
+            const sorted = calculateResults();
+            const primary = sorted[0][0];
+            const secondary = sorted.slice(1, 3).map(s => s[0]);
+
+            // Populate primary recommendation
+            const prod = products[primary];
+            document.getElementById('primary-img').src = prod.img;
+            document.getElementById('primary-name').textContent = prod.name;
+            document.getElementById('primary-tagline').textContent = prod.tagline;
+            document.getElementById('primary-price').textContent = prod.price;
+            document.getElementById('timing-icon').innerHTML = prod.timeIcon;
+            document.getElementById('timing-label').textContent = prod.timeLabel;
+            document.getElementById('timing-desc').textContent = prod.timeDesc;
+
+            // Get personalized reason
+            let reasonKey = answers[1] || 'default';
+            if (primary === 'dream' && answers[6]) reasonKey = answers[6];
+            if (primary === 'gazm' && answers[8]) reasonKey = answers[8];
+            const reason = prod.reasons[reasonKey] || prod.reasons.default;
+            document.getElementById('primary-reason-text').textContent = reason;
+
+            // Populate secondary recommendations
+            const secGrid = document.getElementById('secondary-grid');
+            secGrid.innerHTML = secondary.map(key => {
+                const p = products[key];
+                return `
+                    <div class="secondary-card">
+                        <div class="secondary-image"><img src="${p.img}" alt="${p.name}"></div>
+                        <div class="secondary-info">
+                            <h4>${p.name}</h4>
+                            <p>${p.tagline}</p>
+                            <div class="secondary-time"><span>${p.timeIcon}</span> ${p.timeLabel}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Determine stack recommendation
+            let stackProducts = [];
+            let stackTitle = '';
+            let stackDesc = '';
+            let stackProtocol = '';
+
+            if (sorted[0][0] === 'focus' && (answers[5] === 'high' || answers[5] === 'situational' || answers[7] === 'frequent' || answers[7] === 'sometimes')) {
+                stackProducts = ['focus', 'zen'];
+                stackTitle = 'The Presentation Stack';
+                stackDesc = 'Sharp focus + calm confidence for high-stakes moments';
+                stackProtocol = 'Take FOCUS first thing in the morning. Add ZEN 30 minutes before important meetings or presentations for calm confidence.';
+            } else if (sorted[0][0] === 'bliss' && (answers[8] === 'priority' || answers[8] === 'interested')) {
+                stackProducts = ['bliss', 'gazm'];
+                stackTitle = 'The Connection Stack';
+                stackDesc = 'Elevated mood + deeper presence for meaningful moments';
+                stackProtocol = 'Take BLISS in the afternoon to elevate your baseline mood. Add GAZM 30-60 minutes before intimate time for enhanced connection.';
+            } else if (answers[6] === 'poor' || answers[6] === 'inconsistent') {
+                stackProducts = ['zen', 'dream'];
+                stackTitle = 'The Recovery Stack';
+                stackDesc = 'Calm your nervous system + deep restorative sleep';
+                stackProtocol = 'Take ZEN in the evening to wind down from the day. Take DREAM 30-60 minutes before bed for deep, restorative sleep.';
+            } else {
+                stackProducts = [sorted[0][0], sorted[1][0]];
+                stackTitle = 'Your Optimal Stack';
+                stackDesc = 'Based on your answers, these two States work powerfully together';
+                stackProtocol = `Use ${products[sorted[0][0]].name} as your primary State, then add ${products[sorted[1][0]].name} for complementary benefits.`;
+            }
+
+            // Populate stack
+            document.getElementById('stack-title').textContent = stackTitle;
+            document.getElementById('stack-desc').textContent = stackDesc;
+            document.getElementById('stack-protocol-text').textContent = stackProtocol;
+            document.getElementById('stack-items').innerHTML = `
+                <div class="stack-item">
+                    <img src="${products[stackProducts[0]].img}" alt="${products[stackProducts[0]].name}">
+                    <span>${products[stackProducts[0]].name}</span>
+                </div>
+                <span class="stack-plus">+</span>
+                <div class="stack-item">
+                    <img src="${products[stackProducts[1]].img}" alt="${products[stackProducts[1]].name}">
+                    <span>${products[stackProducts[1]].name}</span>
+                </div>
+            `;
+
+            // Build daily protocol
+            const timeline = document.getElementById('protocol-timeline');
+            let protocols = [];
+
+            // Morning
+            if (sorted.find(s => s[0] === 'focus')[1] > 2) {
+                protocols.push({ time: 'Morning', icon: '&#127749;', product: 'FOCUS', desc: 'Start your day with clean, focused energy', highlight: primary === 'focus' });
+            }
+
+            // Afternoon
+            if (sorted.find(s => s[0] === 'zen')[1] > 2 || sorted.find(s => s[0] === 'bliss')[1] > 2) {
+                const afternoon = sorted.find(s => s[0] === 'zen')[1] > sorted.find(s => s[0] === 'bliss')[1] ? 'ZEN' : 'BLISS';
+                const desc = afternoon === 'ZEN' ? 'Reset and destress mid-day' : 'Elevate your mood for the second half of the day';
+                protocols.push({ time: 'Afternoon', icon: '&#9728;&#65039;', product: afternoon, desc, highlight: primary === afternoon.toLowerCase() });
+            }
+
+            // Evening
+            if (sorted.find(s => s[0] === 'gazm')[1] > 2 || sorted.find(s => s[0] === 'bliss')[1] > 2) {
+                protocols.push({ time: 'Evening', icon: '&#127769;', product: 'BLISS or GAZM', desc: 'Wind down and connect', highlight: false });
+            }
+
+            // Night
+            if (sorted.find(s => s[0] === 'dream')[1] > 1) {
+                protocols.push({ time: 'Night', icon: '&#127775;', product: 'DREAM', desc: '30-60 min before bed for restorative sleep', highlight: primary === 'dream' });
+            }
+
+            timeline.innerHTML = protocols.map(p => `
+                <div class="protocol-item ${p.highlight ? 'highlight' : ''}">
+                    <div class="protocol-time">${p.time}</div>
+                    <div class="protocol-icon">${p.icon}</div>
+                    <div class="protocol-content">
+                        <strong>${p.product}</strong>
+                        <span>${p.desc}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Cart Functions
+        function addPrimaryToCart() {
+            const sorted = calculateResults();
+            const primary = sorted[0][0];
+            const prod = products[primary];
+            alert(`Added ${prod.name} to cart! (In production, this would add to your actual cart)`);
+            // In production: addToCart(primary, prod.name, prod.price);
+        }
+
+        function addBoxSetToCart() {
+            alert('Added States Box Set to cart! (In production, this would add to your actual cart)');
+            // In production: addToCart('box-set', 'States Box Set', 299);
+        }
+
+        // Restart
+        function restartQuiz() {
+            // Reset answers
+            Object.keys(answers).forEach(key => delete answers[key]);
+
+            // Reset UI
+            document.querySelectorAll('.quiz-question-screen').forEach(q => q.classList.remove('active'));
+            document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('.btn-next').forEach(btn => btn.classList.remove('enabled'));
+            document.getElementById('results').classList.remove('active');
+
+            // Show intro
+            document.getElementById('quiz-intro').style.display = 'block';
+            currentQuestion = 0;
+            updateProgress();
+
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>

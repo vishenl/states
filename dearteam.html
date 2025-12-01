@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley States' Makeover - Page Index</title>
+
+    <!-- Mindvalley Design System -->
+    <link rel="stylesheet" href="./mv-selfreset-base.css">
+
+    <style>
+        :root {
+            --mv-brand-purple: #7a12d4;
+            --mv-dark: #0f131a;
+            --mv-gray: #71767f;
+            --mv-light-bg: #f9fafb;
+        }
+
+        body {
+            background: white;
+            min-height: 100vh;
+            color: var(--mv-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--mv-brand-purple) 0%, #5b21b6 100%);
+            color: white;
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            line-height: 1.6;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-eyebrow {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--mv-brand-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Page Index Grid */
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .page-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--mv-brand-purple);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: block;
+        }
+
+        .page-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(122, 18, 212, 0.15);
+        }
+
+        .page-card-type {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--mv-brand-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-card-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--mv-dark);
+        }
+
+        .page-card-desc {
+            font-size: 0.95rem;
+            color: var(--mv-gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .page-card-link {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.9rem;
+            color: var(--mv-brand-purple);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Product colors */
+        .page-card.focus { border-left-color: #f59e0b; }
+        .page-card.zen { border-left-color: #3b82f6; }
+        .page-card.bliss { border-left-color: #ec4899; }
+        .page-card.dream { border-left-color: #6366f1; }
+        .page-card.gazm { border-left-color: #ef4444; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--mv-gray);
+            font-size: 14px;
+            background: var(--mv-light-bg);
+        }
+
+        .footer a {
+            color: var(--mv-brand-purple);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">Project Index</p>
+            <h1 class="mv-type--headline1">Mindvalley States' Makeover</h1>
+            <p class="hero-subtitle">A complete redesign of MindvalleyStates.com with optimized product pages, scientific credibility, and conversion-focused layouts.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="mv-container">
+
+            <!-- Main Pages -->
+            <section style="margin-bottom: 4rem;">
+                <div class="section-header">
+                    <p class="section-eyebrow">Core Pages</p>
+                    <h2 class="mv-type--headline3">Main Website</h2>
+                </div>
+                <div class="pages-grid">
+                    <a href="mockup.html" class="page-card">
+                        <div class="page-card-type">Landing Page</div>
+                        <div class="page-card-title">Homepage</div>
+                        <div class="page-card-desc">The main MindvalleyStates landing page featuring all 5 products with optimized navigation and value proposition.</div>
+                        <span class="page-card-link">View Page &rarr;</span>
+                    </a>
+
+                    <a href="science.html" class="page-card">
+                        <div class="page-card-type">Information</div>
+                        <div class="page-card-title">The Science</div>
+                        <div class="page-card-desc">Scientific foundation and research behind MindvalleyStates formulations with clinical references.</div>
+                        <span class="page-card-link">View Page &rarr;</span>
+                    </a>
+
+                    <a href="state-assessment-quiz.html" class="page-card">
+                        <div class="page-card-type">Interactive</div>
+                        <div class="page-card-title">State Assessment Quiz</div>
+                        <div class="page-card-desc">Personalized quiz to help customers discover which State supplement is right for them.</div>
+                        <span class="page-card-link">View Page &rarr;</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Product Pages -->
+            <section style="margin-bottom: 4rem;">
+                <div class="section-header">
+                    <p class="section-eyebrow">Products</p>
+                    <h2 class="mv-type--headline3">Product Pages</h2>
+                </div>
+                <div class="pages-grid">
+                    <a href="focus.html" class="page-card focus">
+                        <div class="page-card-type">Product</div>
+                        <div class="page-card-title">FOCUS</div>
+                        <div class="page-card-desc">Caffeine-free cognitive enhancement for mental clarity, flow state, and daily brain health.</div>
+                        <span class="page-card-link">View Page &rarr;</span>
+                    </a>
+
+                    <a href="zen.html" class="page-card zen">
+                        <div class="page-card-type">Product</div>
+                        <div class="page-card-title">ZEN</div>
+                        <div class="page-card-desc">Fast-acting stress relief with Ashwagandha, L-Theanine, and GABA for calm without drowsiness.</div>
+                        <span class="page-card-link">View Page &rarr;</span>
+                    </a>
+
+                    <a href="bliss.html" class="page-card bliss">
+                        <div class="page-card-type">Product</div>
+                        <div class="page-card-title">BLISS</div>
+                        <div class="page-card-desc">Science-backed mood enhancement for sustainable happiness and emotional well-being.</div>
+                        <span class="page-card-link">View Page &rarr;</span>
+                    </a>
+
+                    <a href="dream.html" class="page-card dream">
+                        <div class="page-card-type">Product</div>
+                        <div class="page-card-title">DREAM</div>
+                        <div class="page-card-desc">Restorative sleep formula for deep rest, vivid dreams, and waking refreshed.</div>
+                        <span class="page-card-link">View Page &rarr;</span>
+                    </a>
+
+                    <a href="gazm.html" class="page-card gazm">
+                        <div class="page-card-type">Product</div>
+                        <div class="page-card-title">GAZM</div>
+                        <div class="page-card-desc">Intimacy and connection formula with Nitrosigine, Tongkat Ali, and Ashwagandha.</div>
+                        <span class="page-card-link">View Page &rarr;</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Analysis & Reports -->
+            <section>
+                <div class="section-header">
+                    <p class="section-eyebrow">Research</p>
+                    <h2 class="mv-type--headline3">Analysis & Reports</h2>
+                </div>
+                <div class="pages-grid">
+                    <a href="analysis-report.html" class="page-card">
+                        <div class="page-card-type">Analysis</div>
+                        <div class="page-card-title">Website Analysis Report</div>
+                        <div class="page-card-desc">Comprehensive audit covering conversion optimization, pricing psychology, and strategic recommendations.</div>
+                        <span class="page-card-link">View Report &rarr;</span>
+                    </a>
+
+                    <a href="states-analysis-report.html" class="page-card">
+                        <div class="page-card-type">Analysis</div>
+                        <div class="page-card-title">States Analysis Report</div>
+                        <div class="page-card-desc">Detailed breakdown of each product's positioning, ingredients, and market opportunity.</div>
+                        <span class="page-card-link">View Report &rarr;</span>
+                    </a>
+
+                    <a href="optimization-guide.html" class="page-card">
+                        <div class="page-card-type">Strategy</div>
+                        <div class="page-card-title">FOCUS Optimization Guide</div>
+                        <div class="page-card-desc">Evidence-based optimization guide with 12 major changes for the FOCUS product page.</div>
+                        <span class="page-card-link">View Guide &rarr;</span>
+                    </a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Mindvalley States' Makeover | November 2025</p>
+        <p style="margin-top: 0.5rem;"><a href="https://www.mindvalleystates.com" target="_blank">Visit Live Site &rarr;</a></p>
+    </footer>
+
+</body>
+</html>

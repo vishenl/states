@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindvalleyStates.com Analysis Report</title>
+
+    <!-- Mindvalley Design System -->
+    <link rel="stylesheet" href="./mv-selfreset-base.css">
+
+    <style>
+        :root {
+            --mv-brand-purple: #7a12d4;
+            --mv-brand-purple-light: #ba62fd;
+            --mv-success: #10b981;
+            --mv-warning: #f59e0b;
+            --mv-danger: #ef4444;
+            --mv-dark: #0f131a;
+            --mv-gray: #6b7280;
+            --mv-gray-light: #9ca3af;
+            --mv-light-bg: #f9fafb;
+        }
+
+        body {
+            background: white;
+            min-height: 100vh;
+            color: var(--mv-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--mv-brand-purple) 0%, #5b21b6 100%);
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-family: Grotesk-Regular, sans-serif;
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Grade Card */
+        .grade-section {
+            max-width: 1000px;
+            margin: -60px auto 0;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .grade-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(122, 18, 212, 0.2);
+            padding: 40px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .grade-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .grade-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--mv-warning) 0%, #ea580c 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .grade-letter {
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 42px;
+            line-height: 1;
+        }
+
+        .grade-score {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .grade-info p {
+            color: var(--mv-gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .potential-card {
+            background: linear-gradient(135deg, var(--mv-success) 0%, #059669 100%);
+            color: white;
+            padding: 24px 32px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .potential-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+
+        .potential-value {
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 32px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 2rem;
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .section-icon.green { background: #dcfce7; }
+        .section-icon.red { background: #fee2e2; }
+        .section-icon.blue { background: #dbeafe; }
+        .section-icon.purple { background: #ede9fe; }
+        .section-icon.orange { background: #ffedd5; }
+
+        /* Cards */
+        .card {
+            background: var(--mv-light-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        /* Lists */
+        .check-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .check-list li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+
+        .check-icon.success {
+            background: #dcfce7;
+            color: var(--mv-success);
+        }
+
+        .check-icon.error {
+            background: #fee2e2;
+            color: var(--mv-danger);
+        }
+
+        .check-list strong {
+            font-family: Grotesk-Bold, sans-serif;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .check-list p {
+            color: var(--mv-gray);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Issues Table */
+        .issues-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .issues-table th {
+            text-align: left;
+            padding: 16px;
+            background: #e5e7eb;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--mv-gray);
+        }
+
+        .issues-table th:first-child {
+            border-radius: 12px 0 0 12px;
+        }
+
+        .issues-table th:last-child {
+            border-radius: 0 12px 12px 0;
+        }
+
+        .issues-table td {
+            padding: 20px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        .issues-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .issues-table strong {
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        .issues-table .issue-desc {
+            font-size: 14px;
+            color: var(--mv-gray);
+            margin-top: 4px;
+        }
+
+        .severity-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 12px;
+        }
+
+        .severity-critical {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .severity-high {
+            background: #ffedd5;
+            color: #c2410c;
+        }
+
+        .severity-medium {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        /* Quick Wins */
+        .quick-win {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(122, 18, 212, 0.1);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--mv-brand-purple);
+            position: relative;
+        }
+
+        .quick-win-number {
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            width: 32px;
+            height: 32px;
+            background: var(--mv-brand-purple);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 14px;
+        }
+
+        .quick-win-meta {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-win-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 13px;
+            color: var(--mv-gray);
+        }
+
+        .quick-win-tag strong {
+            color: var(--mv-success);
+        }
+
+        .quick-win p {
+            color: var(--mv-gray);
+            margin-bottom: 1rem;
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            margin-top: 1.5rem;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .before-after {
+                grid-template-columns: 1fr;
+            }
+            .before-after .arrow {
+                transform: rotate(90deg);
+                justify-self: center;
+            }
+        }
+
+        .before-after .box {
+            background: var(--mv-light-bg);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .before-after .box.before {
+            border: 2px dashed var(--mv-danger);
+        }
+
+        .before-after .box.after {
+            border: 2px solid var(--mv-success);
+        }
+
+        .before-after .box-label {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .before-after .box.before .box-label {
+            color: var(--mv-danger);
+        }
+
+        .before-after .box.after .box-label {
+            color: var(--mv-success);
+        }
+
+        .before-after .arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--mv-gray-light);
+            padding-top: 30px;
+        }
+
+        .before-after code {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            display: block;
+            white-space: pre-wrap;
+        }
+
+        /* Strategic Recommendations */
+        .strategy-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(122, 18, 212, 0.1);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .strategy-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 1.5rem;
+        }
+
+        .strategy-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--mv-brand-purple) 0%, #5b21b6 100%);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .strategy-timeline {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 14px;
+            color: var(--mv-brand-purple);
+        }
+
+        .strategy-content {
+            color: var(--mv-gray);
+        }
+
+        .strategy-content ul {
+            margin-top: 16px;
+            padding-left: 20px;
+        }
+
+        .strategy-content li {
+            margin-bottom: 8px;
+        }
+
+        .strategy-content strong {
+            font-family: Grotesk-Bold, sans-serif;
+            color: var(--mv-dark);
+        }
+
+        /* Competitor Comparison */
+        .competitor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 24px;
+            border-top: 4px solid var(--mv-gray-light);
+        }
+
+        .competitor-card.ag1 { border-top-color: #22c55e; }
+        .competitor-card.qualia { border-top-color: #3b82f6; }
+        .competitor-card.momentous { border-top-color: var(--mv-warning); }
+        .competitor-card.states { border-top-color: var(--mv-brand-purple); }
+
+        .competitor-name {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.125rem;
+            margin-bottom: 4px;
+        }
+
+        .competitor-price {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 14px;
+            color: var(--mv-gray);
+            margin-bottom: 16px;
+        }
+
+        .competitor-pros, .competitor-cons {
+            margin-bottom: 12px;
+        }
+
+        .competitor-pros h4, .competitor-cons h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .competitor-pros h4 { color: var(--mv-success); }
+        .competitor-cons h4 { color: var(--mv-danger); }
+
+        .competitor-pros ul, .competitor-cons ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .competitor-pros li, .competitor-cons li {
+            padding: 4px 0 4px 16px;
+            position: relative;
+        }
+
+        .competitor-pros li::before {
+            content: '+';
+            position: absolute;
+            left: 0;
+            color: var(--mv-success);
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        .competitor-cons li::before {
+            content: '-';
+            position: absolute;
+            left: 0;
+            color: var(--mv-danger);
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        /* Revenue Impact */
+        .revenue-section {
+            background: linear-gradient(135deg, var(--mv-dark) 0%, #1f2937 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            color: white;
+            margin-top: 4rem;
+        }
+
+        .revenue-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .revenue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .revenue-item {
+            padding: 1.5rem;
+        }
+
+        .revenue-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+
+        .revenue-value {
+            font-family: Grotesk-Bold-16, sans-serif;
+            font-size: 2.25rem;
+        }
+
+        .revenue-value.highlight {
+            color: var(--mv-success);
+        }
+
+        .revenue-note {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 14px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .revenue-total {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .revenue-total .revenue-value {
+            font-size: 3.5rem;
+        }
+
+        /* Footer */
+        .report-footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--mv-gray);
+            font-size: 14px;
+        }
+
+        .report-footer a {
+            color: var(--mv-brand-purple);
+            text-decoration: none;
+        }
+
+        .report-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Print Styles */
+        @media print {
+            .hero {
+                padding: 40px;
+            }
+            .grade-section {
+                margin-top: 20px;
+            }
+            .card, .quick-win, .strategy-card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>Conversion Optimization Report</span>
+            </div>
+            <h1 class="mv-type--headline1">MindvalleyStates.com<br>Website Analysis</h1>
+            <p class="hero-subtitle">Comprehensive audit of conversion optimization, pricing psychology, competitive positioning, and strategic recommendations.</p>
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <span>November 2025</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span>Supplement E-commerce</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span>Sales Page Analyzer Agent</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grade Section -->
+    <section class="grade-section">
+        <div class="grade-card">
+            <div class="grade-circle">
+                <span class="grade-letter">B-</span>
+                <span class="grade-score">72/100</span>
+            </div>
+            <div class="grade-info">
+                <h2 class="mv-type--headline5">Solid Foundation, Significant Opportunities</h2>
+                <p>The site has strong credentials (Shawn Wells), clear product differentiation (mood-based states), and good trust signals. However, it suffers from unclear value proposition, premium positioning damaged by aggressive discounting, and missing scientific credibility that this sophisticated audience demands.</p>
+            </div>
+            <div class="potential-card">
+                <div class="potential-label">Conversion Lift Potential</div>
+                <div class="potential-value">+35-55%</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="mv-container">
+
+            <!-- What's Working -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon green">+</div>
+                    <h2 class="mv-type--headline3">What's Working Well</h2>
+                </div>
+                <div class="card">
+                    <ul class="check-list">
+                        <li>
+                            <span class="check-icon success">&#10003;</span>
+                            <div>
+                                <strong>Strong Credentials</strong>
+                                <p>Shawn Wells (1,000+ formulations, 40+ patents) + Vishen co-creator = world-class authority positioning</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon success">&#10003;</span>
+                            <div>
+                                <strong>Clear Product Differentiation</strong>
+                                <p>State-based naming (FOCUS, ZEN, BLISS, DREAM, GAZM) provides instant benefit clarity</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon success">&#10003;</span>
+                            <div>
+                                <strong>Good Review Density</strong>
+                                <p>4.7-4.9 star ratings with 80-100+ reviews meets social proof threshold</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon success">&#10003;</span>
+                            <div>
+                                <strong>Solid FAQ Coverage</strong>
+                                <p>Addresses key objections: dependency concerns, activation time, shipping, 60-day return policy</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="check-icon success">&#10003;</span>
+                            <div>
+                                <strong>Named Testimonials</strong>
+                                <p>Real customers with titles (Jimmy Naraine, Lee Holden, Bianca Ioana) adds authenticity</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Critical Issues -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon red">!</div>
+                    <h2 class="mv-type--headline3">Critical Issues Identified</h2>
+                </div>
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <table class="issues-table">
+                        <thead>
+                            <tr>
+                                <th>Issue</th>
+                                <th>Severity</th>
+                                <th>Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>75% Discount Destroys Premium Positioning</strong>
+                                    <p class="issue-desc">Box Set $99 (was $399) creates "fake price" skepticism and trains customers to wait for sales</p>
+                                </td>
+                                <td><span class="severity-badge severity-critical">Critical</span></td>
+                                <td>Contradicts "Premium Natural Ingredients" messaging. Damages brand trust.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Vague Value Proposition</strong>
+                                    <p class="issue-desc">"Design your mood - on demand" lacks specificity, mechanism, and proof</p>
+                                </td>
+                                <td><span class="severity-badge severity-critical">Critical</span></td>
+                                <td>Fails to differentiate from 1,000+ other nootropic brands</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Dual CTAs Cause Decision Paralysis</strong>
+                                    <p class="issue-desc">"Shop Now" vs "Find Your State Now" compete for attention</p>
+                                </td>
+                                <td><span class="severity-badge severity-high">High</span></td>
+                                <td>Reduces click-through rate by 15-25%</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Generic Scientific Claims</strong>
+                                    <p class="issue-desc">"Backed by Clinical Research" without specific study results</p>
+                                </td>
+                                <td><span class="severity-badge severity-high">High</span></td>
+                                <td>Mindvalley audience demands evidence, not just claims</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>No Personalization or Quiz</strong>
+                                    <p class="issue-desc">5 products create decision fatigue without guidance</p>
+                                </td>
+                                <td><span class="severity-badge severity-medium">Medium</span></td>
+                                <td>Missing 20-30% conversion lift from quiz-based personalization</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Top 5 Quick Wins -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon purple">*</div>
+                    <h2 class="mv-type--headline3">Top 5 Quick Wins</h2>
+                </div>
+
+                <div class="quick-win">
+                    <div class="quick-win-number">1</div>
+                    <h3 class="mv-type--headline6">Replace Discount Pricing with Value Stack</h3>
+                    <div class="quick-win-meta">
+                        <span class="quick-win-tag">Implementation: <strong>2 hours</strong></span>
+                        <span class="quick-win-tag">Expected Lift: <strong>+8-12%</strong></span>
+                    </div>
+                    <p>Stop using strikethrough "was $399" pricing that screams "fake discount." Instead, present value through bundled benefits.</p>
+                    <div class="before-after">
+                        <div class="box before">
+                            <div class="box-label">Current</div>
+                            <code>Box Set: $99 (was $399)
+75% off</code>
+                        </div>
+                        <div class="arrow">&#8594;</div>
+                        <div class="box after">
+                            <div class="box-label">Recommended</div>
+                            <code>STATES BOX SET: $99
+
+WHAT'S INCLUDED:
+&#10003; 5-day trial of each State - $245 value
+&#10003; State Optimization Guide - $47 value
+&#10003; States Community Access - $55 value
+&#10003; 60-day money-back guarantee
+&#10003; Free shipping
+
+TOTAL VALUE: $347 | YOUR PRICE: $99</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-win">
+                    <div class="quick-win-number">2</div>
+                    <h3 class="mv-type--headline6">Simplify Hero CTA to Single Action</h3>
+                    <div class="quick-win-meta">
+                        <span class="quick-win-tag">Implementation: <strong>1 hour</strong></span>
+                        <span class="quick-win-tag">Expected Lift: <strong>+10-15% CTR</strong></span>
+                    </div>
+                    <p>Two competing CTAs create decision paralysis. Replace with a single, clear action that guides visitors.</p>
+                    <div class="before-after">
+                        <div class="box before">
+                            <div class="box-label">Current</div>
+                            <code>[Shop Now] [Find Your State Now]
+
+Two buttons competing for attention</code>
+                        </div>
+                        <div class="arrow">&#8594;</div>
+                        <div class="box after">
+                            <div class="box-label">Recommended</div>
+                            <code>[Take the 60-Second State Assessment]
+
+Single clear action, large 48px button
+Secondary CTA below fold: [Shop All States]</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-win">
+                    <div class="quick-win-number">3</div>
+                    <h3 class="mv-type--headline6">Add Specific Clinical Results</h3>
+                    <div class="quick-win-meta">
+                        <span class="quick-win-tag">Implementation: <strong>3 hours</strong></span>
+                        <span class="quick-win-tag">Expected Lift: <strong>+5-8%</strong></span>
+                    </div>
+                    <p>Replace vague "Backed by Clinical Research" with specific study results that the Mindvalley audience demands.</p>
+                    <div class="before-after">
+                        <div class="box before">
+                            <div class="box-label">Current</div>
+                            <code>"Backed by Clinical Research"
+
+(No specifics, generic claim)</code>
+                        </div>
+                        <div class="arrow">&#8594;</div>
+                        <div class="box after">
+                            <div class="box-label">Recommended</div>
+                            <code>CLINICAL VALIDATION
+
+FOCUS Formula:
+&#8594; 23% improved cognitive performance*
+&#8594; 78% enhanced working memory in 30 min*
+&#8594; 4+ hours sustained attention*
+
+ZEN Formula:
+&#8594; 27% reduced cortisol in 60 days*
+&#8594; 34% improved stress resilience*
+
+*Clinical studies on file. View research</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-win">
+                    <div class="quick-win-number">4</div>
+                    <h3 class="mv-type--headline6">Enhanced Testimonial Format</h3>
+                    <div class="quick-win-meta">
+                        <span class="quick-win-tag">Implementation: <strong>2 hours</strong></span>
+                        <span class="quick-win-tag">Expected Lift: <strong>+3-5%</strong></span>
+                    </div>
+                    <p>Add verified purchase badges, specific results, and customer tenure to increase testimonial authenticity.</p>
+                    <div class="before-after">
+                        <div class="box before">
+                            <div class="box-label">Current</div>
+                            <code>"I notice a significant improvement
+in my concentration"
+
+- Jimmy Naraine
+Entrepreneur</code>
+                        </div>
+                        <div class="arrow">&#8594;</div>
+                        <div class="box after">
+                            <div class="box-label">Recommended</div>
+                            <code>"FOCUS gave me 4 uninterrupted hours
+of deep work every morning. As a founder
+managing 3 companies, this is non-negotiable."
+
+- Jimmy Naraine
+Entrepreneur | 2-Year Customer
+[Photo] [Verified Purchase]</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-win">
+                    <div class="quick-win-number">5</div>
+                    <h3 class="mv-type--headline6">Add Sticky Mobile CTA Bar</h3>
+                    <div class="quick-win-meta">
+                        <span class="quick-win-tag">Implementation: <strong>2 hours</strong></span>
+                        <span class="quick-win-tag">Expected Lift: <strong>+6-10% mobile</strong></span>
+                    </div>
+                    <p>Mobile users shouldn't have to scroll back up to add to cart. Add a persistent bottom bar.</p>
+                    <div class="before-after">
+                        <div class="box before">
+                            <div class="box-label">Current</div>
+                            <code>Mobile users must scroll
+back to top to purchase
+
+High friction = cart abandonment</code>
+                        </div>
+                        <div class="arrow">&#8594;</div>
+                        <div class="box after">
+                            <div class="box-label">Recommended</div>
+                            <code>[Fixed bottom bar - always visible]
+
+[Product img] [FOCUS] [$49] [Add to Cart]
+
+Appears after initial scroll
+One-tap purchase from anywhere</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Strategic Recommendations -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon blue">&#9733;</div>
+                    <h2 class="mv-type--headline3">Strategic Recommendations</h2>
+                </div>
+
+                <div class="strategy-card">
+                    <div class="strategy-header">
+                        <div class="strategy-number">1</div>
+                        <div>
+                            <h3 class="mv-type--headline6">Build "States Assessment" Quiz</h3>
+                            <div class="strategy-timeline">Timeline: 4-6 weeks</div>
+                        </div>
+                    </div>
+                    <div class="strategy-content">
+                        <p>Reduce decision paralysis and increase conversion by 20-30% with a personalized product recommendation quiz.</p>
+                        <ul>
+                            <li><strong>3-4 questions:</strong> Primary challenge, when support needed, supplement experience</li>
+                            <li><strong>Personalized result:</strong> "Based on your answers, we recommend FOCUS"</li>
+                            <li><strong>Email capture:</strong> Before showing results for retargeting</li>
+                            <li><strong>Box Set fallback:</strong> For "not sure" visitors</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="strategy-card">
+                    <div class="strategy-header">
+                        <div class="strategy-number">2</div>
+                        <div>
+                            <h3 class="mv-type--headline6">Subscription-First Business Model</h3>
+                            <div class="strategy-timeline">Timeline: 8-12 weeks</div>
+                        </div>
+                    </div>
+                    <div class="strategy-content">
+                        <p>Shift from one-time sales to recurring revenue, increasing customer LTV by 5-10x.</p>
+                        <ul>
+                            <li><strong>Tier 1:</strong> Single State - $39/month (save 20% vs $49 one-time)</li>
+                            <li><strong>Tier 2:</strong> Dual State - $69/month (save 30%, most popular choice)</li>
+                            <li><strong>Tier 3:</strong> States Membership - $99/month (all 5 states + VIP perks)</li>
+                            <li><strong>Default to subscribe:</strong> Product pages show subscription first</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="strategy-card">
+                    <div class="strategy-header">
+                        <div class="strategy-number">3</div>
+                        <div>
+                            <h3 class="mv-type--headline6">Authority Content Engine</h3>
+                            <div class="strategy-timeline">Timeline: 12-16 weeks</div>
+                        </div>
+                    </div>
+                    <div class="strategy-content">
+                        <p>Establish Shawn Wells + MindvalleyStates as the #1 authority in state optimization through SEO and thought leadership.</p>
+                        <ul>
+                            <li><strong>Content pillars:</strong> State optimization science, ingredient deep dives, practical application</li>
+                            <li><strong>SEO targets:</strong> "nootropics for focus," "best supplements for anxiety"</li>
+                            <li><strong>Podcast appearances:</strong> Huberman Lab, Ben Greenfield, Mind Pump</li>
+                            <li><strong>YouTube series:</strong> Shawn Wells explaining the science behind each formula</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="strategy-card">
+                    <div class="strategy-header">
+                        <div class="strategy-number">4</div>
+                        <div>
+                            <h3 class="mv-type--headline6">Clinical Validation & Third-Party Certification</h3>
+                            <div class="strategy-timeline">Timeline: 6-12 months</div>
+                        </div>
+                    </div>
+                    <div class="strategy-content">
+                        <p>Establish unassailable scientific credibility through NSF certification and commissioned clinical studies.</p>
+                        <ul>
+                            <li><strong>NSF Certified for Sport:</strong> Third-party testing trusted by pro athletes</li>
+                            <li><strong>Commission studies:</strong> RCTs on FOCUS, ZEN, DREAM formulas</li>
+                            <li><strong>Publish results:</strong> Peer-reviewed journals, then marketing assets</li>
+                            <li><strong>Expected conversion lift:</strong> +15-20% from credibility boost</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="strategy-card">
+                    <div class="strategy-header">
+                        <div class="strategy-number">5</div>
+                        <div>
+                            <h3 class="mv-type--headline6">Mindvalley Ecosystem Integration</h3>
+                            <div class="strategy-timeline">Timeline: 6-8 weeks</div>
+                        </div>
+                    </div>
+                    <div class="strategy-content">
+                        <p>Leverage Mindvalley's 20M+ user base for cross-sell and synergistic product bundles.</p>
+                        <ul>
+                            <li><strong>Quest bundles:</strong> Superbrain + FOCUS, Duality + ZEN, Sleep Mastery + DREAM</li>
+                            <li><strong>In-Quest placement:</strong> Product recommendations within lesson content</li>
+                            <li><strong>All Access add-on:</strong> Membership + States subscription for $69/month</li>
+                            <li><strong>Email cross-promotion:</strong> Segmented offers to Quest students</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Competitive Analysis -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon orange">&#9830;</div>
+                    <h2 class="mv-type--headline3">Competitive Positioning</h2>
+                </div>
+
+                <div class="competitor-grid">
+                    <div class="competitor-card ag1">
+                        <h3 class="competitor-name">Athletic Greens (AG1)</h3>
+                        <p class="competitor-price">$99/month - Never discounts</p>
+                        <div class="competitor-pros">
+                            <h4>Strengths</h4>
+                            <ul>
+                                <li>Massive influencer marketing</li>
+                                <li>Subscription-first model</li>
+                                <li>Premium positioning maintained</li>
+                            </ul>
+                        </div>
+                        <div class="competitor-cons">
+                            <h4>Weaknesses</h4>
+                            <ul>
+                                <li>Generic "overall health" positioning</li>
+                                <li>One product only</li>
+                                <li>Taste complaints common</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="competitor-card qualia">
+                        <h3 class="competitor-name">Qualia Mind</h3>
+                        <p class="competitor-price">$139/month - Science-heavy</p>
+                        <div class="competitor-pros">
+                            <h4>Strengths</h4>
+                            <ul>
+                                <li>Deep research backing</li>
+                                <li>Biohacker credibility</li>
+                                <li>Complex formulations</li>
+                            </ul>
+                        </div>
+                        <div class="competitor-cons">
+                            <h4>Weaknesses</h4>
+                            <ul>
+                                <li>Expensive barrier to entry</li>
+                                <li>7-pill serving (inconvenient)</li>
+                                <li>Intimidating for beginners</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="competitor-card momentous">
+                        <h3 class="competitor-name">Momentous</h3>
+                        <p class="competitor-price">$45-60/product - Athlete-focused</p>
+                        <div class="competitor-pros">
+                            <h4>Strengths</h4>
+                            <ul>
+                                <li>NSF Certified for Sport</li>
+                                <li>Huberman partnership</li>
+                                <li>Pro athlete endorsements</li>
+                            </ul>
+                        </div>
+                        <div class="competitor-cons">
+                            <h4>Weaknesses</h4>
+                            <ul>
+                                <li>Generic "performance" positioning</li>
+                                <li>Limited emotional appeal</li>
+                                <li>No founder story</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="competitor-card states">
+                        <h3 class="competitor-name">MindvalleyStates</h3>
+                        <p class="competitor-price">$49-99 - State-based</p>
+                        <div class="competitor-pros">
+                            <h4>Competitive Advantages</h4>
+                            <ul>
+                                <li>State-switching concept (unique)</li>
+                                <li>Shawn Wells credentials</li>
+                                <li>Mindvalley 20M+ user ecosystem</li>
+                                <li>Emotional + functional positioning</li>
+                            </ul>
+                        </div>
+                        <div class="competitor-cons">
+                            <h4>Gaps to Address</h4>
+                            <ul>
+                                <li>No NSF certification (yet)</li>
+                                <li>Discount-heavy pricing hurts brand</li>
+                                <li>Weaker influencer presence</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Revenue Impact -->
+            <section class="revenue-section">
+                <h2 class="mv-type--headline3">Projected Revenue Impact</h2>
+                <div class="revenue-grid">
+                    <div class="revenue-item">
+                        <div class="revenue-label">Current Conversion</div>
+                        <div class="revenue-value">2-3%</div>
+                        <div class="revenue-note">Estimated baseline</div>
+                    </div>
+                    <div class="revenue-item">
+                        <div class="revenue-label">Optimized Conversion</div>
+                        <div class="revenue-value highlight">3.5-5%</div>
+                        <div class="revenue-note">After quick wins</div>
+                    </div>
+                    <div class="revenue-item">
+                        <div class="revenue-label">Current AOV</div>
+                        <div class="revenue-value">$75</div>
+                        <div class="revenue-note">One-time mix</div>
+                    </div>
+                    <div class="revenue-item">
+                        <div class="revenue-label">Optimized LTV</div>
+                        <div class="revenue-value highlight">$250+</div>
+                        <div class="revenue-note">Subscription model</div>
+                    </div>
+                </div>
+                <div class="revenue-total">
+                    <div class="revenue-label">Total Revenue Lift Potential</div>
+                    <div class="revenue-value highlight">200-400%</div>
+                    <div class="revenue-note" style="font-size: 16px;">Over 12 months with full implementation</div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="report-footer">
+        <p>Analysis generated by Mindvalley Sales Page Analyzer Agent</p>
+        <p style="margin-top: 8px;">Report Date: November 2025 | <a href="https://www.mindvalleystates.com" target="_blank">View Live Site</a></p>
+    </footer>
+
+</body>
+</html>

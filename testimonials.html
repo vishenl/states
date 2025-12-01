@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - Why People Love States | Mindvalley States</title>
+    <meta name="description" content="The most powerful stories from those who experienced States first hand. Real reviews from real customers.">
+    <link rel="stylesheet" href="./mv-selfreset-base.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { line-height: 1.6; background: #f9fafb; }
+
+        /* Header */
+        header { background: white; border-bottom: 1px solid #e5e7eb; position: fixed; width: 100%; top: 0; z-index: 100; }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: Grotesk-Bold, sans-serif; font-size: 20px; color: #0f131a; text-decoration: none; }
+        .logo span { color: #7a12d4; }
+        nav { display: flex; gap: 32px; align-items: center; }
+        nav > a, .nav-dropdown > a { color: #71767f; text-decoration: none; font-size: 14px; font-family: Grotesk-Medium, sans-serif; transition: color 0.2s; }
+        nav > a:hover, .nav-dropdown:hover > a { color: #7a12d4; }
+        nav > a.active { color: #7a12d4; }
+        .cart-btn { background: #0f131a; color: white; padding: 10px 20px; border-radius: 999px; font-family: Grotesk-Bold, sans-serif; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
+        .cart-count { background: #7a12d4; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+
+        /* Dropdown */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown > a { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+        .nav-dropdown > a::after { content: ''; border: solid #71767f; border-width: 0 2px 2px 0; display: inline-block; padding: 3px; transform: rotate(45deg); margin-top: -3px; transition: transform 0.2s; }
+        .nav-dropdown:hover > a::after { transform: rotate(-135deg); margin-top: 3px; border-color: #7a12d4; }
+        .dropdown-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); padding: 12px 0; min-width: 200px; opacity: 0; visibility: hidden; transition: all 0.2s; margin-top: 12px; }
+        .nav-dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; margin-top: 8px; }
+        .dropdown-menu a { display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: #71767f; font-size: 14px; font-family: Grotesk-Medium, sans-serif; transition: all 0.2s; }
+        .dropdown-menu a:hover { background: #f9fafb; color: #7a12d4; }
+        .dropdown-menu .product-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .dropdown-menu .focus-icon { background: #dbeafe; }
+        .dropdown-menu .zen-icon { background: #d1fae5; }
+        .dropdown-menu .bliss-icon { background: #fef3c7; }
+        .dropdown-menu .dream-icon { background: #e0e7ff; }
+        .dropdown-menu .gazm-icon { background: #fce7f3; }
+
+        /* Hero */
+        .hero { padding: 140px 0 60px; background: linear-gradient(180deg, #f5f0ff 0%, #f9fafb 100%); text-align: center; }
+        .mv-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .hero h1 { font-family: Grotesk-Bold, sans-serif; font-size: 48px; margin-bottom: 16px; color: #0f131a; }
+        .hero h1 span { color: #7a12d4; }
+        .hero p { font-size: 18px; color: #71767f; max-width: 600px; margin: 0 auto; }
+
+        /* Filter Tabs */
+        .filter-tabs { padding: 32px 0; background: white; border-bottom: 1px solid #e5e7eb; position: sticky; top: 64px; z-index: 50; }
+        .tabs-inner { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .filter-tab { padding: 10px 24px; border: 2px solid #e5e7eb; border-radius: 999px; background: white; font-family: Grotesk-Medium, sans-serif; font-size: 14px; color: #71767f; cursor: pointer; transition: all 0.2s; }
+        .filter-tab:hover { border-color: #c4b5fd; color: #7a12d4; }
+        .filter-tab.active { background: #7a12d4; border-color: #7a12d4; color: white; }
+
+        /* Testimonials Grid */
+        .testimonials-section { padding: 60px 0 80px; }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 24px; }
+        @media (max-width: 480px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+        /* Testimonial Card */
+        .testimonial-card { background: white; border-radius: 20px; padding: 32px; border: 1px solid #e5e7eb; transition: all 0.3s; display: flex; flex-direction: column; }
+        .testimonial-card:hover { box-shadow: 0 20px 40px -12px rgba(0,0,0,0.1); transform: translateY(-4px); }
+        .testimonial-quote { font-size: 18px; font-family: Grotesk-Medium, sans-serif; color: #0f131a; margin-bottom: 24px; line-height: 1.6; flex: 1; }
+        .testimonial-quote::before { content: '"'; font-size: 48px; color: #c4b5fd; line-height: 0; display: block; margin-bottom: 8px; }
+        .testimonial-details { font-size: 15px; color: #71767f; margin-bottom: 24px; line-height: 1.7; }
+        .testimonial-author { display: flex; align-items: center; gap: 16px; padding-top: 24px; border-top: 1px solid #f3f4f6; }
+        .testimonial-avatar { width: 56px; height: 56px; border-radius: 50%; overflow: hidden; background: #e5e7eb; flex-shrink: 0; }
+        .testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .testimonial-info { flex: 1; }
+        .testimonial-name { font-family: Grotesk-Bold, sans-serif; font-size: 16px; color: #0f131a; }
+        .testimonial-title { font-size: 14px; color: #71767f; margin-top: 2px; }
+        .testimonial-product { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; }
+        .product-pill { display: inline-flex; align-items: center; gap: 6px; background: #f3f4f6; padding: 6px 12px; border-radius: 100px; font-size: 12px; font-family: Grotesk-Medium, sans-serif; color: #4b5563; }
+        .product-pill img { width: 20px; height: 20px; object-fit: contain; }
+        .verified-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: #10b981; font-family: Grotesk-Medium, sans-serif; }
+        .verified-badge svg { width: 14px; height: 14px; }
+
+        /* Product Colors */
+        .product-focus { background: #dbeafe; color: #3b82f6; }
+        .product-zen { background: #d1fae5; color: #10b981; }
+        .product-bliss { background: #fef3c7; color: #f59e0b; }
+        .product-dream { background: #e0e7ff; color: #6366f1; }
+        .product-gazm { background: #fce7f3; color: #e11d48; }
+
+        /* CTA Section */
+        .cta-section { background: linear-gradient(135deg, #0f131a 0%, #1e1b4b 100%); padding: 80px 0; text-align: center; color: white; }
+        .cta-section h2 { font-family: Grotesk-Bold, sans-serif; font-size: 36px; margin-bottom: 16px; }
+        .cta-section p { font-size: 18px; opacity: 0.8; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 32px; background: #7a12d4; color: white; font-family: Grotesk-Bold, sans-serif; font-size: 16px; border-radius: 999px; text-decoration: none; transition: all 0.3s; }
+        .btn-primary:hover { background: #6a0dad; transform: translateY(-2px); }
+
+        /* Footer */
+        footer { background: #0f131a; color: white; padding: 48px 0 24px; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+        .footer-logo { font-family: Grotesk-Bold, sans-serif; font-size: 20px; }
+        .footer-logo span { color: #7a12d4; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: #71767f; text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .footer-links a:hover { color: white; }
+        .footer-bottom { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); color: #71767f; font-size: 13px; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .hero h1 { font-size: 32px; }
+            .hero { padding: 100px 0 40px; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .filter-tabs { top: 56px; }
+            .tabs-inner { gap: 8px; }
+            .filter-tab { padding: 8px 16px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <a href="mockup.html" class="logo">Mindvalley<span>States</span></a>
+            <nav>
+                <div class="nav-dropdown">
+                    <a href="#">Products</a>
+                    <div class="dropdown-menu">
+                        <a href="focus.html">
+                            <span class="product-icon focus-icon">🎯</span>
+                            <span>FOCUS</span>
+                        </a>
+                        <a href="zen.html">
+                            <span class="product-icon zen-icon">🧘</span>
+                            <span>ZEN</span>
+                        </a>
+                        <a href="bliss.html">
+                            <span class="product-icon bliss-icon">✨</span>
+                            <span>BLISS</span>
+                        </a>
+                        <a href="dream.html">
+                            <span class="product-icon dream-icon">🌙</span>
+                            <span>DREAM</span>
+                        </a>
+                        <a href="gazm.html">
+                            <span class="product-icon gazm-icon">🔥</span>
+                            <span>GAZM</span>
+                        </a>
+                    </div>
+                </div>
+                <a href="science.html">Science</a>
+                <a href="testimonials.html" class="active">Reviews</a>
+                <button class="cart-btn" onclick="openCart()">
+                    Cart <span class="cart-count" id="cart-count">0</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="mv-container">
+            <h1>Why People <span>Love</span> States</h1>
+            <p>The most powerful stories from those who experienced States first hand. Real reviews from real customers.</p>
+        </div>
+    </section>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <div class="mv-container">
+            <div class="tabs-inner">
+                <button class="filter-tab active" data-filter="all">All Reviews</button>
+                <button class="filter-tab" data-filter="focus">FOCUS</button>
+                <button class="filter-tab" data-filter="zen">ZEN</button>
+                <button class="filter-tab" data-filter="bliss">BLISS</button>
+                <button class="filter-tab" data-filter="dream">DREAM</button>
+                <button class="filter-tab" data-filter="gazm">GAZM</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="mv-container">
+            <div class="testimonials-grid" id="testimonials-grid">
+
+                <!-- FOCUS Reviews -->
+                <div class="testimonial-card" data-product="focus">
+                    <div class="testimonial-quote">I notice a significant improvement in my concentration</div>
+                    <div class="testimonial-details">I've been testing FOCUS for several weeks, and every time I take it before my writing sessions, I notice a significant improvement in my concentration. As a full-time nomad, I find it especially useful during long flights when I need to focus despite being sleep-deprived.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-06-13_at_9.41.46_PM.png?v=1749822122&width=96" alt="Jimmy Naraine">
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Jimmy Naraine</div>
+                            <div class="testimonial-title">International Bestselling Author, Entrepreneur & Leadership Expert</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-focus">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Focus_4K_1.png?v=1760015485&width=96" alt="FOCUS">
+                                    FOCUS
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" data-product="focus">
+                    <div class="testimonial-quote">It gave me a good solid three or four hours of alertness and clarity</div>
+                    <div class="testimonial-details">I don't know about you, but after I've had lunch, especially a big lunch, it's not always so easy to get back to the level I was in the morning. So recently I just tried Focus to replace the coffee I would usually have, and I'm quite happy with the results, I have to say. It gave me a good solid three or four hours of alertness and clarity, kept me on my task, and overall it basically delivered the effect that was promised.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-08-12_at_1.22.00_PM.png?v=1754976303&width=96" alt="Hans">
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Hans</div>
+                            <div class="testimonial-title">Marketing and Business Development Specialist</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-focus">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Focus_4K_1.png?v=1760015485&width=96" alt="FOCUS">
+                                    FOCUS
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DREAM Reviews -->
+                <div class="testimonial-card" data-product="dream">
+                    <div class="testimonial-quote">I am waking up with new realizations, insights and clarity from my dreams</div>
+                    <div class="testimonial-details">I am having the deepest level of sleep and waking up so refreshed. Also because I am sleeping so deeply, my subconscious is getting a lot of time to dream and repattern my consciousness, so I am waking up with new realizations, insights and clarity from my dreams. Hallelujah!!!</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-06-13_at_9.48.38_PM.png?v=1749822568&width=96" alt="Jennifer Partridge">
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Jennifer Partridge</div>
+                            <div class="testimonial-title">Life Coach, EFT/Tapping Expert</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-dream">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Dream_4K_1.png?v=1760015386&width=96" alt="DREAM">
+                                    DREAM
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLISS Reviews -->
+                <div class="testimonial-card" data-product="bliss">
+                    <div class="testimonial-quote">I'm an herbalist and the formula of this is really well put together</div>
+                    <div class="testimonial-details">The bliss pills were wonderful. They activated energy. I'm an herbalist and the formula of this is really well put together. It gave me a really nice elevation. We were at a party and I didn't have any drinks. I didn't have any substances and I just felt really open-hearted, very social, very communicable, lots of energy even though it was late at night. I loved it.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-06-13_at_10.03.52_PM.png?v=1749823448&width=96" alt="Lee Holden">
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Lee Holden</div>
+                            <div class="testimonial-title">Qi Gong Master</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-bliss">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Bliss_4K_1.png?v=1760015460&width=96" alt="BLISS">
+                                    BLISS
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ZEN Reviews -->
+                <div class="testimonial-card" data-product="zen">
+                    <div class="testimonial-quote">Thank you for making such a wonderful product</div>
+                    <div class="testimonial-details">ZEN is the way to go if you have chronic stress, any anxiety, any agitation, overstimulation. This works immediately, as soon as I take it I feel more chill and more calm. Thank you for making such a wonderful product.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-09-08_at_10.32.21_PM.png?v=1757342086&width=96" alt="Roxana">
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Roxana</div>
+                            <div class="testimonial-title">Verified Customer</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-zen">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Zen_4K_1.png?v=1760015438&width=96" alt="ZEN">
+                                    ZEN
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GAZM Reviews -->
+                <div class="testimonial-card" data-product="gazm">
+                    <div class="testimonial-quote">I became more open to my feminine side</div>
+                    <div class="testimonial-details">I tried GAZM and I became more open to my feminine side. Mindvalley States is so powerful. And to be able to combine them in different ways - it's just a big feeling. A feeling that I can achieve everything I want.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">
+                            <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-06-13_at_9.55.28_PM.png?v=1749822945&width=96" alt="Bianca Ioana">
+                        </div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Bianca Ioana</div>
+                            <div class="testimonial-title">11X Time World Karate Champion</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-gazm">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Gazm_4K_1.png?v=1760015415&width=96" alt="GAZM">
+                                    GAZM
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Reviews -->
+                <div class="testimonial-card" data-product="focus">
+                    <div class="testimonial-quote">My productivity has never been better</div>
+                    <div class="testimonial-details">As someone who works from home, staying focused was always a challenge. FOCUS changed everything for me. I take it in the morning and I'm locked in for hours. No jitters, no crash, just smooth, sustained concentration. My productivity has never been better.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #dbeafe, #c4b5fd);"></div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Michael T.</div>
+                            <div class="testimonial-title">Remote Software Developer</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-focus">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Focus_4K_1.png?v=1760015485&width=96" alt="FOCUS">
+                                    FOCUS
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" data-product="dream">
+                    <div class="testimonial-quote">Finally sleeping through the night</div>
+                    <div class="testimonial-details">I've struggled with sleep for years. Tried everything from melatonin to prescription sleep aids. DREAM is different - I fall asleep naturally, sleep deeply, and wake up actually feeling rested. The vivid dreams are a bonus - they've given me creative insights I never expected.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #e0e7ff, #c4b5fd);"></div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Sarah K.</div>
+                            <div class="testimonial-title">Creative Director</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-dream">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Dream_4K_1.png?v=1760015386&width=96" alt="DREAM">
+                                    DREAM
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" data-product="zen">
+                    <div class="testimonial-quote">My go-to for stressful days</div>
+                    <div class="testimonial-details">Running a startup means constant stress. ZEN has become my secret weapon. When things get overwhelming, I take one and within 20 minutes I feel this wave of calm wash over me. I can still think clearly and make decisions, but without the anxiety. It's been a game-changer.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0);"></div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">David L.</div>
+                            <div class="testimonial-title">Tech Startup Founder</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-zen">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Zen_4K_1.png?v=1760015438&width=96" alt="ZEN">
+                                    ZEN
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" data-product="bliss">
+                    <div class="testimonial-quote">Social events are actually enjoyable now</div>
+                    <div class="testimonial-details">I used to dread networking events and parties. BLISS helps me feel genuinely happy and social without needing alcohol. I'm more present, more engaged, and actually enjoy connecting with people. My friends have noticed the difference too.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #fef3c7, #fde68a);"></div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Amanda R.</div>
+                            <div class="testimonial-title">Sales Executive</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-bliss">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Bliss_4K_1.png?v=1760015460&width=96" alt="BLISS">
+                                    BLISS
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" data-product="gazm">
+                    <div class="testimonial-quote">Brought back the spark in our relationship</div>
+                    <div class="testimonial-details">After 15 years of marriage, things had become routine. GAZM helped us rediscover intimacy and connection. It's not just physical - there's an emotional openness that comes with it. My partner and I are closer than we've been in years.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #fce7f3, #fbcfe8);"></div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">James & Lisa M.</div>
+                            <div class="testimonial-title">Verified Customers</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-gazm">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Gazm_4K_1.png?v=1760015415&width=96" alt="GAZM">
+                                    GAZM
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" data-product="focus">
+                    <div class="testimonial-quote">Better than any energy drink</div>
+                    <div class="testimonial-details">I used to rely on energy drinks and coffee to get through my day. FOCUS gives me clean, sustained energy without the crash. I can work for hours, then still sleep well at night. It's completely changed my relationship with stimulants.</div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, #dbeafe, #bfdbfe);"></div>
+                        <div class="testimonial-info">
+                            <div class="testimonial-name">Chris P.</div>
+                            <div class="testimonial-title">Fitness Coach</div>
+                            <div class="testimonial-product">
+                                <span class="product-pill product-focus">
+                                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Focus_4K_1.png?v=1760015485&width=96" alt="FOCUS">
+                                    FOCUS
+                                </span>
+                                <span class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                                    Verified
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="mv-container">
+            <h2>Ready to Experience Your Optimal State?</h2>
+            <p>Join thousands who have transformed their daily performance with Mindvalley States.</p>
+            <a href="mockup.html#products" class="btn-primary">Shop All States</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="mv-container">
+            <div class="footer-inner">
+                <div class="footer-logo">Mindvalley<span>States</span></div>
+                <div class="footer-links">
+                    <a href="mockup.html">Home</a>
+                    <a href="science.html">Science</a>
+                    <a href="testimonials.html">Reviews</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2024 Mindvalley States. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filter functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const filter = tab.dataset.filter;
+
+                // Filter cards
+                testimonialCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.product === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Cart functionality (shared with other pages)
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('mindvalleyStatesCart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        // Initialize cart count on page load
+        updateCartCount();
+    </script>
+</body>
+</html>
