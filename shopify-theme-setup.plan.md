@@ -25,33 +25,35 @@ This creates the standard Shopify theme structure:
 
 ## Phase 2: Template Mapping
 
-| Source HTML | Shopify Template | Type |
-|-------------|------------------|------|
-| `mockup.html` | `templates/index.json` | Homepage |
-| `bliss.html` | `templates/product.bliss.json` | Product (Bliss) |
-| `dream.html` | `templates/product.dream.json` | Product (Dream) |
-| `focus.html` | `templates/product.focus.json` | Product (Focus) |
-| `gazm.html` | `templates/product.gazm.json` | Product (Gazm) |
-| `zen.html` | `templates/product.zen.json` | Product (Zen) |
-| `testimonials.html` | `templates/page.testimonials.json` | Page |
-| `science.html` | `templates/page.science.json` | Page |
-| `state-assessment-quiz.html` | `templates/page.quiz.json` | Page |
-| `index.html` | `templates/collection.json` | Collection |
-| `dearteam.html` | `templates/page.about.json` | Page |
-| `analysis-report.html` | `templates/page.analysis.json` | Page |
-| `states-analysis-report.html` | `templates/page.states-analysis.json` | Page |
-| `optimization-guide.html` | `templates/page.guide.json` | Page |
+| Source HTML                   | Shopify Template                      | Type            |
+| ----------------------------- | ------------------------------------- | --------------- |
+| `mockup.html`                 | `templates/index.json`                | Homepage        |
+| `bliss.html`                  | `templates/product.bliss.json`        | Product (Bliss) |
+| `dream.html`                  | `templates/product.dream.json`        | Product (Dream) |
+| `focus.html`                  | `templates/product.focus.json`        | Product (Focus) |
+| `gazm.html`                   | `templates/product.gazm.json`         | Product (Gazm)  |
+| `zen.html`                    | `templates/product.zen.json`          | Product (Zen)   |
+| `testimonials.html`           | `templates/page.testimonials.json`    | Page            |
+| `science.html`                | `templates/page.science.json`         | Page            |
+| `state-assessment-quiz.html`  | `templates/page.quiz.json`            | Page            |
+| `index.html`                  | `templates/collection.json`           | Collection      |
+| `dearteam.html`               | `templates/page.about.json`           | Page            |
+| `analysis-report.html`        | `templates/page.analysis.json`        | Page            |
+| `states-analysis-report.html` | `templates/page.states-analysis.json` | Page            |
+| `optimization-guide.html`     | `templates/page.guide.json`           | Page            |
 
 ## Phase 3: Section Development
 
 Create custom sections for each unique component:
 
 1. **Hero Sections**
+
    - Product hero with image and CTA
    - Science hero
    - Quiz hero
 
 2. **Content Sections**
+
    - Benefits grid
    - Testimonials carousel
    - Science content blocks
@@ -59,6 +61,7 @@ Create custom sections for each unique component:
    - FAQ accordion
 
 3. **Product Sections**
+
    - Product details
    - Product images gallery
    - Cross-sell recommendations
@@ -72,11 +75,13 @@ Create custom sections for each unique component:
 ## Phase 4: Asset Migration
 
 1. **CSS Files**
+
    - Copy `mv-selfreset-base.css` to `assets/base-styles.css`
    - Create modular CSS for each section
    - Optimize for Shopify's asset pipeline
 
 2. **Images**
+
    - Organize product images in `assets/`
    - Set up image optimization
    - Create responsive image snippets
@@ -120,18 +125,21 @@ Configure in `config/settings_schema.json`:
 ## Phase 7: Testing & Optimization
 
 1. **Functionality Testing**
+
    - All pages render correctly
    - Forms submit properly
    - Cart functions work
    - Navigation is smooth
 
 2. **Performance**
+
    - Optimize images
    - Minify CSS/JS
    - Lazy load images
    - Test page speed
 
 3. **Responsive Design**
+
    - Mobile optimization
    - Tablet layouts
    - Desktop views
@@ -162,4 +170,3 @@ shopify theme serve
 - ✓ Performance optimized
 - ✓ Theme customizable through Shopify admin
 - ✓ SEO optimization in place
-
