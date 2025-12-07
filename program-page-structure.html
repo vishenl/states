@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindvalley Program Page Structure - Conversion + AEO Optimized</title>
+    <link rel="stylesheet" href="./mv-selfreset-base.css">
+    <style>
+        :root {
+            --mv-purple: #7a12d4;
+            --mv-dark: #0f131a;
+            --mv-gray: #6b7280;
+            --mv-light: #f9fafb;
+            --mv-green: #10b981;
+            --mv-orange: #f59e0b;
+            --mv-red: #ef4444;
+            --mv-blue: #3b82f6;
+        }
+
+        body {
+            background: var(--mv-light);
+            color: var(--mv-dark);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--mv-purple) 0%, #4c1d95 100%);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 1rem;
+        }
+
+        .page-header p {
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 3rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--mv-purple);
+            color: white;
+            border-radius: 50%;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            margin-right: 1rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .section-purpose {
+            background: #f0f9ff;
+            border-left: 4px solid var(--mv-blue);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .section-purpose strong {
+            color: var(--mv-blue);
+        }
+
+        .aeo-note {
+            background: #f0fdf4;
+            border-left: 4px solid var(--mv-green);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .aeo-note strong {
+            color: var(--mv-green);
+        }
+
+        .conversion-note {
+            background: #fffbeb;
+            border-left: 4px solid var(--mv-orange);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .conversion-note strong {
+            color: var(--mv-orange);
+        }
+
+        .warning-note {
+            background: #fef2f2;
+            border-left: 4px solid var(--mv-red);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-note strong {
+            color: var(--mv-red);
+        }
+
+        .element-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .element-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .element-list li:last-child {
+            border-bottom: none;
+        }
+
+        .element-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+        }
+
+        .code-block .tag {
+            color: #f472b6;
+        }
+
+        .code-block .attr {
+            color: #a78bfa;
+        }
+
+        .code-block .value {
+            color: #34d399;
+        }
+
+        .code-block .comment {
+            color: #6b7280;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+        }
+
+        .comparison-table th {
+            background: var(--mv-dark);
+            color: white;
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .status-current {
+            color: var(--mv-red);
+        }
+
+        .status-new {
+            color: var(--mv-green);
+        }
+
+        .toc {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin: 0 0 1rem;
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .toc-list a {
+            color: var(--mv-purple);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .toc-list a:hover {
+            background: #f3e8ff;
+        }
+
+        .schema-example {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box {
+            background: white;
+            border: 2px solid var(--mv-purple);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--mv-purple);
+            margin: 0 0 1rem;
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 2rem 1rem;
+            }
+
+            .comparison-table {
+                font-size: 0.875rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="mv-container">
+            <h1 class="mv-type--headline2">Mindvalley Program Page Structure</h1>
+            <p>A new page architecture optimized for both conversions AND Answer Engine Optimization (AEO). This structure ensures maximum visibility in AI answer engines while maintaining high conversion rates.</p>
+        </div>
+    </header>
+
+    <main class="mv-container">
+        <!-- Current vs New Comparison -->
+        <section class="section">
+            <h2 class="mv-type--headline4">Current Page vs. New Structure</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th class="status-current">Current Ultramind Page</th>
+                        <th class="status-new">New Optimized Structure</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Schema Markup</strong></td>
+                        <td>Basic OG tags only</td>
+                        <td>Full Course, FAQPage, Person, Review schema</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FAQ Section</strong></td>
+                        <td>10 generic questions, no schema</td>
+                        <td>30+ search-intent questions with FAQPage schema</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Content Structure</strong></td>
+                        <td>Marketing-first, brand-centric</td>
+                        <td>Value-first, search-intent matched</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Headlines</strong></td>
+                        <td>Emotional/aspirational</td>
+                        <td>Keyword-rich + emotional (dual purpose)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teacher Section</strong></td>
+                        <td>Bio at bottom of page</td>
+                        <td>Person schema + early credibility signals</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Social Proof</strong></td>
+                        <td>Testimonials scattered</td>
+                        <td>Review schema + aggregate rating</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Price Transparency</strong></td>
+                        <td>Price revealed late</td>
+                        <td>Price visible with Offer schema</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h3>Page Sections (Recommended Order)</h3>
+            <ol class="toc-list">
+                <li><a href="#section-1">1. Hero Section (Above the Fold)</a></li>
+                <li><a href="#section-2">2. Quick Value Proposition</a></li>
+                <li><a href="#section-3">3. Problem/Solution Bridge</a></li>
+                <li><a href="#section-4">4. What You'll Learn (Curriculum)</a></li>
+                <li><a href="#section-5">5. Teacher/Expert Credibility</a></li>
+                <li><a href="#section-6">6. Social Proof & Results</a></li>
+                <li><a href="#section-7">7. Program Details & Logistics</a></li>
+                <li><a href="#section-8">8. Pricing & Guarantee</a></li>
+                <li><a href="#section-9">9. AEO-Optimized FAQ Section</a></li>
+                <li><a href="#section-10">10. Final CTA</a></li>
+                <li><a href="#schema">Schema Markup Requirements</a></li>
+            </ol>
+        </nav>
+
+        <!-- Section 1: Hero -->
+        <section id="section-1" class="section">
+            <div class="section-header">
+                <span class="section-number">1</span>
+                <h2 class="section-title">Hero Section (Above the Fold)</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> Capture attention, establish relevance, and provide immediate clarity on what the program delivers.
+            </div>
+
+            <h4>Required Elements:</h4>
+            <ul class="element-list">
+                <li>
+                    <span class="element-icon">H1</span>
+                    <div>
+                        <strong>Primary Headline (H1)</strong><br>
+                        Format: "[Program Name]: [Primary Benefit/Outcome]"<br>
+                        Example: "The Silva Ultramind System: Master Your Mind's Altered States to Manifest Your Goals"
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">P</span>
+                    <div>
+                        <strong>Subheadline</strong><br>
+                        Answer the question: "What will I get from this?" in one sentence.<br>
+                        Example: "A 28-day program to access Alpha and Theta brain states at will for enhanced intuition, creativity, and problem-solving."
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">IMG</span>
+                    <div>
+                        <strong>Hero Image/Video</strong><br>
+                        Show the teacher or program in action. Include alt text describing the content.
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">BTN</span>
+                    <div>
+                        <strong>Primary CTA Button</strong><br>
+                        Clear action: "Start Your Journey" or "Join Now - $399/year"
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Quick Stats Bar</strong><br>
+                        3-4 key metrics: Duration, Students Enrolled, Rating, Languages
+                    </div>
+                </li>
+            </ul>
+
+            <div class="aeo-note">
+                <strong>AEO Optimization:</strong> The H1 should contain the primary keyword (program name) + a benefit phrase that matches how people search. AI engines pull H1s as authoritative answers to "What is [Program Name]?" queries.
+            </div>
+
+            <div class="conversion-note">
+                <strong>Conversion Optimization:</strong> Hero must answer "Is this for me?" within 3 seconds. Use the stats bar to build immediate credibility (social proof through numbers).
+            </div>
+        </section>
+
+        <!-- Section 2: Quick Value Proposition -->
+        <section id="section-2" class="section">
+            <div class="section-header">
+                <span class="section-number">2</span>
+                <h2 class="section-title">Quick Value Proposition (The "What You Get" Section)</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> Immediately communicate the core transformation in scannable format. This section is CRITICAL for AEO because AI engines look for structured, clear value statements.
+            </div>
+
+            <h4>Required Elements:</h4>
+            <ul class="element-list">
+                <li>
+                    <span class="element-icon">H2</span>
+                    <div>
+                        <strong>Section Headline</strong><br>
+                        Format: "What You'll Master in [Program Name]" or "Transform Your [Area] in [Timeframe]"
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">UL</span>
+                    <div>
+                        <strong>3-5 Core Outcomes (Bullet Points)</strong><br>
+                        Each bullet = one clear, measurable outcome. Start with action verbs.<br>
+                        Example:<br>
+                        - Access Alpha brain states in under 60 seconds using the Centering Exercise<br>
+                        - Develop intuitive problem-solving abilities through guided visualization<br>
+                        - Learn healing techniques backed by 60+ years of research
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Quick Feature Cards (Optional)</strong><br>
+                        Visual cards showing: Duration, Format, Difficulty Level, Prerequisites
+                    </div>
+                </li>
+            </ul>
+
+            <div class="aeo-note">
+                <strong>AEO Optimization:</strong> These bullet points get pulled by AI for "What do you learn in [Program Name]?" queries. Use semantic HTML (ul/li) and front-load each bullet with the key benefit.
+            </div>
+
+            <div class="highlight-box">
+                <h4>Schema Markup for This Section</h4>
+                <p>Wrap this section in <code>itemscope itemtype="https://schema.org/Course"</code> with <code>itemprop="teaches"</code> for each outcome.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Problem/Solution Bridge -->
+        <section id="section-3" class="section">
+            <div class="section-header">
+                <span class="section-number">3</span>
+                <h2 class="section-title">Problem/Solution Bridge</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> Create emotional resonance by naming the problem the visitor faces, then positioning the program as the solution.
+            </div>
+
+            <h4>Required Elements:</h4>
+            <ul class="element-list">
+                <li>
+                    <span class="element-icon">H2</span>
+                    <div>
+                        <strong>Problem-Agitation Headline</strong><br>
+                        Format: "If you're struggling with [Problem], you're not alone..." or "For those seeking [Outcome]..."
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">P</span>
+                    <div>
+                        <strong>Problem Description (2-3 paragraphs)</strong><br>
+                        Name 3-5 specific pain points the visitor experiences. Use "you" language.
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">H3</span>
+                    <div>
+                        <strong>Solution Introduction</strong><br>
+                        Bridge from problem to solution: "The answer lies in..."
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">P</span>
+                    <div>
+                        <strong>Methodology Explanation</strong><br>
+                        Explain the core methodology in plain language. What makes this approach different?
+                    </div>
+                </li>
+            </ul>
+
+            <div class="conversion-note">
+                <strong>Conversion Optimization:</strong> This section builds desire through problem awareness. The visitor should think "Yes, that's exactly my situation!" before seeing the solution.
+            </div>
+
+            <div class="aeo-note">
+                <strong>AEO Optimization:</strong> This content answers "How does [Program Name] work?" and "What problem does [Program Name] solve?" - common AI query patterns.
+            </div>
+        </section>
+
+        <!-- Section 4: Curriculum -->
+        <section id="section-4" class="section">
+            <div class="section-header">
+                <span class="section-number">4</span>
+                <h2 class="section-title">What You'll Learn (Curriculum)</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> Show the complete learning journey. This builds confidence that the program is comprehensive and structured.
+            </div>
+
+            <h4>Required Elements:</h4>
+            <ul class="element-list">
+                <li>
+                    <span class="element-icon">H2</span>
+                    <div>
+                        <strong>Section Headline</strong><br>
+                        "The Complete [Program Name] Curriculum" or "Your [X]-Day Transformation Journey"
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Module/Week Breakdown</strong><br>
+                        Expandable accordion for each module with:<br>
+                        - Module Title<br>
+                        - Module Description (1-2 sentences)<br>
+                        - Key Topics Covered (bullet list)<br>
+                        - Duration/Number of Lessons
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Daily/Lesson Schedule (Optional)</strong><br>
+                        For Quests: Show the day-by-day breakdown
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Bonus Content</strong><br>
+                        List any additional resources, tools, or bonus programs included
+                    </div>
+                </li>
+            </ul>
+
+            <div class="aeo-note">
+                <strong>AEO Optimization:</strong> This section answers "What's included in [Program Name]?" and "How long is [Program Name]?" - high-intent purchase research queries.
+            </div>
+
+            <div class="code-block">
+<span class="comment">&lt;!-- Curriculum Schema Markup --&gt;</span>
+&lt;<span class="tag">div</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="value">"https://schema.org/Course"</span>&gt;
+  &lt;<span class="tag">h2</span> <span class="attr">itemprop</span>=<span class="value">"name"</span>&gt;The Silva Ultramind System Curriculum&lt;/<span class="tag">h2</span>&gt;
+  &lt;<span class="tag">div</span> <span class="attr">itemprop</span>=<span class="value">"hasCourseInstance"</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="value">"https://schema.org/CourseInstance"</span>&gt;
+    &lt;<span class="tag">meta</span> <span class="attr">itemprop</span>=<span class="value">"courseMode"</span> <span class="attr">content</span>=<span class="value">"online"</span>&gt;
+    &lt;<span class="tag">meta</span> <span class="attr">itemprop</span>=<span class="value">"duration"</span> <span class="attr">content</span>=<span class="value">"P28D"</span>&gt;
+  &lt;/<span class="tag">div</span>&gt;
+  &lt;<span class="tag">div</span> <span class="attr">itemprop</span>=<span class="value">"syllabusSections"</span>&gt;
+    <span class="comment">&lt;!-- Module content here --&gt;</span>
+  &lt;/<span class="tag">div</span>&gt;
+&lt;/<span class="tag">div</span>&gt;
+            </div>
+        </section>
+
+        <!-- Section 5: Teacher Credibility -->
+        <section id="section-5" class="section">
+            <div class="section-header">
+                <span class="section-number">5</span>
+                <h2 class="section-title">Teacher/Expert Credibility</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> Build trust through the teacher's credentials, experience, and authority. This is CRITICAL for both conversions and AEO.
+            </div>
+
+            <h4>Required Elements:</h4>
+            <ul class="element-list">
+                <li>
+                    <span class="element-icon">H2</span>
+                    <div>
+                        <strong>Section Headline</strong><br>
+                        "Meet Your Teacher: [Name]" or "Learn From [Name], [Key Credential]"
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">IMG</span>
+                    <div>
+                        <strong>Professional Photo</strong><br>
+                        High-quality headshot or action shot. Include Person schema.
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">P</span>
+                    <div>
+                        <strong>Bio Summary (2-3 paragraphs)</strong><br>
+                        Focus on: Expertise, credentials, notable achievements, why they're qualified to teach this.
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">UL</span>
+                    <div>
+                        <strong>Credential List</strong><br>
+                        Bullet points of key credentials: degrees, certifications, books, media appearances, client results.
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>"As Seen In" Logos</strong><br>
+                        Media logos where teacher has been featured (NYT, Forbes, etc.)
+                    </div>
+                </li>
+            </ul>
+
+            <div class="aeo-note">
+                <strong>AEO Optimization:</strong> Person schema is essential for E-E-A-T (Experience, Expertise, Authority, Trust). AI engines look for author/teacher credentials when determining content quality.
+            </div>
+
+            <div class="code-block">
+<span class="comment">&lt;!-- Person Schema for Teacher --&gt;</span>
+&lt;<span class="tag">div</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="value">"https://schema.org/Person"</span>&gt;
+  &lt;<span class="tag">h2</span>&gt;Meet Your Teacher&lt;/<span class="tag">h2</span>&gt;
+  &lt;<span class="tag">img</span> <span class="attr">itemprop</span>=<span class="value">"image"</span> <span class="attr">src</span>=<span class="value">"vishen.jpg"</span> <span class="attr">alt</span>=<span class="value">"Vishen Lakhiani"</span>&gt;
+  &lt;<span class="tag">h3</span> <span class="attr">itemprop</span>=<span class="value">"name"</span>&gt;Vishen Lakhiani&lt;/<span class="tag">h3</span>&gt;
+  &lt;<span class="tag">p</span> <span class="attr">itemprop</span>=<span class="value">"jobTitle"</span>&gt;Founder of Mindvalley, Silva Instructor&lt;/<span class="tag">p</span>&gt;
+  &lt;<span class="tag">p</span> <span class="attr">itemprop</span>=<span class="value">"description"</span>&gt;New York Times bestselling author...&lt;/<span class="tag">p</span>&gt;
+  &lt;<span class="tag">span</span> <span class="attr">itemprop</span>=<span class="value">"award"</span>&gt;New York Times Bestselling Author&lt;/<span class="tag">span</span>&gt;
+&lt;/<span class="tag">div</span>&gt;
+            </div>
+        </section>
+
+        <!-- Section 6: Social Proof -->
+        <section id="section-6" class="section">
+            <div class="section-header">
+                <span class="section-number">6</span>
+                <h2 class="section-title">Social Proof & Results</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> Provide third-party validation through testimonials, reviews, and measurable results.
+            </div>
+
+            <h4>Required Elements:</h4>
+            <ul class="element-list">
+                <li>
+                    <span class="element-icon">H2</span>
+                    <div>
+                        <strong>Section Headline</strong><br>
+                        "What Students Say" or "Real Results From Real Students"
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Aggregate Rating Display</strong><br>
+                        Show: Overall rating (4.8/5), total reviews count, star visualization
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Featured Testimonials (3-6)</strong><br>
+                        Each testimonial needs:<br>
+                        - Quote text (focus on specific results)<br>
+                        - Name and photo<br>
+                        - Location and profession<br>
+                        - Star rating (if applicable)
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Results/Statistics</strong><br>
+                        Quantifiable outcomes: "87% of students report improved focus within 2 weeks"
+                    </div>
+                </li>
+            </ul>
+
+            <div class="aeo-note">
+                <strong>AEO Optimization:</strong> Review schema with aggregateRating makes the program eligible for rich snippets. AI engines cite review data when answering "Is [Program Name] worth it?" queries.
+            </div>
+
+            <div class="code-block">
+<span class="comment">&lt;!-- Review Schema --&gt;</span>
+&lt;<span class="tag">div</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="value">"https://schema.org/Course"</span>&gt;
+  &lt;<span class="tag">div</span> <span class="attr">itemprop</span>=<span class="value">"aggregateRating"</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="value">"https://schema.org/AggregateRating"</span>&gt;
+    &lt;<span class="tag">span</span> <span class="attr">itemprop</span>=<span class="value">"ratingValue"</span>&gt;4.8&lt;/<span class="tag">span</span>&gt; out of
+    &lt;<span class="tag">span</span> <span class="attr">itemprop</span>=<span class="value">"bestRating"</span>&gt;5&lt;/<span class="tag">span</span>&gt; based on
+    &lt;<span class="tag">span</span> <span class="attr">itemprop</span>=<span class="value">"reviewCount"</span>&gt;25,163&lt;/<span class="tag">span</span>&gt; reviews
+  &lt;/<span class="tag">div</span>&gt;
+
+  &lt;<span class="tag">div</span> <span class="attr">itemprop</span>=<span class="value">"review"</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="value">"https://schema.org/Review"</span>&gt;
+    &lt;<span class="tag">div</span> <span class="attr">itemprop</span>=<span class="value">"author"</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="value">"https://schema.org/Person"</span>&gt;
+      &lt;<span class="tag">span</span> <span class="attr">itemprop</span>=<span class="value">"name"</span>&gt;Lexi Lyons&lt;/<span class="tag">span</span>&gt;
+    &lt;/<span class="tag">div</span>&gt;
+    &lt;<span class="tag">div</span> <span class="attr">itemprop</span>=<span class="value">"reviewRating"</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="value">"https://schema.org/Rating"</span>&gt;
+      &lt;<span class="tag">meta</span> <span class="attr">itemprop</span>=<span class="value">"ratingValue"</span> <span class="attr">content</span>=<span class="value">"5"</span>&gt;
+    &lt;/<span class="tag">div</span>&gt;
+    &lt;<span class="tag">p</span> <span class="attr">itemprop</span>=<span class="value">"reviewBody"</span>&gt;Silva changed my life...&lt;/<span class="tag">p</span>&gt;
+  &lt;/<span class="tag">div</span>&gt;
+&lt;/<span class="tag">div</span>&gt;
+            </div>
+        </section>
+
+        <!-- Section 7: Program Details -->
+        <section id="section-7" class="section">
+            <div class="section-header">
+                <span class="section-number">7</span>
+                <h2 class="section-title">Program Details & Logistics</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> Answer all practical questions about how the program works, what's included, and what to expect.
+            </div>
+
+            <h4>Required Elements:</h4>
+            <ul class="element-list">
+                <li>
+                    <span class="element-icon">H2</span>
+                    <div>
+                        <strong>Section Headline</strong><br>
+                        "How [Program Name] Works" or "What's Included"
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Format & Delivery</strong><br>
+                        - How content is delivered (video, audio, text)<br>
+                        - Daily time commitment<br>
+                        - Self-paced vs. scheduled<br>
+                        - Device compatibility
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>What's Included Checklist</strong><br>
+                        - Number of lessons/modules<br>
+                        - Workbooks/PDFs<br>
+                        - Community access<br>
+                        - Live calls/Q&As<br>
+                        - Bonus materials<br>
+                        - Lifetime access details
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>"What Happens After You Order" Process</strong><br>
+                        Step-by-step: Order → Email → Login → Start Learning
+                    </div>
+                </li>
+            </ul>
+
+            <div class="aeo-note">
+                <strong>AEO Optimization:</strong> This answers "How does [Program Name] work?", "Is [Program Name] self-paced?", "How long does [Program Name] take?" - all high-intent queries.
+            </div>
+        </section>
+
+        <!-- Section 8: Pricing -->
+        <section id="section-8" class="section">
+            <div class="section-header">
+                <span class="section-number">8</span>
+                <h2 class="section-title">Pricing & Guarantee</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> Present pricing clearly with value justification and risk reversal through guarantee.
+            </div>
+
+            <h4>Required Elements:</h4>
+            <ul class="element-list">
+                <li>
+                    <span class="element-icon">H2</span>
+                    <div>
+                        <strong>Section Headline</strong><br>
+                        "Start Your Transformation" or "Choose Your Plan"
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Pricing Card(s)</strong><br>
+                        For each option:<br>
+                        - Plan name<br>
+                        - Price (prominent)<br>
+                        - What's included<br>
+                        - CTA button
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Value Comparison (Optional)</strong><br>
+                        Compare to alternatives: "Traditional Silva seminars: $1,500+ | This program: $399/year"
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Money-Back Guarantee</strong><br>
+                        Prominent display of: Duration (15 days), process (one-click), no questions asked
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">DIV</span>
+                    <div>
+                        <strong>Trust Badges</strong><br>
+                        Security icons, payment logos, guarantee badge
+                    </div>
+                </li>
+            </ul>
+
+            <div class="aeo-note">
+                <strong>AEO Optimization:</strong> Use Offer schema for pricing. This answers "How much does [Program Name] cost?" and "Is there a [Program Name] money-back guarantee?"
+            </div>
+
+            <div class="code-block">
+<span class="comment">&lt;!-- Offer Schema --&gt;</span>
+&lt;<span class="tag">div</span> <span class="attr">itemprop</span>=<span class="value">"offers"</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="value">"https://schema.org/Offer"</span>&gt;
+  &lt;<span class="tag">span</span> <span class="attr">itemprop</span>=<span class="value">"price"</span>&gt;399&lt;/<span class="tag">span</span>&gt;
+  &lt;<span class="tag">meta</span> <span class="attr">itemprop</span>=<span class="value">"priceCurrency"</span> <span class="attr">content</span>=<span class="value">"USD"</span>&gt;
+  &lt;<span class="tag">link</span> <span class="attr">itemprop</span>=<span class="value">"availability"</span> <span class="attr">href</span>=<span class="value">"https://schema.org/InStock"</span>&gt;
+  &lt;<span class="tag">meta</span> <span class="attr">itemprop</span>=<span class="value">"priceValidUntil"</span> <span class="attr">content</span>=<span class="value">"2025-12-31"</span>&gt;
+&lt;/<span class="tag">div</span>&gt;
+            </div>
+        </section>
+
+        <!-- Section 9: FAQ -->
+        <section id="section-9" class="section">
+            <div class="section-header">
+                <span class="section-number">9</span>
+                <h2 class="section-title">AEO-Optimized FAQ Section</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> Answer the questions people ACTUALLY search for (not just brand-centric FAQs). This is the PRIMARY AEO section.
+            </div>
+
+            <div class="warning-note">
+                <strong>Critical:</strong> The current Ultramind page has only 10 generic FAQs with no schema markup. This needs to expand to 25-30 search-intent questions with full FAQPage schema.
+            </div>
+
+            <h4>FAQ Categories Required:</h4>
+            <ul class="element-list">
+                <li>
+                    <span class="element-icon">1</span>
+                    <div>
+                        <strong>General/Methodology Questions</strong><br>
+                        - What is [Program Name]?<br>
+                        - How does [Methodology] work?<br>
+                        - Is [Program Name] scientifically proven?<br>
+                        - What's the difference between [Program] and [Alternative]?
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">2</span>
+                    <div>
+                        <strong>Results & Outcomes Questions</strong><br>
+                        - What results can I expect from [Program Name]?<br>
+                        - How long before I see results?<br>
+                        - Does [Program Name] work for [specific use case]?<br>
+                        - Can [Program Name] help with [specific problem]?
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">3</span>
+                    <div>
+                        <strong>Practical/Logistics Questions</strong><br>
+                        - How long is [Program Name]?<br>
+                        - How much time do I need per day?<br>
+                        - Is [Program Name] self-paced?<br>
+                        - Can I do [Program Name] on mobile?
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">4</span>
+                    <div>
+                        <strong>Teacher/Expert Questions</strong><br>
+                        - Who teaches [Program Name]?<br>
+                        - What are [Teacher's] qualifications?<br>
+                        - Is [Teacher] a certified [credential]?
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">5</span>
+                    <div>
+                        <strong>Comparison Questions</strong><br>
+                        - How is [Program Name] different from [Competitor]?<br>
+                        - Is [Program Name] better than [Alternative method]?<br>
+                        - [Program Name] vs [Similar Program]: Which is better?
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">6</span>
+                    <div>
+                        <strong>Purchase/Access Questions</strong><br>
+                        - How much does [Program Name] cost?<br>
+                        - Is there a money-back guarantee?<br>
+                        - Can I cancel my subscription?<br>
+                        - Do I get lifetime access?
+                    </div>
+                </li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>FAQ Answer Formula</h4>
+                <p>Each answer should follow this structure:</p>
+                <ol>
+                    <li><strong>Direct answer</strong> (first sentence - this gets pulled by AI)</li>
+                    <li><strong>Supporting detail</strong> (2-3 sentences expanding on the answer)</li>
+                    <li><strong>Proof/credibility</strong> (statistic, study, or testimonial reference)</li>
+                </ol>
+            </div>
+
+            <div class="code-block">
+<span class="comment">&lt;!-- FAQPage Schema (REQUIRED) --&gt;</span>
+&lt;<span class="tag">script</span> <span class="attr">type</span>=<span class="value">"application/ld+json"</span>&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Silva Ultramind System?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Silva Ultramind System is a 28-day mind empowerment program..."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does Silva Ultramind take per day?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each daily lesson takes 15-20 minutes to complete..."
+      }
+    }
+  ]
+}
+&lt;/<span class="tag">script</span>&gt;
+            </div>
+        </section>
+
+        <!-- Section 10: Final CTA -->
+        <section id="section-10" class="section">
+            <div class="section-header">
+                <span class="section-number">10</span>
+                <h2 class="section-title">Final CTA</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> One last conversion opportunity after all information has been presented.
+            </div>
+
+            <h4>Required Elements:</h4>
+            <ul class="element-list">
+                <li>
+                    <span class="element-icon">H2</span>
+                    <div>
+                        <strong>Headline</strong><br>
+                        Summarize the transformation: "Start Your Mind Mastery Journey Today"
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">P</span>
+                    <div>
+                        <strong>Final Value Statement</strong><br>
+                        1-2 sentences reinforcing the core benefit and urgency
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">BTN</span>
+                    <div>
+                        <strong>Primary CTA Button</strong><br>
+                        Same as hero CTA for consistency
+                    </div>
+                </li>
+                <li>
+                    <span class="element-icon">P</span>
+                    <div>
+                        <strong>Risk Reversal Reminder</strong><br>
+                        "15-day money-back guarantee. No questions asked."
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Schema Requirements -->
+        <section id="schema" class="section">
+            <div class="section-header">
+                <span class="section-number">*</span>
+                <h2 class="section-title">Complete Schema Markup Requirements</h2>
+            </div>
+
+            <div class="section-purpose">
+                <strong>Purpose:</strong> Structured data that enables rich snippets in Google and proper indexing by AI answer engines.
+            </div>
+
+            <h4>Required Schema Types:</h4>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Schema Type</th>
+                        <th>Purpose</th>
+                        <th>Key Properties</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Course</strong></td>
+                        <td>Primary page schema</td>
+                        <td>name, description, provider, instructor, duration, offers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Person</strong></td>
+                        <td>Teacher/author credibility</td>
+                        <td>name, jobTitle, description, image, sameAs (social links)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>FAQPage</strong></td>
+                        <td>FAQ section</td>
+                        <td>mainEntity (array of Question/Answer pairs)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AggregateRating</strong></td>
+                        <td>Review summary</td>
+                        <td>ratingValue, reviewCount, bestRating</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Review</strong></td>
+                        <td>Individual testimonials</td>
+                        <td>author, reviewBody, reviewRating</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Offer</strong></td>
+                        <td>Pricing information</td>
+                        <td>price, priceCurrency, availability</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Organization</strong></td>
+                        <td>Mindvalley brand</td>
+                        <td>name, url, logo, sameAs</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="schema-example">
+<span style="color: #6b7280;">// Complete JSON-LD Schema Example</span>
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "The Silva Ultramind System",
+  "description": "A 28-day program to master altered states of consciousness...",
+  "provider": {
+    "@type": "Organization",
+    "name": "Mindvalley",
+    "url": "https://www.mindvalley.com"
+  },
+  "instructor": {
+    "@type": "Person",
+    "name": "Vishen Lakhiani",
+    "jobTitle": "Founder of Mindvalley",
+    "image": "https://...",
+    "sameAs": [
+      "https://twitter.com/visikidd",
+      "https://www.linkedin.com/in/vishen/"
+    ]
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "duration": "P28D"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "25163",
+    "bestRating": "5"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "399",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "url": "https://www.mindvalley.com/ultramind"
+  }
+}
+            </div>
+        </section>
+
+        <!-- Implementation Checklist -->
+        <section class="section">
+            <h2 class="mv-type--headline4">Implementation Checklist</h2>
+
+            <div class="highlight-box">
+                <h4>Before Launch Checklist</h4>
+                <ul>
+                    <li><input type="checkbox"> H1 contains primary keyword + benefit phrase</li>
+                    <li><input type="checkbox"> Meta description under 160 chars with keyword</li>
+                    <li><input type="checkbox"> Course schema implemented in JSON-LD</li>
+                    <li><input type="checkbox"> Person schema for teacher with credentials</li>
+                    <li><input type="checkbox"> FAQPage schema with 25+ questions</li>
+                    <li><input type="checkbox"> AggregateRating schema with review count</li>
+                    <li><input type="checkbox"> Offer schema with current pricing</li>
+                    <li><input type="checkbox"> All images have descriptive alt text</li>
+                    <li><input type="checkbox"> FAQ questions match actual search queries</li>
+                    <li><input type="checkbox"> FAQ answers start with direct response</li>
+                    <li><input type="checkbox"> Open Graph tags for social sharing</li>
+                    <li><input type="checkbox"> Mobile responsive verified</li>
+                    <li><input type="checkbox"> Page speed under 3 seconds</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Links -->
+        <section class="section" style="text-align: center; padding: 4rem 1rem;">
+            <h2 class="mv-type--headline4">Related Resources</h2>
+            <p style="margin-bottom: 2rem;">Use these guides together to optimize all Mindvalley pages:</p>
+            <p>
+                <a href="./aeo-faq-guide.html" style="margin: 0 1rem;">AEO FAQ Writing Guide</a> |
+                <a href="./aeo-rollout-plan.html" style="margin: 0 1rem;">Full Rollout Plan</a> |
+                <a href="./mockup.html#faq" style="margin: 0 1rem;">Live FAQ Example (States)</a>
+            </p>
+        </section>
+    </main>
+
+    <footer style="background: var(--mv-dark); color: white; padding: 2rem 1rem; text-align: center;">
+        <p>Mindvalley Program Page Structure Guide | Conversion + AEO Optimization</p>
+        <p style="opacity: 0.7; font-size: 0.875rem;">Reference document for the marketing and web teams</p>
+    </footer>
+</body>
+</html>
