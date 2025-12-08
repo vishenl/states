@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BLISS - Happiness, Powered by Science | Mindvalley States</title>
-    <link rel="stylesheet" href="./mv-selfreset-base.css">
+    <link rel="stylesheet" href="mv-selfreset-base.css">
     <style>
         :root {
             --purple: #7a12d4;
@@ -51,6 +51,364 @@
         .breadcrumb-inner { max-width: 1200px; margin: 0 auto; font-size: 14px; color: var(--gray-500); }
         .breadcrumb a { color: var(--gray-500); text-decoration: none; }
         .breadcrumb a:hover { color: var(--purple); }
+
+        /* Hero Banner - Ad Continuity */
+        .hero-banner {
+            background: linear-gradient(135deg, #1f1f1f 0%, #0f0f0f 100%);
+            color: white;
+            padding: 48px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-banner-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-banner-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--bliss-color);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .hero-banner h2 {
+            font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: clamp(28px, 5vw, 42px);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .hero-banner h2 span {
+            color: var(--bliss-color);
+        }
+        .hero-banner p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.8);
+            max-width: 600px;
+            margin: 0 auto 24px;
+            line-height: 1.6;
+        }
+        .hero-banner-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .hero-banner-stat {
+            text-align: center;
+        }
+        .hero-banner-stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--bliss-color);
+        }
+        .hero-banner-stat-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+        }
+
+        /* Social Proof Bar */
+        .social-proof-bar {
+            background: var(--bliss-light);
+            padding: 16px 20px;
+            text-align: center;
+        }
+        .social-proof-inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+        .social-proof-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .social-proof-item svg {
+            color: var(--bliss-color);
+        }
+        .social-proof-item strong {
+            color: var(--gray-900);
+        }
+
+        /* Vishen Story Section */
+        .vishen-story {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, white 0%, var(--bliss-light) 100%);
+        }
+        .vishen-story-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .vishen-story-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        @media (max-width: 768px) {
+            .vishen-story-grid { grid-template-columns: 1fr; text-align: center; }
+            .vishen-story-image { margin: 0 auto; }
+        }
+        .vishen-story-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .vishen-story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .vishen-story-content h3 {
+            font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--gray-900);
+        }
+        .vishen-story-quote {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--gray-700);
+            margin-bottom: 24px;
+            font-style: italic;
+            position: relative;
+            padding-left: 24px;
+            border-left: 4px solid var(--bliss-color);
+        }
+        .vishen-story-highlight {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        @media (max-width: 768px) {
+            .vishen-story-highlight { flex-direction: column; text-align: center; }
+        }
+        .vishen-story-before, .vishen-story-after {
+            flex: 1;
+            text-align: center;
+        }
+        .vishen-story-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gray-500);
+            margin-bottom: 8px;
+        }
+        .vishen-story-before h4 {
+            color: var(--gray-600);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .vishen-story-after h4 {
+            color: var(--bliss-color);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .vishen-story-arrow {
+            font-size: 24px;
+            color: var(--bliss-color);
+        }
+
+        /* Alcohol Comparison Section */
+        .alcohol-compare {
+            padding: 80px 20px;
+            background: white;
+        }
+        .alcohol-compare .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .alcohol-compare .section-header h2 {
+            font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+        .alcohol-compare .section-header p {
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .compare-table {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .compare-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        @media (max-width: 600px) {
+            .compare-row { grid-template-columns: 1fr; }
+            .compare-cell { justify-content: space-between; }
+            .compare-cell::before { content: attr(data-label); font-weight: 600; }
+            .compare-row.header { display: none; }
+        }
+        .compare-row.header {
+            background: var(--gray-900);
+            color: white;
+            font-weight: 700;
+        }
+        .compare-row:not(.header):nth-child(even) {
+            background: var(--gray-50);
+        }
+        .compare-cell {
+            padding: 16px 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .compare-cell.feature {
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+        .compare-cell.bad {
+            color: #ef4444;
+        }
+        .compare-cell.good {
+            color: var(--green);
+        }
+
+        /* Serotonin Science Callout */
+        .serotonin-science {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--gray-900) 0%, #1e1e3f 100%);
+            color: white;
+        }
+        .serotonin-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        @media (max-width: 768px) {
+            .serotonin-inner { grid-template-columns: 1fr; }
+        }
+        .serotonin-content h2 {
+            font-family: Grotesk-Bold, Grotesk, -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .serotonin-content h2 span {
+            color: var(--bliss-color);
+        }
+        .serotonin-content p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+        .serotonin-quote {
+            background: rgba(245, 158, 11, 0.15);
+            border-left: 4px solid var(--bliss-color);
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+        }
+        .serotonin-quote-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .serotonin-quote-author img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .serotonin-quote-author span {
+            font-size: 14px;
+            font-style: normal;
+        }
+        .serotonin-quote-author strong {
+            display: block;
+            color: var(--bliss-color);
+        }
+        .serotonin-visual {
+            text-align: center;
+        }
+        .serotonin-molecule {
+            font-size: 120px;
+            margin-bottom: 16px;
+        }
+        .serotonin-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Urgency Banner */
+        .urgency-banner {
+            background: linear-gradient(90deg, var(--bliss-color) 0%, #d97706 100%);
+            color: white;
+            padding: 16px 20px;
+            text-align: center;
+        }
+        .urgency-inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .urgency-inner svg {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
 
         /* Product Hero */
         .product-hero { background: var(--gray-50); padding: 0 20px 60px; }
@@ -280,6 +638,58 @@
         </div>
     </div>
 
+    <!-- Hero Banner - Ad Continuity -->
+    <section class="hero-banner">
+        <div class="hero-banner-inner">
+            <div class="hero-banner-eyebrow">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"/></svg>
+                The Alcohol Alternative
+            </div>
+            <h2>All The Fun of Alcohol.<br><span>None of The Damage.</span></h2>
+            <p>A social lubricant that boosts serotonin, sparks connection, and lets you wake up refreshed. This is how Vishen transformed his social life.</p>
+            <div class="hero-banner-stats">
+                <div class="hero-banner-stat">
+                    <div class="hero-banner-stat-value">0</div>
+                    <div class="hero-banner-stat-label">Hangovers</div>
+                </div>
+                <div class="hero-banner-stat">
+                    <div class="hero-banner-stat-value">0</div>
+                    <div class="hero-banner-stat-label">Calories</div>
+                </div>
+                <div class="hero-banner-stat">
+                    <div class="hero-banner-stat-value">0</div>
+                    <div class="hero-banner-stat-label">Liver Damage</div>
+                </div>
+                <div class="hero-banner-stat">
+                    <div class="hero-banner-stat-value">100%</div>
+                    <div class="hero-banner-stat-label">Social Confidence</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Bar -->
+    <div class="social-proof-bar">
+        <div class="social-proof-inner">
+            <div class="social-proof-item">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <strong>4.8/5</strong> from 112+ reviews
+            </div>
+            <div class="social-proof-item">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                <strong>6</strong> Patented Ingredients
+            </div>
+            <div class="social-proof-item">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/></svg>
+                Formulated by <strong>Shawn Wells</strong>
+            </div>
+            <div class="social-proof-item">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/></svg>
+                <strong>60-Day</strong> Money Back
+            </div>
+        </div>
+    </div>
+
     <!-- Product Hero -->
     <section class="product-hero">
         <div class="product-hero-inner">
@@ -311,7 +721,7 @@
                     Mood & Social Energy
                 </div>
                 <h1 class="product-title">BLISS</h1>
-                <p class="product-tagline">Happiness, powered by science. Elevate mood and spark social confidence.</p>
+                <p class="product-tagline">The social lubricant that changed how I connect with friends. All the joy, none of the hangover.</p>
                 <div class="product-rating">
                     <span class="stars">★★★★★</span>
                     <span class="rating-text">4.8/5 based on <a href="#testimonials">112 reviews</a></span>
@@ -432,6 +842,108 @@
                         </li>
                     </ul>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vishen's Story Section -->
+    <section class="vishen-story">
+        <div class="vishen-story-inner">
+            <div class="vishen-story-grid">
+                <div class="vishen-story-image">
+                    <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.49.01_PM.png?v=1761032958&width=400" alt="Vishen Lakhiani">
+                </div>
+                <div class="vishen-story-content">
+                    <h3>How BLISS Changed The Way I Host Friends</h3>
+                    <div class="vishen-story-quote">
+                        "I used to have a bar in my home. I'd mix cocktails for my friends when they came over. Now with BLISS, when I have friends over, we take BLISS pills, so we are joyful, we are connected... and then I make tea for them. It's changed culturally how I interact with friends."
+                    </div>
+                    <div class="vishen-story-highlight">
+                        <div class="vishen-story-before">
+                            <div class="vishen-story-label">Before</div>
+                            <h4>🍸 Cocktails at the bar</h4>
+                        </div>
+                        <div class="vishen-story-arrow">→</div>
+                        <div class="vishen-story-after">
+                            <div class="vishen-story-label">Now</div>
+                            <h4>🍵 BLISS + Tea</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alcohol vs BLISS Comparison -->
+    <section class="alcohol-compare">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why People Are Switching From Alcohol</h2>
+                <p>Get all the social benefits without damaging your health or wasting money</p>
+            </div>
+            <div class="compare-table">
+                <div class="compare-row header">
+                    <div class="compare-cell"></div>
+                    <div class="compare-cell">Alcohol</div>
+                    <div class="compare-cell">BLISS</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature" data-label="">Social Confidence</div>
+                    <div class="compare-cell bad" data-label="Alcohol">✓ Yes (temporarily)</div>
+                    <div class="compare-cell good" data-label="BLISS">✓ Yes (sustained)</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature" data-label="">Next-Day Hangover</div>
+                    <div class="compare-cell bad" data-label="Alcohol">✗ Headache, fatigue</div>
+                    <div class="compare-cell good" data-label="BLISS">✓ Wake up refreshed</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature" data-label="">Liver Health</div>
+                    <div class="compare-cell bad" data-label="Alcohol">✗ Damaging</div>
+                    <div class="compare-cell good" data-label="BLISS">✓ No impact</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature" data-label="">Calories</div>
+                    <div class="compare-cell bad" data-label="Alcohol">✗ 150-300+ per drink</div>
+                    <div class="compare-cell good" data-label="BLISS">✓ Zero calories</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature" data-label="">Sleep Quality</div>
+                    <div class="compare-cell bad" data-label="Alcohol">✗ Disrupted REM</div>
+                    <div class="compare-cell good" data-label="BLISS">✓ No disruption</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature" data-label="">Monthly Cost</div>
+                    <div class="compare-cell bad" data-label="Alcohol">✗ $100-400+</div>
+                    <div class="compare-cell good" data-label="BLISS">✓ $39/month</div>
+                </div>
+                <div class="compare-row">
+                    <div class="compare-cell feature" data-label="">Decision Making</div>
+                    <div class="compare-cell bad" data-label="Alcohol">✗ Impaired judgment</div>
+                    <div class="compare-cell good" data-label="BLISS">✓ Clear & present</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serotonin Science Section -->
+    <section class="serotonin-science">
+        <div class="serotonin-inner">
+            <div class="serotonin-content">
+                <h2>The Science: <span>Serotonin</span></h2>
+                <p>We wanted serotonin to be the focus of this formula. Serotonin is the "feel good" neurotransmitter that helps you connect, feel more relaxed, and communicate more easily.</p>
+                <p>Unlike alcohol which depletes serotonin (causing next-day anxiety and depression), BLISS supports your body's natural serotonin production for sustained wellbeing.</p>
+                <div class="serotonin-quote">
+                    "This is boosting serotonin... this is that feel good neurotransmitter. And this is absolutely going to make us connect, feel more relaxed. When you communicate more easily, you connect better."
+                    <div class="serotonin-quote-author">
+                        <img src="https://www.mindvalleystates.com/cdn/shop/files/Screenshot_2025-10-21_at_3.50.13_PM.png?v=1761033028&width=96" alt="Shawn Wells">
+                        <span><strong>Shawn Wells, MPH, RD</strong>World's leading nutritional biochemist</span>
+                    </div>
+                </div>
+            </div>
+            <div class="serotonin-visual">
+                <div class="serotonin-molecule">🧠</div>
+                <div class="serotonin-label">Serotonin Support</div>
             </div>
         </div>
     </section>
@@ -621,6 +1133,15 @@
                 <div class="price">$99 <span>$347 value</span></div>
                 <button class="cross-sell-btn" onclick="addBoxSet()">Add Box Set to Cart</button>
             </div>
+        </div>
+    </section>
+
+    <!-- Urgency Banner -->
+    <section class="urgency-banner">
+        <div class="urgency-inner">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"/></svg>
+            <span>Try BLISS Risk-Free — 60-Day Money-Back Guarantee</span>
+            <a href="#" onclick="document.querySelector('.product-hero').scrollIntoView({behavior: 'smooth'}); return false;" style="background: white; color: #d97706; padding: 8px 20px; border-radius: 100px; text-decoration: none; font-weight: 600; font-size: 14px;">Get BLISS Now</a>
         </div>
     </section>
 
