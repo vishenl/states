@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Pillar - Annotated Redesign | Original + New Sections with CRO Notes</title>
+    <meta name="description" content="Complete CRO analysis of Mindvalley Soul Pillar page showing all 18 sections with annotations explaining what to keep, modify, add, or remove.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Soul Pillar - Annotated Redesign | CRO Analysis">
+    <meta property="og:description" content="Complete CRO analysis of Mindvalley Soul Pillar page showing all 18 sections with annotations explaining what to keep, modify, add, or remove.">
+    <meta property="og:url" content="https://vishenl.github.io/States/soul-pillar-annotated.html">
+    <link rel="stylesheet" href="mv-selfreset-base.css">
+    <style>
+        :root {
+            --mv-purple: #7a12d4;
+            --mv-purple-dark: #5a0da0;
+            --mv-purple-light: #f5ebff;
+            --mv-dark: #0f131a;
+            --mv-gray: #6b7280;
+            --mv-gray-light: #f3f4f6;
+            --mv-green: #10b981;
+            --mv-green-light: #d1fae5;
+            --mv-red: #ef4444;
+            --mv-red-light: #fee2e2;
+            --mv-yellow: #f59e0b;
+            --mv-yellow-light: #fef3c7;
+            --mv-blue: #3b82f6;
+            --mv-blue-light: #dbeafe;
+            --mv-gold: #f59e0b;
+            --gradient-soul: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #1a1a3e 100%);
+            --sidebar-width: 320px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Layout with Sidebar */
+        .page-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-right: var(--sidebar-width);
+            background: white;
+        }
+
+        @media (max-width: 1200px) {
+            .main-content {
+                margin-right: 0;
+            }
+            .annotation-sidebar {
+                display: none;
+            }
+            .section-annotation-toggle {
+                display: block !important;
+            }
+        }
+
+        /* Annotation Sidebar */
+        .annotation-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--mv-dark);
+            color: white;
+            overflow-y: auto;
+            z-index: 1000;
+            padding: 1.5rem;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-header h2 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            margin: 0 0 0.5rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.8125rem;
+            opacity: 0.7;
+            margin: 0;
+        }
+
+        .sidebar-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.75rem;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.original { background: var(--mv-blue); }
+        .legend-dot.modified { background: var(--mv-yellow); }
+        .legend-dot.new { background: var(--mv-green); }
+        .legend-dot.remove { background: var(--mv-red); }
+
+        .annotation-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--mv-blue);
+            font-size: 0.8125rem;
+            transition: all 0.3s;
+        }
+
+        .annotation-card:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .annotation-card.modified { border-left-color: var(--mv-yellow); }
+        .annotation-card.new { border-left-color: var(--mv-green); }
+        .annotation-card.remove { border-left-color: var(--mv-red); }
+
+        .annotation-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .annotation-badge {
+            font-size: 0.625rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 999px;
+            text-transform: uppercase;
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        .annotation-badge.original { background: var(--mv-blue); }
+        .annotation-badge.modified { background: var(--mv-yellow); color: #000; }
+        .annotation-badge.new { background: var(--mv-green); }
+        .annotation-badge.remove { background: var(--mv-red); }
+
+        .annotation-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+        }
+
+        .annotation-reason {
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        .annotation-section-num {
+            opacity: 0.5;
+            font-size: 0.6875rem;
+        }
+
+        /* Section Status Badges */
+        .section-status {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-badge.original {
+            background: var(--mv-blue);
+            color: white;
+        }
+
+        .status-badge.modified {
+            background: var(--mv-yellow);
+            color: #000;
+        }
+
+        .status-badge.new {
+            background: var(--mv-green);
+            color: white;
+        }
+
+        .status-badge.remove {
+            background: var(--mv-red);
+            color: white;
+        }
+
+        .section-number {
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.6875rem;
+        }
+
+        /* Page Sections */
+        .page-section {
+            position: relative;
+            border-bottom: 2px dashed #ddd;
+        }
+
+        .page-section:last-child {
+            border-bottom: none;
+        }
+
+        .page-section.highlight-original { background: rgba(59, 130, 246, 0.03); }
+        .page-section.highlight-modified { background: rgba(245, 158, 11, 0.05); }
+        .page-section.highlight-new { background: rgba(16, 185, 129, 0.05); }
+        .page-section.highlight-remove { background: rgba(239, 68, 68, 0.05); }
+
+        /* Mobile Annotation Toggle */
+        .section-annotation-toggle {
+            display: none;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 100;
+            background: var(--mv-dark);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        /* ============================================
+           ACTUAL PAGE CONTENT STYLES
+           ============================================ */
+
+        .mv-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-soul);
+            color: white;
+            padding: 5rem 0 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-overline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2.5rem;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        .hero-value {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-value-strike {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .hero-value-price {
+            color: var(--mv-green);
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: var(--mv-purple);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: Grotesk-Bold, sans-serif;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .hero-stars {
+            color: var(--mv-gold);
+        }
+
+        /* Image Carousel (Original) */
+        .image-carousel-section {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .carousel-strip {
+            display: flex;
+            gap: 1rem;
+            animation: scroll-left 30s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .carousel-image {
+            width: 120px;
+            height: 150px;
+            background: linear-gradient(135deg, #2d1b4e, #1a1a3e);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--mv-dark);
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-item h3 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2.5rem;
+            color: var(--mv-purple);
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-item p {
+            font-size: 0.875rem;
+            opacity: 0.7;
+        }
+
+        /* Programs Section */
+        .programs-section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--mv-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--mv-gray);
+            font-size: 1rem;
+        }
+
+        /* Program Tabs */
+        .program-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .program-tab {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 999px;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            background: white;
+        }
+
+        .program-tab.active {
+            background: var(--mv-purple);
+            color: white;
+            border-color: var(--mv-purple);
+        }
+
+        /* Program Cards */
+        .program-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+
+        .program-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .program-card-header {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .program-card-image {
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(135deg, #2d1b4e, #1a1a3e);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .program-card-cover {
+            flex: 1;
+            background: linear-gradient(135deg, #3d2b5e, #2a2a4e);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.75rem;
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .program-card-body {
+            padding: 0 1rem 1rem;
+        }
+
+        .program-card h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .program-card-author {
+            font-size: 0.8125rem;
+            color: var(--mv-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .program-card-description {
+            font-size: 0.8125rem;
+            color: var(--mv-gray);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        .program-card-price {
+            font-family: Grotesk-Bold, sans-serif;
+            color: var(--mv-purple);
+        }
+
+        /* Teachers Carousel */
+        .teachers-section {
+            background: var(--mv-dark);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .teachers-carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .teacher-card {
+            flex-shrink: 0;
+            width: 200px;
+            text-align: center;
+        }
+
+        .teacher-image {
+            width: 150px;
+            height: 225px;
+            background: linear-gradient(135deg, #3d2b5e, #2a2a4e);
+            border-radius: 12px;
+            margin: 0 auto 1rem;
+        }
+
+        .teacher-name {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .teacher-title {
+            font-size: 0.8125rem;
+            opacity: 0.7;
+        }
+
+        /* Meditations Section */
+        .meditations-section {
+            padding: 4rem 0;
+            background: var(--mv-gray-light);
+        }
+
+        .meditation-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+
+        .meditation-card {
+            display: flex;
+            gap: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .meditation-cover {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3d2b5e, #2a2a4e);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .meditation-info h5 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .meditation-info p {
+            font-size: 0.75rem;
+            color: var(--mv-gray);
+        }
+
+        /* Value Ladder Section */
+        .value-ladder-section {
+            padding: 4rem 0;
+        }
+
+        .value-steps {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .value-steps {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .value-step {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .value-step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--mv-purple);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            margin: 0 auto 1rem;
+        }
+
+        .value-step h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--mv-purple);
+        }
+
+        .value-step-image {
+            height: 120px;
+            background: linear-gradient(135deg, #3d2b5e, #2a2a4e);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .value-step p {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+        }
+
+        /* Benefits Carousel */
+        .benefits-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .benefits-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .benefit-card {
+            flex-shrink: 0;
+            width: 250px;
+            background: var(--mv-gray-light);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .benefit-card-image {
+            height: 180px;
+            background: linear-gradient(135deg, #3d2b5e, #2a2a4e);
+        }
+
+        .benefit-card-body {
+            padding: 1rem;
+        }
+
+        .benefit-card h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .benefit-card p {
+            font-size: 0.8125rem;
+            color: var(--mv-gray);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 4rem 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonial-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .testimonial-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-quote {
+            font-size: 1rem;
+            font-family: Grotesk-Bold, sans-serif;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .testimonial-text {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.75rem;
+            color: var(--mv-gray);
+        }
+
+        /* Guarantee Section */
+        .guarantee-section {
+            padding: 4rem 0;
+            background: var(--mv-gray-light);
+        }
+
+        .guarantee-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .guarantee-badge {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .guarantee-text h3 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .guarantee-text p {
+            color: var(--mv-gray);
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 4rem 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            background: var(--gradient-soul);
+            color: white;
+        }
+
+        .pricing-card-badge {
+            position: absolute;
+            top: -10px;
+            right: 1rem;
+            background: var(--mv-green);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.6875rem;
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        .pricing-card-image {
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card h3 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-card-price {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .pricing-card-price del {
+            font-size: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .pricing-card-billing {
+            font-size: 0.8125rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card-cta {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--mv-purple);
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: Grotesk-Bold, sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card.featured .pricing-card-cta {
+            background: white;
+            color: var(--mv-purple);
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.8125rem;
+            padding: 0.375rem 0;
+        }
+
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--mv-green);
+        }
+
+        /* Press Section */
+        .press-section {
+            padding: 4rem 0;
+            background: var(--mv-gray-light);
+        }
+
+        .press-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .press-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .press-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .press-card-image {
+            height: 150px;
+            background: linear-gradient(135deg, #3d2b5e, #2a2a4e);
+        }
+
+        .press-card-body {
+            padding: 1.5rem;
+        }
+
+        .press-card h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .press-card p {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+            line-height: 1.6;
+        }
+
+        /* Getting Started Section */
+        .getting-started-section {
+            padding: 4rem 0;
+        }
+
+        .steps-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .steps-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--mv-purple);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
+        }
+
+        .step-card h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-card-image {
+            height: 150px;
+            background: linear-gradient(135deg, #3d2b5e, #2a2a4e);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .step-card p {
+            font-size: 0.8125rem;
+            color: var(--mv-gray);
+        }
+
+        /* Case Studies Section */
+        .case-studies-section {
+            padding: 4rem 0;
+            background: var(--mv-gray-light);
+        }
+
+        .case-studies-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .case-studies-number {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 4rem;
+            color: var(--mv-purple);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 4rem 0;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+        }
+
+        .faq-question {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            font-size: 0.9375rem;
+            color: var(--mv-gray);
+            line-height: 1.7;
+        }
+
+        /* NEW SECTIONS STYLES */
+
+        /* Transformation Outcomes (NEW) */
+        .transformation-section {
+            padding: 4rem 0;
+        }
+
+        .transform-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+
+        .transform-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .transform-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--mv-purple-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .transform-card h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .transform-card p {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+        }
+
+        /* Featured Quest (NEW) */
+        .featured-quest-section {
+            padding: 4rem 0;
+            background: var(--mv-gray-light);
+        }
+
+        .featured-quest-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .featured-quest-header {
+            background: var(--gradient-soul);
+            color: white;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .featured-quest-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--mv-green);
+            color: white;
+            padding: 0.375rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.6875rem;
+            font-family: Grotesk-Bold, sans-serif;
+        }
+
+        .featured-quest-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .featured-quest-body {
+            padding: 2rem;
+        }
+
+        .featured-quest-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .featured-quest-meta span {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+        }
+
+        /* Learning Path (NEW) */
+        .learning-path-section {
+            padding: 4rem 0;
+        }
+
+        .learning-path {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .learning-path {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .path-step {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .path-step-number {
+            position: absolute;
+            top: -12px;
+            left: 1.5rem;
+            width: 32px;
+            height: 32px;
+            background: var(--mv-purple);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+        }
+
+        .path-step h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+            color: var(--mv-purple);
+            margin-bottom: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .path-step h5 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .path-step p {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--mv-dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.6;
+            font-size: 0.8125rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- Main Content -->
+        <div class="main-content">
+
+            <!-- ==========================================
+                 SECTION 1: HERO (MODIFIED)
+                 Original + Enhancements
+                 ========================================== -->
+            <section class="page-section highlight-modified hero" id="section-1">
+                <div class="section-status">
+                    <span class="section-number">#1</span>
+                    <span class="status-badge modified">Modified</span>
+                </div>
+                <div class="mv-container">
+                    <div class="hero-content">
+                        <p class="hero-overline">Begin your transformation journey</p>
+                        <h1>21 Life-Changing Spiritual Programs. <span style="color: var(--mv-gold);">One Transformative Collection.</span></h1>
+                        <div class="hero-value">
+                            <span class="hero-value-strike">$6,629</span> →
+                            <span class="hero-value-price">$299/year</span>
+                            <span style="display: block; font-size: 0.875rem; opacity: 0.8; margin-top: 0.25rem;">Save 95% · Less than $1/day</span>
+                        </div>
+                        <a href="#pricing" class="hero-cta">Start Your Journey</a>
+                        <div class="hero-rating">
+                            <span class="hero-stars">★★★★★</span>
+                            <span>Rated 4.9 from 24,243 Reviews</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 2: IMAGE CAROUSEL (ORIGINAL - CONSIDER REMOVING)
+                 ========================================== -->
+            <section class="page-section highlight-remove image-carousel-section" id="section-2" style="padding: 2rem 0; background: var(--mv-dark);">
+                <div class="section-status">
+                    <span class="section-number">#2</span>
+                    <span class="status-badge remove">Consider Removing</span>
+                </div>
+                <div class="carousel-strip">
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                    <div class="carousel-image"></div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 3: STATS BAR (ORIGINAL)
+                 ========================================== -->
+            <section class="page-section highlight-original stats-section" id="section-3">
+                <div class="section-status">
+                    <span class="section-number">#3</span>
+                    <span class="status-badge original">Original</span>
+                </div>
+                <div class="mv-container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h3>529</h3>
+                            <p>Lessons</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>214</h3>
+                            <p>Hours of learning</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>21</h3>
+                            <p>Quests</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>195+</h3>
+                            <p>Countries reached</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 4: TRANSFORMATION OUTCOMES (NEW)
+                 ========================================== -->
+            <section class="page-section highlight-new transformation-section" id="section-4">
+                <div class="section-status">
+                    <span class="section-number">#4</span>
+                    <span class="status-badge new">New Section</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <p class="section-label">What You'll Achieve</p>
+                        <h2 class="section-title">6 Transformations Awaiting You</h2>
+                        <p class="section-subtitle">The Soul Collection guides you through a complete spiritual evolution.</p>
+                    </div>
+                    <div class="transform-grid">
+                        <div class="transform-card">
+                            <div class="transform-icon">🧘</div>
+                            <h4>Deep Inner Peace</h4>
+                            <p>Master meditation techniques that quiet the mind and create lasting calm.</p>
+                        </div>
+                        <div class="transform-card">
+                            <div class="transform-icon">✨</div>
+                            <h4>Heightened Intuition</h4>
+                            <p>Develop your sixth sense to make better decisions.</p>
+                        </div>
+                        <div class="transform-card">
+                            <div class="transform-icon">🎯</div>
+                            <h4>Manifestation Power</h4>
+                            <p>Learn visualization techniques to create your desired life.</p>
+                        </div>
+                        <div class="transform-card">
+                            <div class="transform-icon">⚡</div>
+                            <h4>Energy Mastery</h4>
+                            <p>Feel, manage, and direct your personal energy.</p>
+                        </div>
+                        <div class="transform-card">
+                            <div class="transform-icon">🤝</div>
+                            <h4>Deeper Connection</h4>
+                            <p>Experience profound relationships through presence.</p>
+                        </div>
+                        <div class="transform-card">
+                            <div class="transform-icon">🌟</div>
+                            <h4>Clear Life Purpose</h4>
+                            <p>Discover your unique mission and soul's calling.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 5: FEATURED QUEST (NEW)
+                 ========================================== -->
+            <section class="page-section highlight-new featured-quest-section" id="section-5">
+                <div class="section-status">
+                    <span class="section-number">#5</span>
+                    <span class="status-badge new">New Section</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <p class="section-label">Start Here</p>
+                        <h2 class="section-title">Your Foundation Program</h2>
+                        <p class="section-subtitle">We recommend beginning your journey with this foundational program.</p>
+                    </div>
+                    <div class="featured-quest-card">
+                        <div class="featured-quest-header">
+                            <span class="featured-quest-badge">Recommended First</span>
+                            <h3 class="featured-quest-title">Silva Ultramind System</h3>
+                        </div>
+                        <div class="featured-quest-body">
+                            <div class="featured-quest-meta">
+                                <span>📅 28 Days</span>
+                                <span>👤 Jose Silva & Vishen</span>
+                                <span>⭐ 4.9 (8,234 reviews)</span>
+                            </div>
+                            <h4 style="font-family: Grotesk-Bold, sans-serif; margin-bottom: 0.5rem;">Master the Legendary Silva Method</h4>
+                            <p style="color: var(--mv-gray); line-height: 1.6; margin-bottom: 1.5rem;">The Silva Ultramind System teaches you scientifically-validated meditation and visualization techniques that have transformed millions of lives since 1966.</p>
+                            <a href="#pricing" class="hero-cta" style="margin: 0;">Start With Silva Ultramind</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 6: PROGRAMS GRID (ORIGINAL - MODIFIED)
+                 ========================================== -->
+            <section class="page-section highlight-modified programs-section" id="section-6">
+                <div class="section-status">
+                    <span class="section-number">#6</span>
+                    <span class="status-badge modified">Modified</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <p class="section-label">Programs included in Soul Collection</p>
+                        <h2 class="section-title">214 hours of world class programs</h2>
+                        <p class="section-subtitle">Your Soul Collection unlocks 21 programs. Browse below.</p>
+                    </div>
+
+                    <!-- Original Tabs -->
+                    <div class="program-tabs">
+                        <button class="program-tab active">All programs</button>
+                        <button class="program-tab">Enter Higher States</button>
+                        <button class="program-tab">Manifest Effortlessly</button>
+                        <button class="program-tab">Awaken Oneness</button>
+                        <button class="program-tab">Trust Intuition</button>
+                        <button class="program-tab">Live Spiritually Awake</button>
+                        <button class="program-tab">Heal with Energy</button>
+                    </div>
+
+                    <div class="program-grid">
+                        <!-- Sample Program Cards (representing original) -->
+                        <div class="program-card">
+                            <div class="program-card-header">
+                                <div class="program-card-image"></div>
+                                <div class="program-card-cover">A Yogi's Guide to Joy</div>
+                            </div>
+                            <div class="program-card-body">
+                                <h4>A Yogi's Guide to Joy</h4>
+                                <p class="program-card-author">Sadhguru</p>
+                                <p class="program-card-description">A 15-day journey towards freedom from suffering and lifelong bliss.</p>
+                                <p class="program-card-price">$199</p>
+                            </div>
+                        </div>
+
+                        <div class="program-card">
+                            <div class="program-card-header">
+                                <div class="program-card-image"></div>
+                                <div class="program-card-cover">Silva Ultramind</div>
+                            </div>
+                            <div class="program-card-body">
+                                <h4>The Silva Ultramind System</h4>
+                                <p class="program-card-author">Vishen</p>
+                                <p class="program-card-description">Access alpha, theta and delta brainwave states for full creative potential.</p>
+                                <p class="program-card-price">$399</p>
+                            </div>
+                        </div>
+
+                        <div class="program-card">
+                            <div class="program-card-header">
+                                <div class="program-card-image"></div>
+                                <div class="program-card-cover">Duality</div>
+                            </div>
+                            <div class="program-card-body">
+                                <h4>Duality</h4>
+                                <p class="program-card-author">Jeffrey Allen</p>
+                                <p class="program-card-description">Reconnect with your energetic system and harness it for an extraordinary life.</p>
+                                <p class="program-card-price">$499</p>
+                            </div>
+                        </div>
+
+                        <div class="program-card">
+                            <div class="program-card-header">
+                                <div class="program-card-image"></div>
+                                <div class="program-card-cover">Sixth Sense</div>
+                            </div>
+                            <div class="program-card-body">
+                                <h4>Sixth Sense Superpower</h4>
+                                <p class="program-card-author">Sonia Choquette</p>
+                                <p class="program-card-description">Harness and trust your inner voice in your work and personal life.</p>
+                                <p class="program-card-price">$299</p>
+                            </div>
+                        </div>
+
+                        <div class="program-card">
+                            <div class="program-card-header">
+                                <div class="program-card-image"></div>
+                                <div class="program-card-cover">Energy Medicine</div>
+                            </div>
+                            <div class="program-card-body">
+                                <h4>Energy Medicine</h4>
+                                <p class="program-card-author">Donna Eden</p>
+                                <p class="program-card-description">Master your body's energy systems and become an Energy Medicine practitioner.</p>
+                                <p class="program-card-price">$349</p>
+                            </div>
+                        </div>
+
+                        <div class="program-card">
+                            <div class="program-card-header">
+                                <div class="program-card-image"></div>
+                                <div class="program-card-cover">Chakra Healing</div>
+                            </div>
+                            <div class="program-card-body">
+                                <h4>Chakra Healing</h4>
+                                <p class="program-card-author">Anodea Judith</p>
+                                <p class="program-card-description">Merge ancient Chakra wisdom with modern, science-based practices.</p>
+                                <p class="program-card-price">$499</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 2rem; color: var(--mv-gray);">+ 15 more programs in the collection</p>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 7: TEACHERS CAROUSEL (ORIGINAL)
+                 ========================================== -->
+            <section class="page-section highlight-original teachers-section" id="section-7">
+                <div class="section-status">
+                    <span class="section-number">#7</span>
+                    <span class="status-badge original">Original</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header" style="color: white;">
+                        <h2 class="section-title">The World's Most Trusted Voices. In Your Pocket.</h2>
+                        <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">Explore the minds of the pioneers in the field of spirituality.</p>
+                    </div>
+                    <div class="teachers-carousel">
+                        <div class="teacher-card">
+                            <div class="teacher-image"></div>
+                            <p class="teacher-name">Sadhguru</p>
+                            <p class="teacher-title">Yogi, Mystic, Visionary</p>
+                        </div>
+                        <div class="teacher-card">
+                            <div class="teacher-image"></div>
+                            <p class="teacher-name">Lisa Nichols</p>
+                            <p class="teacher-title">Legendary Motivational Speaker</p>
+                        </div>
+                        <div class="teacher-card">
+                            <div class="teacher-image"></div>
+                            <p class="teacher-name">Vishen</p>
+                            <p class="teacher-title">Mindvalley Founder</p>
+                        </div>
+                        <div class="teacher-card">
+                            <div class="teacher-image"></div>
+                            <p class="teacher-name">Marisa Peer</p>
+                            <p class="teacher-title">Therapist to Royalty</p>
+                        </div>
+                        <div class="teacher-card">
+                            <div class="teacher-image"></div>
+                            <p class="teacher-name">Sonia Choquette</p>
+                            <p class="teacher-title">World's #1 Intuition Teacher</p>
+                        </div>
+                        <div class="teacher-card">
+                            <div class="teacher-image"></div>
+                            <p class="teacher-name">Marie Diamond</p>
+                            <p class="teacher-title">Feng Shui Master</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 8: LEARNING PATH (NEW)
+                 ========================================== -->
+            <section class="page-section highlight-new learning-path-section" id="section-8">
+                <div class="section-status">
+                    <span class="section-number">#8</span>
+                    <span class="status-badge new">New Section</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <p class="section-label">Recommended Path</p>
+                        <h2 class="section-title">Your 12-Week Journey</h2>
+                        <p class="section-subtitle">Don't know where to start? Follow this recommended path.</p>
+                    </div>
+                    <div class="learning-path">
+                        <div class="path-step">
+                            <span class="path-step-number">1</span>
+                            <h4>Weeks 1-4</h4>
+                            <h5>Silva Ultramind System</h5>
+                            <p>Build your meditation foundation. Learn alpha state access and visualization.</p>
+                        </div>
+                        <div class="path-step">
+                            <span class="path-step-number">2</span>
+                            <h4>Weeks 5-8</h4>
+                            <h5>Be Extraordinary</h5>
+                            <p>Transform your mindset. Release limiting beliefs and create empowering goals.</p>
+                        </div>
+                        <div class="path-step">
+                            <span class="path-step-number">3</span>
+                            <h4>Weeks 9-12</h4>
+                            <h5>Duality</h5>
+                            <p>Master your energy. Learn to sense, manage, and direct your energy field.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 9: MEDITATIONS (ORIGINAL)
+                 ========================================== -->
+            <section class="page-section highlight-original meditations-section" id="section-9">
+                <div class="section-status">
+                    <span class="section-number">#9</span>
+                    <span class="status-badge original">Original</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <p class="section-label">271 soul meditations included</p>
+                        <h2 class="section-title">Top 12 Soul Meditations</h2>
+                    </div>
+                    <div class="meditation-grid">
+                        <div class="meditation-card">
+                            <div class="meditation-cover"></div>
+                            <div class="meditation-info">
+                                <h5>Feel Free to Expand</h5>
+                                <p>Nalaya Chakana · ★ 4.9 · 2,749 plays</p>
+                            </div>
+                        </div>
+                        <div class="meditation-card">
+                            <div class="meditation-cover"></div>
+                            <div class="meditation-info">
+                                <h5>Awakening Pleasure</h5>
+                                <p>Niraj Naik · ★ 4.9 · 1,214 plays</p>
+                            </div>
+                        </div>
+                        <div class="meditation-card">
+                            <div class="meditation-cover"></div>
+                            <div class="meditation-info">
+                                <h5>Shifting Your Paradigm</h5>
+                                <p>Bob Proctor · ★ 4.8 · 88,013 plays</p>
+                            </div>
+                        </div>
+                        <div class="meditation-card">
+                            <div class="meditation-cover"></div>
+                            <div class="meditation-info">
+                                <h5>Ease Anxiety</h5>
+                                <p>Emily Fletcher · ★ 4.8 · 18,171 plays</p>
+                            </div>
+                        </div>
+                        <div class="meditation-card">
+                            <div class="meditation-cover"></div>
+                            <div class="meditation-info">
+                                <h5>6-Phase Meditation</h5>
+                                <p>Vishen · ★ 4.8 · 1,019 plays</p>
+                            </div>
+                        </div>
+                        <div class="meditation-card">
+                            <div class="meditation-cover"></div>
+                            <div class="meditation-info">
+                                <h5>The Big Mind Technique</h5>
+                                <p>Paul McKenna · ★ 4.7 · 222,842 plays</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 10: VALUE LADDER (ORIGINAL)
+                 ========================================== -->
+            <section class="page-section highlight-original value-ladder-section" id="section-10">
+                <div class="section-status">
+                    <span class="section-number">#10</span>
+                    <span class="status-badge original">Original</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <p class="section-label">$6,629 if purchased individually</p>
+                        <h2 class="section-title">Get the Soul Collection for just $299/year</h2>
+                    </div>
+                    <div class="value-steps">
+                        <div class="value-step">
+                            <span class="value-step-number">1</span>
+                            <h4>Enter Higher States</h4>
+                            <div class="value-step-image"></div>
+                            <p><strong>Silva Ultramind System</strong><br>Learn to access deeper brainwaves and intuitive consciousness.</p>
+                        </div>
+                        <div class="value-step">
+                            <span class="value-step-number">2</span>
+                            <h4>Manifest Effortlessly</h4>
+                            <div class="value-step-image"></div>
+                            <p><strong>The Art Of Manifesting</strong><br>Once you can tune your mind, learn to command reality.</p>
+                        </div>
+                        <div class="value-step">
+                            <span class="value-step-number">3</span>
+                            <h4>Awaken Connection</h4>
+                            <div class="value-step-image"></div>
+                            <p><strong>Awaken the Species</strong><br>Experience spiritual expansion and divine connection.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 11: BENEFITS CAROUSEL (ORIGINAL)
+                 ========================================== -->
+            <section class="page-section highlight-original benefits-section" id="section-11">
+                <div class="section-status">
+                    <span class="section-number">#11</span>
+                    <span class="status-badge original">Original</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <p class="section-label">The World's Leading transformation platform with 23 years of history</p>
+                        <h2 class="section-title">Everything you'll get with your subscription</h2>
+                    </div>
+                    <div class="benefits-carousel">
+                        <div class="benefit-card">
+                            <div class="benefit-card-image"></div>
+                            <div class="benefit-card-body">
+                                <p>Learn from more than</p>
+                                <h4>100+ Transformational Quests</h4>
+                            </div>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-card-image"></div>
+                            <div class="benefit-card-body">
+                                <p>World's most advanced learning platform</p>
+                                <h4>Featured in Apple Store</h4>
+                            </div>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-card-image"></div>
+                            <div class="benefit-card-body">
+                                <p>Real lasting change in</p>
+                                <h4>Daily 20-minute lessons</h4>
+                            </div>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-card-image"></div>
+                            <div class="benefit-card-body">
+                                <p>Personalized journey guided by</p>
+                                <h4>EVE, your AI coach</h4>
+                            </div>
+                        </div>
+                        <div class="benefit-card">
+                            <div class="benefit-card-image"></div>
+                            <div class="benefit-card-body">
+                                <p>Connection and accountability</p>
+                                <h4>Global Community</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 12: TESTIMONIALS (ORIGINAL - MODIFIED)
+                 ========================================== -->
+            <section class="page-section highlight-modified testimonials-section" id="section-12">
+                <div class="section-status">
+                    <span class="section-number">#12</span>
+                    <span class="status-badge modified">Modified</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Stories from Mindvalley Members</h2>
+                    </div>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">"All of my fears, doubts, stresses and anxiety left my body."</p>
+                            <p class="testimonial-text">Having served in the Armed Forces, Public and Private Sectors and Police I have seen things many haven't, but I have had...</p>
+                            <p class="testimonial-author">Marcus Matthews</p>
+                            <p class="testimonial-role">RTT Therapist · United Kingdom</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">"It was an integral part to me overcoming postpartum depression"</p>
+                            <p class="testimonial-text">I wanted to express my sincere gratitude. I have been doing my 6 Phase Meditation everyday since then. It has changed my life...</p>
+                            <p class="testimonial-author">Nisha Shah</p>
+                            <p class="testimonial-role">Los Angeles, United States</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">"I was finally able to meditate by the end of the first week"</p>
+                            <p class="testimonial-text">I had never been able to meditate and wanted to learn how to trust my intuition. I was finally able to meditate by the end of the...</p>
+                            <p class="testimonial-author">Elizabeth Hubbs</p>
+                            <p class="testimonial-role">Sole Proprietor · Citrus Heights, United States</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 13: GUARANTEE (ORIGINAL)
+                 ========================================== -->
+            <section class="page-section highlight-original guarantee-section" id="section-13">
+                <div class="section-status">
+                    <span class="section-number">#13</span>
+                    <span class="status-badge original">Original</span>
+                </div>
+                <div class="mv-container">
+                    <div class="guarantee-content">
+                        <div class="guarantee-badge">
+                            <span style="font-size: 3rem;">🛡️</span>
+                        </div>
+                        <div class="guarantee-text">
+                            <h3>Risk-Free Guarantee</h3>
+                            <p>Try the full Mindvalley experience for 15 days. If you don't feel a real shift in your life? Cancel in one click. No questions. No pressure. No regrets. <strong>92% stay beyond day 15.</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 14: PRICING (MODIFIED - CRITICAL FIX)
+                 ========================================== -->
+            <section class="page-section highlight-modified pricing-section" id="section-14">
+                <div class="section-status">
+                    <span class="section-number">#14</span>
+                    <span class="status-badge modified">Modified - Critical Fix</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Become a Mindvalley Member</h2>
+                        <p class="section-subtitle">Choose the option that works best for your transformation goals.</p>
+                    </div>
+                    <div class="pricing-grid" style="grid-template-columns: repeat(3, 1fr); max-width: 1000px;">
+                        <!-- NEW: Single Quest Option -->
+                        <div class="pricing-card">
+                            <span class="pricing-card-badge" style="background: var(--mv-blue);">NEW OPTION</span>
+                            <h3>Single Quest</h3>
+                            <p class="pricing-card-price">$399</p>
+                            <p class="pricing-card-billing">one-time payment</p>
+                            <a href="#" class="pricing-card-cta">Choose Single Quest</a>
+                            <ul class="pricing-features">
+                                <li>Lifetime access to 1 program</li>
+                                <li>All lessons & meditations</li>
+                                <li>Community access</li>
+                                <li>Mobile app access</li>
+                            </ul>
+                        </div>
+
+                        <!-- FIXED: Soul Collection -->
+                        <div class="pricing-card featured">
+                            <span class="pricing-card-badge">Best Value · Save 95%</span>
+                            <h3>Soul Collection</h3>
+                            <p class="pricing-card-price"><del>$599</del> $299</p>
+                            <p class="pricing-card-billing">Billed yearly, cancel anytime</p>
+                            <a href="#" class="pricing-card-cta">Get Soul Collection</a>
+                            <ul class="pricing-features" style="color: rgba(255,255,255,0.9);">
+                                <li>All 21 Soul programs ($6,629 value)</li>
+                                <li>New programs added regularly</li>
+                                <li>Full community access</li>
+                                <li>Mobile + offline access</li>
+                                <li>15-day money-back guarantee</li>
+                            </ul>
+                        </div>
+
+                        <!-- Full Membership -->
+                        <div class="pricing-card">
+                            <h3>Full Membership</h3>
+                            <p class="pricing-card-price">$399</p>
+                            <p class="pricing-card-billing">Billed yearly, cancel anytime</p>
+                            <a href="#" class="pricing-card-cta">Become a Member</a>
+                            <ul class="pricing-features">
+                                <li>Full access to all 6 Collections</li>
+                                <li>110+ Transformational programs</li>
+                                <li>New programs releases</li>
+                                <li>Access to private community</li>
+                                <li>15-day money-back guarantee</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 15: PRESS (ORIGINAL)
+                 ========================================== -->
+            <section class="page-section highlight-original press-section" id="section-15">
+                <div class="section-status">
+                    <span class="section-number">#15</span>
+                    <span class="status-badge original">Original</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <p class="section-label">In the press</p>
+                        <h2 class="section-title">Featured on CBS, CNN as one of the most transformative platforms</h2>
+                    </div>
+                    <div class="press-grid">
+                        <div class="press-card">
+                            <div class="press-card-image"></div>
+                            <div class="press-card-body">
+                                <h4>CBS Feature</h4>
+                                <p>Mindvalley brings together cutting-edge technology and timeless wisdom.</p>
+                            </div>
+                        </div>
+                        <div class="press-card">
+                            <div class="press-card-image"></div>
+                            <div class="press-card-body">
+                                <h4>CNN Feature</h4>
+                                <p>"This app really did change my life." - Zain Asher, CNN Anchor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 16: GETTING STARTED (ORIGINAL)
+                 ========================================== -->
+            <section class="page-section highlight-original getting-started-section" id="section-16">
+                <div class="section-status">
+                    <span class="section-number">#16</span>
+                    <span class="status-badge original">Original</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Getting started is easy</h2>
+                    </div>
+                    <div class="steps-grid">
+                        <div class="step-card">
+                            <span class="step-number">1</span>
+                            <h4>Start Your Trial</h4>
+                            <div class="step-card-image"></div>
+                            <p>Instant access to 100+ Quests</p>
+                        </div>
+                        <div class="step-card">
+                            <span class="step-number">2</span>
+                            <h4>Take the Guided Quiz</h4>
+                            <div class="step-card-image"></div>
+                            <p>Build your personalized path</p>
+                        </div>
+                        <div class="step-card">
+                            <span class="step-number">3</span>
+                            <h4>Begin Your First Quest</h4>
+                            <div class="step-card-image"></div>
+                            <p>Just 20 minutes a day</p>
+                        </div>
+                        <div class="step-card">
+                            <span class="step-number">4</span>
+                            <h4>Join Your Tribe</h4>
+                            <div class="step-card-image"></div>
+                            <p>Grow with like-minded humans</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 17: CASE STUDIES (ORIGINAL)
+                 ========================================== -->
+            <section class="page-section highlight-original case-studies-section" id="section-17">
+                <div class="section-status">
+                    <span class="section-number">#17</span>
+                    <span class="status-badge original">Original</span>
+                </div>
+                <div class="mv-container">
+                    <div class="case-studies-header">
+                        <p class="section-label">stories</p>
+                        <p class="case-studies-number">24,545+</p>
+                        <h2 class="section-title">case studies worldwide</h2>
+                        <p class="section-subtitle">Each number tells a story of transformation across 100+ countries.</p>
+                    </div>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">"Thank you for changing my life"</p>
+                            <p class="testimonial-text">Michael has taken me to such a place where I have been able to own myself...</p>
+                            <p class="testimonial-author">Nicole Waicunas</p>
+                            <p class="testimonial-role">Creator/Co-Director · United States</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">"I have learned and grew a lot in such a short time"</p>
+                            <p class="testimonial-text">I'm a professional boxer and I'm used to be disciplined but to learn about willingness...</p>
+                            <p class="testimonial-author">Freddy</p>
+                            <p class="testimonial-role">Professional Boxer · London</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-quote">"Others have noticed how much more radiant I have been"</p>
+                            <p class="testimonial-text">Since starting this program, I have been able to forgive myself and others...</p>
+                            <p class="testimonial-author">Grace Catlett</p>
+                            <p class="testimonial-role">Electrical Estimator · Nashville</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 SECTION 18: FAQ (MODIFIED - AEO OPTIMIZED)
+                 ========================================== -->
+            <section class="page-section highlight-modified faq-section" id="section-18">
+                <div class="section-status">
+                    <span class="section-number">#18</span>
+                    <span class="status-badge modified">Modified - AEO Optimized</span>
+                </div>
+                <div class="mv-container">
+                    <div class="section-header">
+                        <h2 class="section-title">Frequently Asked Questions</h2>
+                    </div>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <h4 class="faq-question">What is the Mindvalley Soul Collection?</h4>
+                            <p class="faq-answer">The Mindvalley Soul Collection is a curated bundle of 21 world-class spiritual programs covering meditation, intuition development, manifestation, energy work, and spiritual awakening. Teachers include Jose Silva, Michael Beckwith, Sonia Choquette, and Jeffrey Allen. The collection represents $6,629 worth of programs available for $299/year.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4 class="faq-question">Can I buy just one program instead of the whole collection?</h4>
+                            <p class="faq-answer">Yes, you can purchase any single Quest for $399 as a one-time payment with lifetime access. This is ideal if you want to try one program before committing to the collection. Popular choices include Silva Ultramind System for meditation and Duality for energy mastery.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4 class="faq-question">Is this suitable for spiritual beginners?</h4>
+                            <p class="faq-answer">Absolutely. The Soul Collection is designed for all levels. Programs like Silva Ultramind and A Yogi's Guide to Joy are perfect starting points. We recommend starting with Silva Ultramind for the best foundation.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4 class="faq-question">How do I cancel or get a refund if I'm not satisfied?</h4>
+                            <p class="faq-answer">You have a 15-day money-back guarantee on all subscriptions. If you're not satisfied, visit mindvalley.com/refund for a hassle-free refund process. 92% of members stay beyond day 15.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="mv-container">
+                    <p>Soul Pillar - Annotated Redesign</p>
+                    <p>Original + New Sections with CRO Annotations</p>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Annotation Sidebar -->
+        <aside class="annotation-sidebar">
+            <div class="sidebar-header">
+                <h2>CRO Annotations</h2>
+                <p>Click any section to see why it was modified, added, or flagged for removal.</p>
+            </div>
+
+            <div class="sidebar-legend">
+                <div class="legend-item">
+                    <span class="legend-dot original"></span>
+                    <span>Original</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot modified"></span>
+                    <span>Modified</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot new"></span>
+                    <span>New</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot remove"></span>
+                    <span>Remove</span>
+                </div>
+            </div>
+
+            <!-- Section Annotations -->
+            <div class="annotation-card modified">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge modified">Modified</span>
+                    <span class="annotation-title">#1 Hero Section</span>
+                </div>
+                <p class="annotation-reason"><strong>Why:</strong> Original headline "Unlock 21 programs" is weak. New headline "21 Life-Changing Spiritual Programs" is more compelling. Added prominent $6,629 value with strikethrough to anchor the 95% savings immediately. Moved savings calculation from buried position to hero.</p>
+            </div>
+
+            <div class="annotation-card remove">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge remove">Consider Removing</span>
+                    <span class="annotation-title">#2 Image Carousel</span>
+                </div>
+                <p class="annotation-reason"><strong>Why:</strong> This auto-scrolling image strip adds visual noise without communicating value. It repeats teacher images shown elsewhere. Creates distraction from the hero CTA. Space could be used for stronger value prop or social proof instead.</p>
+            </div>
+
+            <div class="annotation-card">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge original">Original</span>
+                    <span class="annotation-title">#3 Stats Bar</span>
+                </div>
+                <p class="annotation-reason"><strong>Keep:</strong> Good social proof with concrete numbers (529 lessons, 214 hours, 21 Quests, 195+ countries). Builds credibility. Consider adding "15M+ lives transformed" for emotional impact.</p>
+            </div>
+
+            <div class="annotation-card new">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge new">New Section</span>
+                    <span class="annotation-title">#4 Transformation Outcomes</span>
+                </div>
+                <p class="annotation-reason"><strong>Why Added:</strong> Original page lacks clear "what's in it for me" before the program list. These 6 transformation outcomes (Peace, Intuition, Manifestation, Energy, Connection, Purpose) answer the visitor's real question: "What will I become?"</p>
+            </div>
+
+            <div class="annotation-card new">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge new">New Section</span>
+                    <span class="annotation-title">#5 Featured Quest</span>
+                </div>
+                <p class="annotation-reason"><strong>Why Added:</strong> With 21 programs, visitors feel overwhelmed. This "Start Here" featured Quest (Silva Ultramind) provides a clear entry point, reduces decision paralysis, and showcases what a program includes before the full gallery.</p>
+            </div>
+
+            <div class="annotation-card modified">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge modified">Modified</span>
+                    <span class="annotation-title">#6 Programs Grid</span>
+                </div>
+                <p class="annotation-reason"><strong>Why:</strong> Original has duplicate programs and no hierarchy. Modified version removes duplicates, adds "Most Popular" badges, shows individual prices to reinforce collection value ($6,629 total). Keep category tabs but improve organization.</p>
+            </div>
+
+            <div class="annotation-card">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge original">Original</span>
+                    <span class="annotation-title">#7 Teachers Carousel</span>
+                </div>
+                <p class="annotation-reason"><strong>Keep:</strong> Strong credibility section. World-class teachers like Sadhguru, Vishen, Lisa Nichols build trust. Consider adding "50M+ combined reach" stat. Some teachers shown (Marisa Peer, Paul McKenna) may not be in Soul Collection - verify alignment.</p>
+            </div>
+
+            <div class="annotation-card new">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge new">New Section</span>
+                    <span class="annotation-title">#8 Learning Path</span>
+                </div>
+                <p class="annotation-reason"><strong>Why Added:</strong> Answers "Where do I start?" with 21 programs. This 12-week recommended path (Silva → Be Extraordinary → Duality) reduces overwhelm, shows a clear transformation journey, and increases confidence in the purchase.</p>
+            </div>
+
+            <div class="annotation-card">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge original">Original</span>
+                    <span class="annotation-title">#9 Meditations Section</span>
+                </div>
+                <p class="annotation-reason"><strong>Keep:</strong> Good bonus value add showing 271 meditations included. The play counts (88K, 199K, 222K) demonstrate popularity and social proof. Consider featuring Soul-specific meditations only.</p>
+            </div>
+
+            <div class="annotation-card">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge original">Original</span>
+                    <span class="annotation-title">#10 Value Ladder</span>
+                </div>
+                <p class="annotation-reason"><strong>Keep:</strong> The 6-step transformation journey is good but consider condensing. Original has Enter Higher States → Manifest → Awaken → Intuition → Spiritually Awake → Heal with Energy. This maps nicely to the programs.</p>
+            </div>
+
+            <div class="annotation-card">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge original">Original</span>
+                    <span class="annotation-title">#11 Benefits Carousel</span>
+                </div>
+                <p class="annotation-reason"><strong>Keep:</strong> Good platform benefits (100+ Quests, Apple Store featured, 20-min lessons, EVE AI coach, Community). Establishes Mindvalley's credibility beyond just Soul Collection. Consider static grid instead of carousel for better scanability.</p>
+            </div>
+
+            <div class="annotation-card modified">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge modified">Modified</span>
+                    <span class="annotation-title">#12 Testimonials</span>
+                </div>
+                <p class="annotation-reason"><strong>Why:</strong> Current testimonials are generic Mindvalley reviews (RTT, 6 Phase Meditation). Need Soul-specific testimonials about programs like Silva Ultramind, Duality, Sixth Sense. Add video testimonials and transformation stories.</p>
+            </div>
+
+            <div class="annotation-card">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge original">Original</span>
+                    <span class="annotation-title">#13 Guarantee Section</span>
+                </div>
+                <p class="annotation-reason"><strong>Keep:</strong> 15-day money-back guarantee with "92% stay beyond day 15" stat is excellent risk reversal. Strong position before pricing. No changes needed.</p>
+            </div>
+
+            <div class="annotation-card modified">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge modified">Modified</span>
+                    <span class="annotation-title">#14 Pricing - CRITICAL</span>
+                </div>
+                <p class="annotation-reason"><strong>CRITICAL FIX:</strong> Hero shows $299/year but checkout shows $599/year - this DESTROYS trust and causes cart abandonment. Fix to $299. ALSO: Add missing Single Quest option ($399) for test buyers. Use 3-tier pricing: Single Quest → Soul Collection (best value) → Full Membership.</p>
+            </div>
+
+            <div class="annotation-card">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge original">Original</span>
+                    <span class="annotation-title">#15 Press Section</span>
+                </div>
+                <p class="annotation-reason"><strong>Keep:</strong> CBS and CNN features provide excellent third-party credibility. "This app really did change my life" quote from Zain Asher is powerful. Consider adding more recent press mentions.</p>
+            </div>
+
+            <div class="annotation-card">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge original">Original</span>
+                    <span class="annotation-title">#16 Getting Started</span>
+                </div>
+                <p class="annotation-reason"><strong>Keep:</strong> 4-step onboarding (Trial → Quiz → Quest → Tribe) reduces anxiety about "what happens after I buy." Good for conversion. Consider moving earlier in page as it addresses common objection.</p>
+            </div>
+
+            <div class="annotation-card">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge original">Original</span>
+                    <span class="annotation-title">#17 Case Studies</span>
+                </div>
+                <p class="annotation-reason"><strong>Keep:</strong> "24,545+ case studies worldwide" is strong social proof. Testimonials from professionals (boxer, electrical estimator) show diverse audience. Would benefit from Soul-specific stories.</p>
+            </div>
+
+            <div class="annotation-card modified">
+                <div class="annotation-card-header">
+                    <span class="annotation-badge modified">Modified</span>
+                    <span class="annotation-title">#18 FAQ - AEO</span>
+                </div>
+                <p class="annotation-reason"><strong>Why:</strong> Original FAQ is basic billing/access questions. Added AEO-optimized FAQ with 15-20 questions covering: What's included, Who it's for, How it works, Pricing (including new single Quest option), Results, Specific programs. Add FAQPage schema markup for AI answer engines.</p>
+            </div>
+
+        </aside>
+    </div>
+
+    <script>
+        // Smooth scroll for section navigation
+        document.querySelectorAll('.annotation-card').forEach((card, index) => {
+            card.addEventListener('click', () => {
+                const sectionNum = index + 1;
+                const section = document.getElementById(`section-${sectionNum}`);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+            card.style.cursor = 'pointer';
+        });
+
+        // Highlight corresponding annotation on scroll
+        const sections = document.querySelectorAll('.page-section');
+        const annotationCards = document.querySelectorAll('.annotation-card');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -60% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    const sectionNum = parseInt(sectionId.replace('section-', '')) - 1;
+
+                    annotationCards.forEach((card, index) => {
+                        if (index === sectionNum) {
+                            card.style.background = 'rgba(122, 18, 212, 0.2)';
+                            card.style.borderColor = 'var(--mv-purple)';
+                        } else {
+                            card.style.background = 'rgba(255,255,255,0.05)';
+                            // Reset to original border color based on class
+                            if (card.classList.contains('modified')) {
+                                card.style.borderLeftColor = 'var(--mv-yellow)';
+                            } else if (card.classList.contains('new')) {
+                                card.style.borderLeftColor = 'var(--mv-green)';
+                            } else if (card.classList.contains('remove')) {
+                                card.style.borderLeftColor = 'var(--mv-red)';
+                            } else {
+                                card.style.borderLeftColor = 'var(--mv-blue)';
+                            }
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+</body>
+</html>

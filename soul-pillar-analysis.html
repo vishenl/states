@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Pillar Page Conversion Analysis | Mindvalley CRO Report</title>
+    <link rel="stylesheet" href="mv-selfreset-base.css">
+    <style>
+        :root {
+            --mv-purple: #7a12d4;
+            --mv-purple-light: #f5ebff;
+            --mv-dark: #0f131a;
+            --mv-gray: #6b7280;
+            --mv-gray-light: #f3f4f6;
+            --mv-green: #10b981;
+            --mv-green-light: #d1fae5;
+            --mv-red: #ef4444;
+            --mv-red-light: #fee2e2;
+            --mv-yellow: #f59e0b;
+            --mv-yellow-light: #fef3c7;
+            --mv-blue: #3b82f6;
+            --mv-blue-light: #dbeafe;
+        }
+
+        body {
+            background: #fafafa;
+        }
+
+        .report-header {
+            background: linear-gradient(135deg, #1a0a2e 0%, #16213e 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .report-header h1 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 992px) {
+            .report-header h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        .report-header .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .report-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .report-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            color: var(--mv-dark);
+        }
+
+        @media (min-width: 992px) {
+            .section-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        /* Executive Summary */
+        .exec-summary {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .summary-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .summary-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .summary-card.critical {
+            background: var(--mv-red-light);
+            border: 2px solid var(--mv-red);
+        }
+
+        .summary-card.warning {
+            background: var(--mv-yellow-light);
+            border: 2px solid var(--mv-yellow);
+        }
+
+        .summary-card.opportunity {
+            background: var(--mv-green-light);
+            border: 2px solid var(--mv-green);
+        }
+
+        .summary-card .number {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .summary-card.critical .number { color: var(--mv-red); }
+        .summary-card.warning .number { color: var(--mv-yellow); }
+        .summary-card.opportunity .number { color: var(--mv-green); }
+
+        .summary-card .label {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            color: var(--mv-gray);
+        }
+
+        /* Issue Cards */
+        .issue-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--mv-red);
+        }
+
+        .issue-card.medium {
+            border-left-color: var(--mv-yellow);
+        }
+
+        .issue-card.low {
+            border-left-color: var(--mv-blue);
+        }
+
+        .issue-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .issue-number {
+            background: var(--mv-red-light);
+            color: var(--mv-red);
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            flex-shrink: 0;
+        }
+
+        .issue-card.medium .issue-number {
+            background: var(--mv-yellow-light);
+            color: #b45309;
+        }
+
+        .issue-card.low .issue-number {
+            background: var(--mv-blue-light);
+            color: var(--mv-blue);
+        }
+
+        .issue-title {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            color: var(--mv-dark);
+        }
+
+        .issue-description {
+            color: var(--mv-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .issue-evidence {
+            background: var(--mv-gray-light);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .issue-evidence-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--mv-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .issue-evidence-content {
+            font-family: monospace;
+            font-size: 0.875rem;
+            color: var(--mv-dark);
+        }
+
+        .issue-recommendation {
+            background: var(--mv-green-light);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .issue-recommendation-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--mv-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .issue-recommendation-content {
+            color: var(--mv-dark);
+            font-size: 0.9375rem;
+        }
+
+        /* Pricing Table */
+        .pricing-section {
+            background: white;
+        }
+
+        .pricing-comparison {
+            margin-top: 2rem;
+        }
+
+        .pricing-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9375rem;
+        }
+
+        .pricing-table th {
+            background: var(--mv-purple);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-family: Grotesk-Medium, sans-serif;
+        }
+
+        .pricing-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--mv-gray-light);
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background: var(--mv-gray-light);
+        }
+
+        .price-tag {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.25rem;
+            color: var(--mv-purple);
+        }
+
+        .price-period {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-family: Grotesk-Medium, sans-serif;
+        }
+
+        .badge-new {
+            background: var(--mv-green-light);
+            color: var(--mv-green);
+        }
+
+        .badge-fix {
+            background: var(--mv-red-light);
+            color: var(--mv-red);
+        }
+
+        .badge-best {
+            background: var(--mv-purple-light);
+            color: var(--mv-purple);
+        }
+
+        /* Page Structure */
+        .structure-list {
+            display: grid;
+            gap: 1rem;
+            counter-reset: section;
+        }
+
+        .structure-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            padding-left: 4rem;
+            position: relative;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .structure-item::before {
+            counter-increment: section;
+            content: counter(section);
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2rem;
+            height: 2rem;
+            background: var(--mv-purple);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 0.875rem;
+        }
+
+        .structure-item h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--mv-dark);
+        }
+
+        .structure-item p {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+            margin: 0;
+        }
+
+        /* Quick Wins */
+        .quick-wins {
+            background: linear-gradient(135deg, var(--mv-green-light) 0%, #ecfdf5 100%);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .quick-win-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .quick-win-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .quick-win-list li:last-child {
+            border-bottom: none;
+        }
+
+        .quick-win-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--mv-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: white;
+            font-size: 0.75rem;
+        }
+
+        .quick-win-content h4 {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            color: var(--mv-dark);
+        }
+
+        .quick-win-content p {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+            margin: 0;
+        }
+
+        /* Hero Copy Section */
+        .copy-comparison {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .copy-comparison {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .copy-box {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .copy-box.before {
+            border-top: 4px solid var(--mv-red);
+        }
+
+        .copy-box.after {
+            border-top: 4px solid var(--mv-green);
+        }
+
+        .copy-box-label {
+            font-family: Grotesk-Medium, sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .copy-box.before .copy-box-label { color: var(--mv-red); }
+        .copy-box.after .copy-box-label { color: var(--mv-green); }
+
+        .copy-headline {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1.5rem;
+            color: var(--mv-dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .copy-subheadline {
+            color: var(--mv-gray);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .report-footer {
+            background: var(--mv-dark);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .report-footer p {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+
+        /* FAQ Section */
+        .faq-categories {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .faq-categories {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .faq-category {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .faq-category h4 {
+            font-family: Grotesk-Bold, sans-serif;
+            font-size: 1rem;
+            color: var(--mv-purple);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-category ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .faq-category li {
+            font-size: 0.875rem;
+            color: var(--mv-gray);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--mv-gray-light);
+        }
+
+        .faq-category li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="report-header">
+        <div class="mv-container">
+            <h1>Soul Pillar Page<br>Conversion Analysis</h1>
+            <p class="subtitle">A comprehensive CRO audit identifying 9 critical issues and actionable recommendations to improve conversion rates</p>
+            <div class="report-meta">
+                <span>
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/><path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+                    December 9, 2024
+                </span>
+                <span>
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/></svg>
+                    mindvalley.com/playground/abir/soul-pillar
+                </span>
+                <span>
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/><path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/></svg>
+                    CRO Analysis Report
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Executive Summary -->
+    <section class="section">
+        <div class="mv-container">
+            <div class="exec-summary">
+                <h2 class="section-title" style="margin-bottom: 1rem;">Executive Summary</h2>
+                <p style="color: var(--mv-gray); line-height: 1.7; max-width: 800px;">
+                    The Soul Pillar page currently suffers from pricing confusion, unclear value proposition, and conversion friction.
+                    The hero shows "$299/year" but checkout reveals "$599/year" for the Soul Collection—an immediate trust-breaker.
+                    Additionally, there's no option to purchase a single Quest ($399), forcing users into a subscription-only model.
+                    This report identifies 9 critical issues and provides actionable fixes.
+                </p>
+
+                <div class="summary-grid">
+                    <div class="summary-card critical">
+                        <div class="number">3</div>
+                        <div class="label">Critical Issues<br>(Immediate Fix)</div>
+                    </div>
+                    <div class="summary-card warning">
+                        <div class="number">4</div>
+                        <div class="label">Medium Issues<br>(High Impact)</div>
+                    </div>
+                    <div class="summary-card opportunity">
+                        <div class="number">2</div>
+                        <div class="label">Optimization<br>Opportunities</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Critical Issues -->
+    <section class="section" style="padding-top: 0;">
+        <div class="mv-container">
+            <h2 class="section-title">Critical Issues (Fix Immediately)</h2>
+
+            <!-- Issue 1 -->
+            <div class="issue-card">
+                <div class="issue-header">
+                    <span class="issue-number">CRITICAL #1</span>
+                    <h3 class="issue-title">Pricing Mismatch Destroys Trust</h3>
+                </div>
+                <p class="issue-description">
+                    The hero section prominently displays "$299/year" for the Soul Collection. However, when users click "Start Today"
+                    and proceed to checkout, they see "$599/year." This 100% price discrepancy immediately breaks trust and will cause
+                    cart abandonment. Users feel deceived, even if it's a technical error.
+                </p>
+                <div class="issue-evidence">
+                    <div class="issue-evidence-label">Evidence from Page</div>
+                    <div class="issue-evidence-content">
+                        Hero: "The Soul Collection · $299/year"<br>
+                        Checkout Modal: "Soul Collection · $599/year"
+                    </div>
+                </div>
+                <div class="issue-recommendation">
+                    <div class="issue-recommendation-label">Recommendation</div>
+                    <div class="issue-recommendation-content">
+                        Immediately fix the checkout to show $299/year for Soul Collection. Ensure all pricing displays are
+                        dynamically pulled from a single source of truth to prevent future mismatches.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issue 2 -->
+            <div class="issue-card">
+                <div class="issue-header">
+                    <span class="issue-number">CRITICAL #2</span>
+                    <h3 class="issue-title">Missing Single Program Option ($399)</h3>
+                </div>
+                <p class="issue-description">
+                    The page only offers annual subscriptions. Many visitors want to try a single Quest before committing to a
+                    full collection. Without a $399 single-program option (e.g., "Silva Ultramind"), you're losing customers
+                    who prefer one-time purchases or want to test before subscribing.
+                </p>
+                <div class="issue-evidence">
+                    <div class="issue-evidence-label">Current Options</div>
+                    <div class="issue-evidence-content">
+                        Only Option: Soul Collection subscription<br>
+                        Missing: Single Quest purchase ($399 one-time)
+                    </div>
+                </div>
+                <div class="issue-recommendation">
+                    <div class="issue-recommendation-label">Recommendation</div>
+                    <div class="issue-recommendation-content">
+                        Add a 3-tier pricing structure: (1) Single Quest at $399 one-time, (2) Soul Collection at $299/year,
+                        (3) Full Mindvalley Membership at $399/year. Position the Soul Collection as "BEST VALUE" to anchor most purchases there.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issue 3 -->
+            <div class="issue-card">
+                <div class="issue-header">
+                    <span class="issue-number">CRITICAL #3</span>
+                    <h3 class="issue-title">Value Proposition Buried</h3>
+                </div>
+                <p class="issue-description">
+                    The fact that these 21 programs cost "$6,629 if purchased individually" appears far down the page.
+                    This is your strongest selling point—a 95% discount—and it should be front and center in the hero section.
+                </p>
+                <div class="issue-evidence">
+                    <div class="issue-evidence-label">Current Placement</div>
+                    <div class="issue-evidence-content">
+                        Value mention: Appears after program list scroll<br>
+                        Hero focus: Generic "transform your life" messaging
+                    </div>
+                </div>
+                <div class="issue-recommendation">
+                    <div class="issue-recommendation-label">Recommendation</div>
+                    <div class="issue-recommendation-content">
+                        Move the savings calculation to the hero: "21 World-Class Programs Worth $6,629 — Yours for $299/year"
+                        with a visible strikethrough on the original price. Make the value undeniable within 3 seconds.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medium Priority Issues -->
+    <section class="section" style="background: var(--mv-gray-light); padding-top: 4rem;">
+        <div class="mv-container">
+            <h2 class="section-title">Medium Priority Issues</h2>
+
+            <!-- Issue 4 -->
+            <div class="issue-card medium">
+                <div class="issue-header">
+                    <span class="issue-number">MEDIUM #4</span>
+                    <h3 class="issue-title">Weak Hero Section</h3>
+                </div>
+                <p class="issue-description">
+                    The current hero headline "Transform Your Life Through Spiritual Growth" is generic and could apply to any wellness brand.
+                    It doesn't communicate the unique value of 21 programs from world-renowned teachers at 95% off.
+                </p>
+                <div class="issue-recommendation">
+                    <div class="issue-recommendation-label">Recommended Hero Copy</div>
+                    <div class="issue-recommendation-content">
+                        <strong>Headline:</strong> "21 Life-Changing Spiritual Programs. One Transformative Collection."<br>
+                        <strong>Subheadline:</strong> "Access $6,629 worth of wisdom from the world's greatest spiritual teachers—including Jose Silva,
+                        Michael Beckwith, and Sonia Choquette—for just $299/year."
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issue 5 -->
+            <div class="issue-card medium">
+                <div class="issue-header">
+                    <span class="issue-number">MEDIUM #5</span>
+                    <h3 class="issue-title">Too Many Identical CTAs</h3>
+                </div>
+                <p class="issue-description">
+                    The page has 10+ "Start Today" buttons, all leading to the same checkout. This creates CTA fatigue and
+                    doesn't guide users through a decision journey. The buttons also lack urgency or differentiation.
+                </p>
+                <div class="issue-recommendation">
+                    <div class="issue-recommendation-label">Recommendation</div>
+                    <div class="issue-recommendation-content">
+                        Reduce to 3-4 strategically placed CTAs: (1) After hero with pricing tier selector, (2) After featured program,
+                        (3) After social proof, (4) Final "Don't Miss This" section. Vary the button text: "Get Instant Access",
+                        "Start Your Journey", "Claim Your Collection".
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issue 6 -->
+            <div class="issue-card medium">
+                <div class="issue-header">
+                    <span class="issue-number">MEDIUM #6</span>
+                    <h3 class="issue-title">Overwhelming Program Gallery</h3>
+                </div>
+                <p class="issue-description">
+                    The 21-program grid is visually overwhelming. Some programs appear multiple times (duplicates spotted),
+                    and there's no clear hierarchy showing which programs are most popular or where to start.
+                </p>
+                <div class="issue-recommendation">
+                    <div class="issue-recommendation-label">Recommendation</div>
+                    <div class="issue-recommendation-content">
+                        Reorganize into: (1) Featured Quest with expanded preview (e.g., Silva Ultramind), (2) "Most Popular" row of 4-5 programs,
+                        (3) Expandable "View All 21 Programs" section. Remove duplicates. Add "Start Here" badge to recommended first program.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issue 7 -->
+            <div class="issue-card medium">
+                <div class="issue-header">
+                    <span class="issue-number">MEDIUM #7</span>
+                    <h3 class="issue-title">Generic Testimonials</h3>
+                </div>
+                <p class="issue-description">
+                    Current testimonials are general Mindvalley reviews, not specifically about the Soul Collection or its programs.
+                    Without Soul-specific social proof, visitors can't envision their spiritual transformation.
+                </p>
+                <div class="issue-recommendation">
+                    <div class="issue-recommendation-label">Recommendation</div>
+                    <div class="issue-recommendation-content">
+                        Collect and display testimonials specifically from Soul Collection students. Include before/after transformation stories,
+                        video testimonials, and reviews mentioning specific programs (e.g., "Silva Ultramind changed my meditation practice").
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Optimization Opportunities -->
+    <section class="section">
+        <div class="mv-container">
+            <h2 class="section-title">Optimization Opportunities</h2>
+
+            <!-- Issue 8 -->
+            <div class="issue-card low">
+                <div class="issue-header">
+                    <span class="issue-number">OPPORTUNITY #8</span>
+                    <h3 class="issue-title">No Clear "Start Here" Path</h3>
+                </div>
+                <p class="issue-description">
+                    With 21 programs, new members may feel overwhelmed about where to begin. There's no recommended starting point,
+                    learning path, or "If you're new, start here" guidance.
+                </p>
+                <div class="issue-recommendation">
+                    <div class="issue-recommendation-label">Recommendation</div>
+                    <div class="issue-recommendation-content">
+                        Add a "Recommended Learning Path" section: "Week 1-4: Silva Ultramind (Foundation) → Week 5-8: Be Extraordinary (Mindset) →
+                        Week 9-12: Unlocking Transcendence (Advanced)." Include a "Take the Quiz" option to personalize recommendations.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issue 9 -->
+            <div class="issue-card low">
+                <div class="issue-header">
+                    <span class="issue-number">OPPORTUNITY #9</span>
+                    <h3 class="issue-title">No AEO-Optimized FAQ Section</h3>
+                </div>
+                <p class="issue-description">
+                    The page lacks an FAQ section entirely. This misses opportunities for (1) answering common objections that block conversion,
+                    (2) appearing in AI answer engines and Google featured snippets, and (3) providing schema markup for better SEO.
+                </p>
+                <div class="issue-recommendation">
+                    <div class="issue-recommendation-label">Recommendation</div>
+                    <div class="issue-recommendation-content">
+                        Add a comprehensive FAQ section with 15-20 questions covering: What's included, How it works, Who it's for,
+                        Pricing & billing, Results & guarantee. Use FAQPage schema markup for AEO optimization.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Corrected Pricing Structure -->
+    <section class="section pricing-section">
+        <div class="mv-container">
+            <h2 class="section-title">Corrected Pricing Structure</h2>
+            <p style="color: var(--mv-gray); margin-bottom: 2rem;">
+                Based on the pricing error and missing options, here's the recommended 3-tier pricing that should be implemented:
+            </p>
+
+            <div class="pricing-comparison">
+                <div class="pricing-table-wrapper">
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Option</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>What's Included</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="badge badge-new">NEW</span><br>
+                                    Option 1
+                                </td>
+                                <td><strong>Single Quest</strong></td>
+                                <td>
+                                    <span class="price-tag">$399</span>
+                                    <span class="price-period">one-time</span>
+                                </td>
+                                <td>
+                                    Lifetime access to 1 program<br>
+                                    (e.g., Silva Ultramind)
+                                </td>
+                                <td>
+                                    Testing the platform before<br>
+                                    committing to subscription
+                                </td>
+                            </tr>
+                            <tr style="background: var(--mv-purple-light);">
+                                <td>
+                                    <span class="badge badge-fix">FIX PRICE</span><br>
+                                    <span class="badge badge-best">BEST VALUE</span><br>
+                                    Option 2
+                                </td>
+                                <td><strong>Soul Collection</strong></td>
+                                <td>
+                                    <span class="price-tag">$299</span>
+                                    <span class="price-period">/year</span>
+                                </td>
+                                <td>
+                                    All 21 Soul programs<br>
+                                    ($6,629 value)
+                                </td>
+                                <td>
+                                    Spiritual seekers wanting<br>
+                                    comprehensive growth
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Option 3</td>
+                                <td><strong>Full Membership</strong></td>
+                                <td>
+                                    <span class="price-tag">$399</span>
+                                    <span class="price-period">/year</span>
+                                </td>
+                                <td>
+                                    All 100+ Mindvalley programs<br>
+                                    + Soul Collection
+                                </td>
+                                <td>
+                                    Power users wanting all<br>
+                                    categories (Mind, Body, Soul, etc.)
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--mv-yellow-light); border-radius: 12px;">
+                <strong style="color: #b45309;">Important:</strong> The current checkout showing $599/year for Soul Collection must be fixed immediately.
+                This creates a 100% price discrepancy from the hero section ($299) and will destroy conversion rates.
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Copy Recommendations -->
+    <section class="section" style="background: var(--mv-gray-light);">
+        <div class="mv-container">
+            <h2 class="section-title">Recommended Hero Copy</h2>
+
+            <div class="copy-comparison">
+                <div class="copy-box before">
+                    <div class="copy-box-label">Current (Weak)</div>
+                    <div class="copy-headline">Transform Your Life Through Spiritual Growth</div>
+                    <div class="copy-subheadline">
+                        Discover 21 programs to help you on your spiritual journey.
+                        Join thousands who have transformed their lives.
+                    </div>
+                </div>
+
+                <div class="copy-box after">
+                    <div class="copy-box-label">Recommended (Strong)</div>
+                    <div class="copy-headline">21 Life-Changing Spiritual Programs. One Transformative Collection.</div>
+                    <div class="copy-subheadline">
+                        Access <strong>$6,629 worth of wisdom</strong> from the world's greatest spiritual teachers—including
+                        Jose Silva, Michael Beckwith, and Sonia Choquette—for just <strong>$299/year</strong>.
+                        That's 95% off and less than $1/day for complete spiritual transformation.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommended Page Structure -->
+    <section class="section">
+        <div class="mv-container">
+            <h2 class="section-title">Recommended Page Structure</h2>
+            <p style="color: var(--mv-gray); margin-bottom: 2rem;">
+                Reorganize the page into this 10-section conversion-optimized flow:
+            </p>
+
+            <div class="structure-list">
+                <div class="structure-item">
+                    <h4>Hero with Emotional Headline + Clear Value</h4>
+                    <p>Lead with the 21 programs + $6,629 value. Show pricing tiers immediately. Single CTA to pricing selector.</p>
+                </div>
+                <div class="structure-item">
+                    <h4>Quick Value Grid (6 Transformation Outcomes)</h4>
+                    <p>Visual cards showing what you'll achieve: Inner Peace, Intuition, Manifestation, Energy, Connection, Purpose.</p>
+                </div>
+                <div class="structure-item">
+                    <h4>Featured Quest Deep-Dive</h4>
+                    <p>Spotlight one anchor program (Silva Ultramind) with curriculum preview, teacher intro, and mini-testimonial.</p>
+                </div>
+                <div class="structure-item">
+                    <h4>Full Program Gallery (Organized)</h4>
+                    <p>"Most Popular" row (5 programs) + expandable "View All 21" section. No duplicates. "Start Here" badge.</p>
+                </div>
+                <div class="structure-item">
+                    <h4>Teacher Credibility Section</h4>
+                    <p>Grid of teachers with photos, credentials, and combined reach (e.g., "50M+ lives transformed").</p>
+                </div>
+                <div class="structure-item">
+                    <h4>Recommended Learning Path</h4>
+                    <p>Week-by-week progression showing how to navigate 21 programs. "Take the Quiz" for personalization.</p>
+                </div>
+                <div class="structure-item">
+                    <h4>Social Proof & Testimonials</h4>
+                    <p>Soul-specific video testimonials + transformation stories + aggregate rating (4.8 stars from X reviews).</p>
+                </div>
+                <div class="structure-item">
+                    <h4>Pricing Comparison Table</h4>
+                    <p>3 tiers side-by-side: Single Quest $399 | Soul Collection $299/yr (BEST VALUE) | Full Membership $399/yr.</p>
+                </div>
+                <div class="structure-item">
+                    <h4>AEO-Optimized FAQ Section</h4>
+                    <p>15-20 questions in categories: What's Included, How It Works, Who It's For, Pricing, Results. Schema markup.</p>
+                </div>
+                <div class="structure-item">
+                    <h4>Final CTA with Urgency</h4>
+                    <p>Recap value, risk-free guarantee, "Start Your Transformation Today" button. Optional: Limited-time offer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Wins -->
+    <section class="section" style="background: white;">
+        <div class="mv-container">
+            <h2 class="section-title">Quick Wins (Do This Week)</h2>
+
+            <div class="quick-wins">
+                <ul class="quick-win-list">
+                    <li>
+                        <span class="quick-win-icon">1</span>
+                        <div class="quick-win-content">
+                            <h4>Fix the Pricing Mismatch</h4>
+                            <p>Change checkout from $599 to $299 for Soul Collection. This is the #1 conversion killer.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="quick-win-icon">2</span>
+                        <div class="quick-win-content">
+                            <h4>Add Single Program Option</h4>
+                            <p>Add $399 one-time purchase for individual Quests (e.g., Silva Ultramind) to capture test buyers.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="quick-win-icon">3</span>
+                        <div class="quick-win-content">
+                            <h4>Move $6,629 Value to Hero</h4>
+                            <p>Your biggest selling point is buried. Add "Worth $6,629" with strikethrough in the hero section.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="quick-win-icon">4</span>
+                        <div class="quick-win-content">
+                            <h4>Remove Duplicate Programs</h4>
+                            <p>Clean up the gallery—some programs appear multiple times. Audit and deduplicate.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="quick-win-icon">5</span>
+                        <div class="quick-win-content">
+                            <h4>Rewrite Hero Headline</h4>
+                            <p>Replace generic copy with: "21 Life-Changing Spiritual Programs. One Transformative Collection."</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommended FAQ Categories -->
+    <section class="section" style="background: var(--mv-gray-light);">
+        <div class="mv-container">
+            <h2 class="section-title">Recommended FAQ Categories (for AEO)</h2>
+            <p style="color: var(--mv-gray); margin-bottom: 2rem;">
+                Add these question categories with schema markup to optimize for AI answer engines:
+            </p>
+
+            <div class="faq-categories">
+                <div class="faq-category">
+                    <h4>
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
+                        About the Soul Collection
+                    </h4>
+                    <ul>
+                        <li>What is the Mindvalley Soul Collection?</li>
+                        <li>What programs are included in the Soul Collection?</li>
+                        <li>What makes these spiritual programs different?</li>
+                        <li>How were the 21 programs selected?</li>
+                    </ul>
+                </div>
+
+                <div class="faq-category">
+                    <h4>
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg>
+                        How It Works
+                    </h4>
+                    <ul>
+                        <li>How long does each program take to complete?</li>
+                        <li>Do I get lifetime access to the programs?</li>
+                        <li>What's the recommended order to take the programs?</li>
+                        <li>Can I access programs on mobile?</li>
+                    </ul>
+                </div>
+
+                <div class="faq-category">
+                    <h4>
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/><path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>
+                        Who Is This For?
+                    </h4>
+                    <ul>
+                        <li>Is this suitable for spiritual beginners?</li>
+                        <li>What if I'm not religious?</li>
+                        <li>Is this good for meditation beginners?</li>
+                        <li>Who are the teachers in the Soul Collection?</li>
+                    </ul>
+                </div>
+
+                <div class="faq-category">
+                    <h4>
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/></svg>
+                        Pricing & Billing
+                    </h4>
+                    <ul>
+                        <li>How much does the Soul Collection cost?</li>
+                        <li>Can I buy just one program?</li>
+                        <li>What's the refund policy?</li>
+                        <li>Is there a free trial?</li>
+                    </ul>
+                </div>
+
+                <div class="faq-category">
+                    <h4>
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>
+                        Results & Guarantee
+                    </h4>
+                    <ul>
+                        <li>What results can I expect?</li>
+                        <li>How soon will I see results?</li>
+                        <li>Is there a money-back guarantee?</li>
+                        <li>What makes Mindvalley's approach unique?</li>
+                    </ul>
+                </div>
+
+                <div class="faq-category">
+                    <h4>
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+                        Specific Programs
+                    </h4>
+                    <ul>
+                        <li>What is Silva Ultramind about?</li>
+                        <li>What's included in Be Extraordinary?</li>
+                        <li>How does the Duality program work?</li>
+                        <li>Is Unlocking Transcendence advanced?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="report-footer">
+        <div class="mv-container">
+            <p>Mindvalley CRO Analysis Report</p>
+            <p style="margin-top: 0.5rem;">Generated December 9, 2024 | Prepared for Soul Pillar Page Optimization</p>
+        </div>
+    </footer>
+
+</body>
+</html>
