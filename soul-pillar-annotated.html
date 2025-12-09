@@ -130,13 +130,25 @@
             border-radius: 8px;
             padding: 1rem;
             margin-bottom: 1rem;
-            border-left: 3px solid var(--mv-blue);
+            border-left: 4px solid var(--mv-blue);
             font-size: 0.8125rem;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            transform: scale(0.98);
         }
 
         .annotation-card:hover {
             background: rgba(255,255,255,0.1);
+            opacity: 0.8;
+        }
+
+        .annotation-card.active {
+            opacity: 1;
+            transform: scale(1);
+            background: rgba(122, 18, 212, 0.25);
+            border-left-color: var(--mv-purple) !important;
+            border-left-width: 5px;
+            box-shadow: 0 0 20px rgba(122, 18, 212, 0.3);
         }
 
         .annotation-card.modified { border-left-color: var(--mv-yellow); }
@@ -2169,8 +2181,13 @@
     </div>
 
     <script>
-        // Smooth scroll for section navigation
-        document.querySelectorAll('.annotation-card').forEach((card, index) => {
+        const sidebar = document.querySelector('.annotation-sidebar');
+        const sections = document.querySelectorAll('.page-section');
+        const annotationCards = document.querySelectorAll('.annotation-card');
+        let currentActiveIndex = 0;
+
+        // Smooth scroll for section navigation (clicking sidebar card)
+        annotationCards.forEach((card, index) => {
             card.addEventListener('click', () => {
                 const sectionNum = index + 1;
                 const section = document.getElementById(`section-${sectionNum}`);
@@ -2181,13 +2198,34 @@
             card.style.cursor = 'pointer';
         });
 
-        // Highlight corresponding annotation on scroll
-        const sections = document.querySelectorAll('.page-section');
-        const annotationCards = document.querySelectorAll('.annotation-card');
+        // Function to activate a card and scroll sidebar
+        function activateCard(index) {
+            if (index === currentActiveIndex) return;
+            currentActiveIndex = index;
 
+            annotationCards.forEach((card, i) => {
+                if (i === index) {
+                    card.classList.add('active');
+                    // Scroll sidebar to show active card centered
+                    const cardTop = card.offsetTop;
+                    const sidebarHeight = sidebar.clientHeight;
+                    const cardHeight = card.clientHeight;
+                    const scrollTarget = cardTop - (sidebarHeight / 2) + (cardHeight / 2);
+
+                    sidebar.scrollTo({
+                        top: Math.max(0, scrollTarget),
+                        behavior: 'smooth'
+                    });
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+        }
+
+        // Highlight corresponding annotation on scroll using Intersection Observer
         const observerOptions = {
             root: null,
-            rootMargin: '-20% 0px -60% 0px',
+            rootMargin: '-30% 0px -50% 0px',
             threshold: 0
         };
 
@@ -2196,30 +2234,17 @@
                 if (entry.isIntersecting) {
                     const sectionId = entry.target.id;
                     const sectionNum = parseInt(sectionId.replace('section-', '')) - 1;
-
-                    annotationCards.forEach((card, index) => {
-                        if (index === sectionNum) {
-                            card.style.background = 'rgba(122, 18, 212, 0.2)';
-                            card.style.borderColor = 'var(--mv-purple)';
-                        } else {
-                            card.style.background = 'rgba(255,255,255,0.05)';
-                            // Reset to original border color based on class
-                            if (card.classList.contains('modified')) {
-                                card.style.borderLeftColor = 'var(--mv-yellow)';
-                            } else if (card.classList.contains('new')) {
-                                card.style.borderLeftColor = 'var(--mv-green)';
-                            } else if (card.classList.contains('remove')) {
-                                card.style.borderLeftColor = 'var(--mv-red)';
-                            } else {
-                                card.style.borderLeftColor = 'var(--mv-blue)';
-                            }
-                        }
-                    });
+                    activateCard(sectionNum);
                 }
             });
         }, observerOptions);
 
         sections.forEach(section => observer.observe(section));
+
+        // Initialize first card as active
+        if (annotationCards.length > 0) {
+            annotationCards[0].classList.add('active');
+        }
     </script>
 </body>
 </html>
