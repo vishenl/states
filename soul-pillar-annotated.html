@@ -126,34 +126,55 @@
         .legend-dot.remove { background: var(--mv-red); }
 
         .annotation-card {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.03);
             border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-left: 4px solid var(--mv-blue);
-            font-size: 0.8125rem;
-            transition: all 0.3s ease;
-            opacity: 0.5;
-            transform: scale(0.98);
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid rgba(255,255,255,0.2);
+            font-size: 0.75rem;
+            transition: all 0.25s ease;
+            opacity: 0.4;
+            transform: scale(0.95);
+            transform-origin: left center;
         }
 
         .annotation-card:hover {
-            background: rgba(255,255,255,0.1);
-            opacity: 0.8;
+            background: rgba(255,255,255,0.08);
+            opacity: 0.6;
         }
 
         .annotation-card.active {
             opacity: 1;
             transform: scale(1);
-            background: rgba(122, 18, 212, 0.25);
-            border-left-color: var(--mv-purple) !important;
-            border-left-width: 5px;
-            box-shadow: 0 0 20px rgba(122, 18, 212, 0.3);
+            background: linear-gradient(135deg, rgba(122, 18, 212, 0.4) 0%, rgba(122, 18, 212, 0.2) 100%);
+            border-left: 5px solid var(--mv-purple) !important;
+            box-shadow:
+                0 4px 20px rgba(122, 18, 212, 0.4),
+                inset 0 0 30px rgba(122, 18, 212, 0.1);
+            padding: 1rem;
+            font-size: 0.8125rem;
         }
 
-        .annotation-card.modified { border-left-color: var(--mv-yellow); }
-        .annotation-card.new { border-left-color: var(--mv-green); }
-        .annotation-card.remove { border-left-color: var(--mv-red); }
+        .annotation-card.active .annotation-title {
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .annotation-card.active .annotation-reason {
+            opacity: 1;
+        }
+
+        .annotation-card:not(.active) .annotation-reason {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .annotation-card.modified:not(.active) { border-left-color: rgba(245, 158, 11, 0.4); }
+        .annotation-card.new:not(.active) { border-left-color: rgba(16, 185, 129, 0.4); }
+        .annotation-card.remove:not(.active) { border-left-color: rgba(239, 68, 68, 0.4); }
+        .annotation-card.original:not(.active) { border-left-color: rgba(59, 130, 246, 0.4); }
 
         .annotation-card-header {
             display: flex;
@@ -2184,7 +2205,7 @@
         const sidebar = document.querySelector('.annotation-sidebar');
         const sections = document.querySelectorAll('.page-section');
         const annotationCards = document.querySelectorAll('.annotation-card');
-        let currentActiveIndex = 0;
+        let currentActiveIndex = -1;
 
         // Smooth scroll for section navigation (clicking sidebar card)
         annotationCards.forEach((card, index) => {
@@ -2206,45 +2227,56 @@
             annotationCards.forEach((card, i) => {
                 if (i === index) {
                     card.classList.add('active');
-                    // Scroll sidebar to show active card centered
-                    const cardTop = card.offsetTop;
-                    const sidebarHeight = sidebar.clientHeight;
-                    const cardHeight = card.clientHeight;
-                    const scrollTarget = cardTop - (sidebarHeight / 2) + (cardHeight / 2);
-
-                    sidebar.scrollTo({
-                        top: Math.max(0, scrollTarget),
-                        behavior: 'smooth'
-                    });
                 } else {
                     card.classList.remove('active');
                 }
             });
+
+            // Scroll sidebar to show active card at top with padding
+            const activeCard = annotationCards[index];
+            if (activeCard) {
+                const headerHeight = 180; // Account for sidebar header
+                const cardTop = activeCard.offsetTop - headerHeight;
+
+                sidebar.scrollTo({
+                    top: Math.max(0, cardTop),
+                    behavior: 'smooth'
+                });
+            }
         }
 
-        // Highlight corresponding annotation on scroll using Intersection Observer
-        const observerOptions = {
-            root: null,
-            rootMargin: '-30% 0px -50% 0px',
-            threshold: 0
-        };
+        // Use scroll event for more reliable detection
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateActiveSection();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const sectionId = entry.target.id;
-                    const sectionNum = parseInt(sectionId.replace('section-', '')) - 1;
-                    activateCard(sectionNum);
+        function updateActiveSection() {
+            const viewportTop = window.scrollY;
+            const viewportMiddle = viewportTop + (window.innerHeight * 0.35);
+
+            let activeIndex = 0;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (viewportMiddle >= sectionTop && viewportMiddle < sectionBottom) {
+                    activeIndex = index;
                 }
             });
-        }, observerOptions);
 
-        sections.forEach(section => observer.observe(section));
-
-        // Initialize first card as active
-        if (annotationCards.length > 0) {
-            annotationCards[0].classList.add('active');
+            activateCard(activeIndex);
         }
+
+        // Initialize on load
+        updateActiveSection();
     </script>
 </body>
 </html>
